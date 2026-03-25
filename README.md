@@ -1,3 +1,4 @@
+![Unique Mobs Banner](https://github.com/Spookipup/spookis-unique-mobs/blob/master/pictures/unique_mobs_banner_medium.png?raw=true)
 # Spooki's Unique Mobs
 
 30 mob variants for Minecraft 26.1 (Fabric). They show up naturally in the world mixed in with vanilla mobs.
