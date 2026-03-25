@@ -39,7 +39,7 @@ Still working on it. Eventually you'll be able to toggle mobs and change spawn w
 ### Creepers
 - **Toxic Creeper** - explodes into a poison cloud. Jungles, swamps, caves.
 - **Wither Creeper** - big boom + wither. Slow fuse so you hear it coming. Deep caves, nether.
-- **Sculk Creeper** - tiny explosion, summons a warden. The creeper is the distraction. Deep dark.
+- **Sculk Creeper** - tiny explosion, summons a warden. The creeper is the siren. Deep dark.
 - **Magma Creeper** - turns blocks to magma on detonation. Hot biomes.
 - **Frost Creeper** - ice explosion, bigger radius in cold biomes. Cold biomes.
 - **Ender Creeper** - teleports to you mid-fuse. Rare in overworld, common in end.
