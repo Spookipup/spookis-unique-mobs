@@ -11,9 +11,11 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Monster;
+import spookipup.uniquemobs.config.ModConfig;
 import spookipup.uniquemobs.entity.variant.creeper.SculkCreeperEntity;
 import spookipup.uniquemobs.entity.variant.spider.JumpingSpiderEntity;
 import net.minecraft.world.level.levelgen.Heightmap;
+
 
 public class ModSpawns {
 
@@ -99,80 +101,95 @@ public class ModSpawns {
 	}
 
 	private static void registerBiomeSpawns() {
+		ModConfig cfg = ModConfig.get();
+
 		// zombies
-		overworld(ModEntities.SPRINTER_ZOMBIE,  80, 1, 2);
-		overworld(ModEntities.ARMORED_ZOMBIE,   70, 1, 1);
-		overworld(ModEntities.VENOMOUS_ZOMBIE,  60, 1, 1);
-		jungle(ModEntities.VENOMOUS_ZOMBIE,     40, 1, 1);
-		swamp(ModEntities.VENOMOUS_ZOMBIE,      45, 1, 1);
-		caves(ModEntities.VENOMOUS_ZOMBIE,      30, 1, 1);
-		overworld(ModEntities.PLAGUE_ZOMBIE,    50, 1, 1);
-		jungle(ModEntities.PLAGUE_ZOMBIE,       35, 1, 1);
-		swamp(ModEntities.PLAGUE_ZOMBIE,        50, 1, 2);
-		caves(ModEntities.PLAGUE_ZOMBIE,        25, 1, 1);
-		overworld(ModEntities.BUILDER_ZOMBIE,   30, 1, 1);
-		cold(ModEntities.FROZEN_ZOMBIE,         80, 1, 2);
-		hot(ModEntities.INFERNAL_ZOMBIE,        80, 1, 2);
+		spawn("sprinter_zombie",  cfg, ModEntities.SPRINTER_ZOMBIE,  80, 1, 2, ModSpawns::overworld);
+		spawn("armored_zombie",   cfg, ModEntities.ARMORED_ZOMBIE,   70, 1, 1, ModSpawns::overworld);
+		spawn("venomous_zombie",  cfg, ModEntities.VENOMOUS_ZOMBIE,  60, 1, 1, ModSpawns::overworld);
+		spawn("venomous_zombie",  cfg, ModEntities.VENOMOUS_ZOMBIE,  40, 1, 1, ModSpawns::jungle);
+		spawn("venomous_zombie",  cfg, ModEntities.VENOMOUS_ZOMBIE,  45, 1, 1, ModSpawns::swamp);
+		spawn("venomous_zombie",  cfg, ModEntities.VENOMOUS_ZOMBIE,  30, 1, 1, ModSpawns::caves);
+		spawn("plague_zombie",    cfg, ModEntities.PLAGUE_ZOMBIE,    50, 1, 1, ModSpawns::overworld);
+		spawn("plague_zombie",    cfg, ModEntities.PLAGUE_ZOMBIE,    35, 1, 1, ModSpawns::jungle);
+		spawn("plague_zombie",    cfg, ModEntities.PLAGUE_ZOMBIE,    50, 1, 2, ModSpawns::swamp);
+		spawn("plague_zombie",    cfg, ModEntities.PLAGUE_ZOMBIE,    25, 1, 1, ModSpawns::caves);
+		spawn("builder_zombie",   cfg, ModEntities.BUILDER_ZOMBIE,   30, 1, 1, ModSpawns::overworld);
+		spawn("frozen_zombie",    cfg, ModEntities.FROZEN_ZOMBIE,    80, 1, 2, ModSpawns::cold);
+		spawn("infernal_zombie",  cfg, ModEntities.INFERNAL_ZOMBIE,  80, 1, 2, ModSpawns::hot);
 
-		overworld(ModEntities.WITHER_ZOMBIE,    25, 1, 1);
-		nether(ModEntities.WITHER_ZOMBIE,       40, 1, 1);
+		spawn("wither_zombie",    cfg, ModEntities.WITHER_ZOMBIE,    25, 1, 1, ModSpawns::overworld);
+		spawn("wither_zombie",    cfg, ModEntities.WITHER_ZOMBIE,    40, 1, 1, ModSpawns::nether);
 
-		overworld(ModEntities.ENDER_ZOMBIE,     15, 1, 1);
-		end(ModEntities.ENDER_ZOMBIE,           50, 1, 2);
+		spawn("ender_zombie",     cfg, ModEntities.ENDER_ZOMBIE,     15, 1, 1, ModSpawns::overworld);
+		spawn("ender_zombie",     cfg, ModEntities.ENDER_ZOMBIE,     50, 1, 2, ModSpawns::end);
 
 		// spiders
-		overworld(ModEntities.SPITTING_SPIDER,     60, 1, 2);
-		jungle(ModEntities.SPITTING_SPIDER,        40, 1, 1);
-		swamp(ModEntities.SPITTING_SPIDER,         45, 1, 1);
-		caves(ModEntities.SPITTING_SPIDER,         25, 1, 1);
-		overworld(ModEntities.WEB_SPINNER_SPIDER,  60, 1, 1);
-		swamp(ModEntities.WEB_SPINNER_SPIDER,      40, 1, 1);
-		caves(ModEntities.WEB_SPINNER_SPIDER,      40, 1, 1);
-		cold(ModEntities.ICE_SPIDER,               70, 1, 2);
-		hot(ModEntities.MAGMA_SPIDER,              60, 1, 1);
+		spawn("spitting_spider",     cfg, ModEntities.SPITTING_SPIDER,     60, 1, 2, ModSpawns::overworld);
+		spawn("spitting_spider",     cfg, ModEntities.SPITTING_SPIDER,     40, 1, 1, ModSpawns::jungle);
+		spawn("spitting_spider",     cfg, ModEntities.SPITTING_SPIDER,     45, 1, 1, ModSpawns::swamp);
+		spawn("spitting_spider",     cfg, ModEntities.SPITTING_SPIDER,     25, 1, 1, ModSpawns::caves);
+		spawn("web_spinner_spider",  cfg, ModEntities.WEB_SPINNER_SPIDER,  60, 1, 1, ModSpawns::overworld);
+		spawn("web_spinner_spider",  cfg, ModEntities.WEB_SPINNER_SPIDER,  40, 1, 1, ModSpawns::swamp);
+		spawn("web_spinner_spider",  cfg, ModEntities.WEB_SPINNER_SPIDER,  40, 1, 1, ModSpawns::caves);
+		spawn("ice_spider",          cfg, ModEntities.ICE_SPIDER,          70, 1, 2, ModSpawns::cold);
+		spawn("magma_spider",        cfg, ModEntities.MAGMA_SPIDER,        60, 1, 1, ModSpawns::hot);
 
-		jungle(ModEntities.JUMPING_SPIDER,        150, 2, 4);
-		forest(ModEntities.JUMPING_SPIDER,         70, 1, 2);
+		spawn("jumping_spider",      cfg, ModEntities.JUMPING_SPIDER,     150, 2, 4, ModSpawns::jungle);
+		spawn("jumping_spider",      cfg, ModEntities.JUMPING_SPIDER,      70, 1, 2, ModSpawns::forest);
 
-		overworld(ModEntities.WITHER_SPIDER,       40, 1, 1);
-		nether(ModEntities.WITHER_SPIDER,          50, 1, 1);
+		spawn("wither_spider",       cfg, ModEntities.WITHER_SPIDER,       40, 1, 1, ModSpawns::overworld);
+		spawn("wither_spider",       cfg, ModEntities.WITHER_SPIDER,       50, 1, 1, ModSpawns::nether);
 
 		// skeletons
-		overworld(ModEntities.MULTISHOT_SKELETON,  70, 1, 1);
-		overworld(ModEntities.SNIPER_SKELETON,     30, 1, 1);
-		overworld(ModEntities.POISON_SKELETON,     40, 1, 1);
-		jungle(ModEntities.POISON_SKELETON,        50, 1, 1);
-		forest(ModEntities.POISON_SKELETON,        40, 1, 1);
-		swamp(ModEntities.POISON_SKELETON,         55, 1, 1);
-		hot(ModEntities.EMBER_SKELETON,            60, 1, 1);
+		spawn("multishot_skeleton",  cfg, ModEntities.MULTISHOT_SKELETON,  70, 1, 1, ModSpawns::overworld);
+		spawn("sniper_skeleton",     cfg, ModEntities.SNIPER_SKELETON,     30, 1, 1, ModSpawns::overworld);
+		spawn("poison_skeleton",     cfg, ModEntities.POISON_SKELETON,     40, 1, 1, ModSpawns::overworld);
+		spawn("poison_skeleton",     cfg, ModEntities.POISON_SKELETON,     50, 1, 1, ModSpawns::jungle);
+		spawn("poison_skeleton",     cfg, ModEntities.POISON_SKELETON,     40, 1, 1, ModSpawns::forest);
+		spawn("poison_skeleton",     cfg, ModEntities.POISON_SKELETON,     55, 1, 1, ModSpawns::swamp);
+		spawn("ember_skeleton",      cfg, ModEntities.EMBER_SKELETON,      60, 1, 1, ModSpawns::hot);
 
-		overworld(ModEntities.ENDER_SKELETON,      15, 1, 1);
-		end(ModEntities.ENDER_SKELETON,            40, 1, 2);
+		spawn("ender_skeleton",      cfg, ModEntities.ENDER_SKELETON,      15, 1, 1, ModSpawns::overworld);
+		spawn("ender_skeleton",      cfg, ModEntities.ENDER_SKELETON,      40, 1, 2, ModSpawns::end);
 
 		// creepers
-		overworld(ModEntities.LIGHTNING_CREEPER,   60, 1, 1);
-		overworld(ModEntities.BURROWING_CREEPER,   55, 1, 1);
-		overworld(ModEntities.TOXIC_CREEPER,       50, 1, 1);
-		jungle(ModEntities.TOXIC_CREEPER,          35, 1, 1);
-		swamp(ModEntities.TOXIC_CREEPER,           50, 1, 1);
-		caves(ModEntities.TOXIC_CREEPER,           30, 1, 1);
-		cold(ModEntities.FROST_CREEPER,            30, 1, 1);
-		hot(ModEntities.MAGMA_CREEPER,             40, 1, 1);
+		spawn("lightning_creeper",   cfg, ModEntities.LIGHTNING_CREEPER,   60, 1, 1, ModSpawns::overworld);
+		spawn("burrowing_creeper",   cfg, ModEntities.BURROWING_CREEPER,   55, 1, 1, ModSpawns::overworld);
+		spawn("toxic_creeper",       cfg, ModEntities.TOXIC_CREEPER,       50, 1, 1, ModSpawns::overworld);
+		spawn("toxic_creeper",       cfg, ModEntities.TOXIC_CREEPER,       35, 1, 1, ModSpawns::jungle);
+		spawn("toxic_creeper",       cfg, ModEntities.TOXIC_CREEPER,       50, 1, 1, ModSpawns::swamp);
+		spawn("toxic_creeper",       cfg, ModEntities.TOXIC_CREEPER,       30, 1, 1, ModSpawns::caves);
+		spawn("frost_creeper",       cfg, ModEntities.FROST_CREEPER,       30, 1, 1, ModSpawns::cold);
+		spawn("magma_creeper",       cfg, ModEntities.MAGMA_CREEPER,       40, 1, 1, ModSpawns::hot);
 
-		overworld(ModEntities.WITHER_CREEPER,      35, 1, 1);
-		nether(ModEntities.WITHER_CREEPER,         40, 1, 1);
+		spawn("wither_creeper",      cfg, ModEntities.WITHER_CREEPER,      35, 1, 1, ModSpawns::overworld);
+		spawn("wither_creeper",      cfg, ModEntities.WITHER_CREEPER,      40, 1, 1, ModSpawns::nether);
 
-		overworld(ModEntities.ENDER_CREEPER,       15, 1, 1);
-		end(ModEntities.ENDER_CREEPER,             50, 1, 2);
+		spawn("ender_creeper",       cfg, ModEntities.ENDER_CREEPER,       15, 1, 1, ModSpawns::overworld);
+		spawn("ender_creeper",       cfg, ModEntities.ENDER_CREEPER,       50, 1, 2, ModSpawns::end);
 
 		// structure override handles ancient city; this covers the rest of the deep dark
-		deepDark(ModEntities.SCULK_CREEPER,        10, 1, 1);
+		spawn("sculk_creeper",       cfg, ModEntities.SCULK_CREEPER,       10, 1, 1, ModSpawns::deepDark);
 
 		// endermen
-		overworld(ModEntities.ASSASSIN_ENDERMAN,   10, 1, 1);
-		overworld(ModEntities.ENRAGED_ENDERMAN,    10, 1, 1);
-		end(ModEntities.ASSASSIN_ENDERMAN,         40, 1, 2);
-		end(ModEntities.ENRAGED_ENDERMAN,          40, 1, 2);
+		spawn("assassin_enderman",   cfg, ModEntities.ASSASSIN_ENDERMAN,   10, 1, 1, ModSpawns::overworld);
+		spawn("enraged_enderman",    cfg, ModEntities.ENRAGED_ENDERMAN,    10, 1, 1, ModSpawns::overworld);
+		spawn("assassin_enderman",   cfg, ModEntities.ASSASSIN_ENDERMAN,   40, 1, 2, ModSpawns::end);
+		spawn("enraged_enderman",    cfg, ModEntities.ENRAGED_ENDERMAN,    40, 1, 2, ModSpawns::end);
+	}
+
+	@FunctionalInterface
+	private interface BiomeSpawnRegistrar {
+		void register(EntityType<?> type, int weight, int min, int max);
+	}
+
+	private static void spawn(String id, ModConfig cfg, EntityType<?> type,
+							  int baseWeight, int min, int max, BiomeSpawnRegistrar registrar) {
+		if (!cfg.isMobEnabled(id)) return;
+		int weight = cfg.adjustWeight(id, baseWeight);
+		if (weight <= 0) return;
+		registrar.register(type, weight, min, max);
 	}
 
 	private static void overworld(EntityType<?> type, int weight, int min, int max) {

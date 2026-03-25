@@ -21,6 +21,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import spookipup.uniquemobs.config.ModConfig;
 import spookipup.uniquemobs.registry.ModEntities;
 
 // mineshaft spawner variant swap, same deal as the dungeon one
@@ -52,9 +53,12 @@ public class MineshaftSpawnerMixin {
 	)
 	private void wrapSpawnerEntity(SpawnerBlockEntity spawner, EntityType<?> entityType, RandomSource random, Operation<Void> original) {
 		WorldGenLevel level = LEVEL.get();
-		if (level != null && random.nextFloat() < 0.4F) {
+		ModConfig cfg = ModConfig.get();
+		if (level != null && random.nextFloat() < (float) cfg.mineshaftReplacementChance) {
 			Holder<Biome> biome = level.getBiome(spawner.getBlockPos());
-			entityType = pickSpider(biome, random);
+			EntityType<?> variant = pickSpider(biome, random);
+			String id = EntityType.getKey(variant).getPath();
+			if (cfg.isMobEnabled(id)) entityType = variant;
 		}
 		original.call(spawner, entityType, random);
 	}

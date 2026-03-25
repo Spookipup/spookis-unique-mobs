@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import spookipup.uniquemobs.config.ModConfig;
 import spookipup.uniquemobs.registry.ModEntities;
 
 // biome-aware dungeon spawner replacement. ThreadLocal because worldgen is multithreaded
@@ -51,8 +52,10 @@ public class DungeonSpawnerMixin {
 		Holder<Biome> biome = ctx.level().getBiome(ctx.origin());
 		boolean themed = isBiomeThemed(biome);
 
-		// themed biomes get variants more often so they feel like they belong there
-		float chance = themed ? 0.5F : 0.25F;
+		ModConfig cfg = ModConfig.get();
+		float chance = themed
+			? (float) cfg.dungeonThemedReplacementChance
+			: (float) cfg.dungeonReplacementChance;
 		if (random.nextFloat() >= chance) return vanilla;
 
 		return pickVariant(vanilla, biome, random);
@@ -78,10 +81,19 @@ public class DungeonSpawnerMixin {
 
 	@Unique
 	private static EntityType<?> pickVariant(EntityType<?> vanilla, Holder<Biome> biome, RandomSource random) {
-		if (vanilla == EntityType.ZOMBIE) return pickZombie(biome, random);
-		if (vanilla == EntityType.SKELETON) return pickSkeleton(biome, random);
-		if (vanilla == EntityType.SPIDER) return pickSpider(biome, random);
-		return vanilla;
+		EntityType<?> variant = vanilla;
+		if (vanilla == EntityType.ZOMBIE) variant = pickZombie(biome, random);
+		else if (vanilla == EntityType.SKELETON) variant = pickSkeleton(biome, random);
+		else if (vanilla == EntityType.SPIDER) variant = pickSpider(biome, random);
+		// fall back to vanilla if the picked variant is disabled
+		if (variant != vanilla && !isEnabled(variant)) return vanilla;
+		return variant;
+	}
+
+	@Unique
+	private static boolean isEnabled(EntityType<?> type) {
+		String id = EntityType.getKey(type).getPath();
+		return ModConfig.get().isMobEnabled(id);
 	}
 
 	@Unique
