@@ -1,0 +1,8 @@
+{
+	"replace": false,
+	"values": [
+		"unique-mobs:wither_zombie",
+		"unique-mobs:wither_spider",
+		"unique-mobs:wither_creeper"
+	]
+}

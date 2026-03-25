@@ -1,0 +1,8 @@
+{
+	"replace": false,
+	"values": [
+		"unique-mobs:frozen_zombie",
+		"unique-mobs:ice_spider",
+		"unique-mobs:frost_creeper"
+	]
+}

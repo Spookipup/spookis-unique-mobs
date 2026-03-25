@@ -1,0 +1,9 @@
+{
+	"replace": false,
+	"values": [
+		"unique-mobs:infernal_zombie",
+		"unique-mobs:ember_skeleton",
+		"unique-mobs:magma_spider",
+		"unique-mobs:magma_creeper"
+	]
+}

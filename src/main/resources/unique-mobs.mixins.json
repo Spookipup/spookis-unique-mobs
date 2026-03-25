@@ -1,0 +1,17 @@
+{
+	"required": true,
+	"package": "spookipup.uniquemobs.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"DungeonSpawnerMixin",
+		"HoglinAiMixin",
+		"MineshaftSpawnerMixin",
+		"PiglinSensorMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
