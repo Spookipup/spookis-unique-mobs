@@ -34,7 +34,7 @@ public class PoisonSpitEntity extends ThrowableProjectile implements ItemSupplie
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+	protected void defineSynchedData() {
 	}
 
 	@Override
@@ -49,7 +49,7 @@ public class PoisonSpitEntity extends ThrowableProjectile implements ItemSupplie
 
 		if (target instanceof LivingEntity livingTarget && this.level() instanceof ServerLevel serverLevel) {
 			LivingEntity owner = this.getOwner() instanceof LivingEntity le ? le : null;
-			livingTarget.hurtServer(serverLevel, this.damageSources().mobProjectile(this, owner), 2.0F);
+			livingTarget.hurt(this.damageSources().mobProjectile(this, owner), 2.0F);
 			livingTarget.addEffect(new MobEffectInstance(MobEffects.POISON, POISON_DURATION, POISON_AMPLIFIER));
 		}
 	}
@@ -79,7 +79,7 @@ public class PoisonSpitEntity extends ThrowableProjectile implements ItemSupplie
 	}
 
 	@Override
-	protected double getDefaultGravity() {
-		return 0.02;
+	protected float getGravity() {
+		return 0.02F;
 	}
 }

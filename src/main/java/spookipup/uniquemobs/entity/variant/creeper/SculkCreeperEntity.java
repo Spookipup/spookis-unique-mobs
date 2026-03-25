@@ -7,7 +7,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -37,7 +37,7 @@ public class SculkCreeperEntity extends Creeper {
 	// deep dark because sculk blocks emit light 1. this tolerates the sculk glow
 	// but still blocks spawning near soul lanterns and other bright sources
 	public static boolean checkSculkCreeperSpawnRules(EntityType<? extends Monster> type,
-			ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
+			ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
 		return level.getDifficulty() != Difficulty.PEACEFUL
 			&& level.getMaxLocalRawBrightness(pos) <= 7
 			&& Mob.checkMobSpawnRules(type, level, reason, pos, random);
@@ -73,9 +73,9 @@ public class SculkCreeperEntity extends Creeper {
 		// the warden spawn logic lives in SculkShriekerBlockEntity, not in the
 		// tracker itself, so we spawn the warden directly the same way the shrieker does
 		SpawnUtil.trySpawnMob(
-			EntityType.WARDEN, EntitySpawnReason.TRIGGERED,
+			EntityType.WARDEN, MobSpawnType.TRIGGERED,
 			serverLevel, this.blockPosition(), 20, 5, 6,
-			SpawnUtil.Strategy.ON_TOP_OF_COLLIDER, false);
+			SpawnUtil.Strategy.ON_TOP_OF_COLLIDER);
 
 		Warden.applyDarknessAround(serverLevel,
 			this.position(), null, 40);

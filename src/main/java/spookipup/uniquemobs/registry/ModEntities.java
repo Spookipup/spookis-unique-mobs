@@ -3,9 +3,7 @@ package spookipup.uniquemobs.registry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import spookipup.uniquemobs.UniqueMobs;
@@ -49,280 +47,280 @@ public class ModEntities {
 
 	public static final EntityType<VenomousZombieEntity> VENOMOUS_ZOMBIE = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("venomous_zombie"),
+		id("venomous_zombie"),
 		EntityType.Builder.of(VenomousZombieEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.95F).clientTrackingRange(8)
-			.build(entityKey("venomous_zombie"))
+			.build("venomous_zombie")
 	);
 
 	public static final EntityType<InfernalZombieEntity> INFERNAL_ZOMBIE = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("infernal_zombie"),
+		id("infernal_zombie"),
 		EntityType.Builder.of(InfernalZombieEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.95F).clientTrackingRange(8)
-			.build(entityKey("infernal_zombie"))
+			.build("infernal_zombie")
 	);
 
 	public static final EntityType<FrozenZombieEntity> FROZEN_ZOMBIE = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("frozen_zombie"),
+		id("frozen_zombie"),
 		EntityType.Builder.of(FrozenZombieEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.95F).clientTrackingRange(8)
-			.build(entityKey("frozen_zombie"))
+			.build("frozen_zombie")
 	);
 
 	public static final EntityType<EnderZombieEntity> ENDER_ZOMBIE = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("ender_zombie"),
+		id("ender_zombie"),
 		EntityType.Builder.of(EnderZombieEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.95F).clientTrackingRange(8)
-			.build(entityKey("ender_zombie"))
+			.build("ender_zombie")
 	);
 
 	public static final EntityType<WitherZombieEntity> WITHER_ZOMBIE = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("wither_zombie"),
+		id("wither_zombie"),
 		EntityType.Builder.of(WitherZombieEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.95F).clientTrackingRange(8)
-			.build(entityKey("wither_zombie"))
+			.build("wither_zombie")
 	);
 
 	public static final EntityType<SprinterZombieEntity> SPRINTER_ZOMBIE = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("sprinter_zombie"),
+		id("sprinter_zombie"),
 		EntityType.Builder.of(SprinterZombieEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.95F).clientTrackingRange(8)
-			.build(entityKey("sprinter_zombie"))
+			.build("sprinter_zombie")
 	);
 
 	public static final EntityType<BuilderZombieEntity> BUILDER_ZOMBIE = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("builder_zombie"),
+		id("builder_zombie"),
 		EntityType.Builder.of(BuilderZombieEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.95F).clientTrackingRange(8)
-			.build(entityKey("builder_zombie"))
+			.build("builder_zombie")
 	);
 
 	public static final EntityType<PlagueZombieEntity> PLAGUE_ZOMBIE = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("plague_zombie"),
+		id("plague_zombie"),
 		EntityType.Builder.of(PlagueZombieEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.95F).clientTrackingRange(8)
-			.build(entityKey("plague_zombie"))
+			.build("plague_zombie")
 	);
 
 	public static final EntityType<ArmoredZombieEntity> ARMORED_ZOMBIE = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("armored_zombie"),
+		id("armored_zombie"),
 		EntityType.Builder.of(ArmoredZombieEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.95F).clientTrackingRange(8)
-			.build(entityKey("armored_zombie"))
+			.build("armored_zombie")
 	);
 
 	// spiders
 
 	public static final EntityType<SpittingSpiderEntity> SPITTING_SPIDER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("spitting_spider"),
+		id("spitting_spider"),
 		EntityType.Builder.of(SpittingSpiderEntity::new, MobCategory.MONSTER)
 			.sized(1.4F, 0.9F).clientTrackingRange(8)
-			.build(entityKey("spitting_spider"))
+			.build("spitting_spider")
 	);
 
 	public static final EntityType<WitherSpiderEntity> WITHER_SPIDER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("wither_spider"),
+		id("wither_spider"),
 		EntityType.Builder.of(WitherSpiderEntity::new, MobCategory.MONSTER)
 			.sized(1.4F, 0.9F).clientTrackingRange(8)
-			.build(entityKey("wither_spider"))
+			.build("wither_spider")
 	);
 
 	public static final EntityType<MagmaSpiderEntity> MAGMA_SPIDER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("magma_spider"),
+		id("magma_spider"),
 		EntityType.Builder.of(MagmaSpiderEntity::new, MobCategory.MONSTER)
 			.sized(1.4F, 0.9F).clientTrackingRange(8)
-			.build(entityKey("magma_spider"))
+			.build("magma_spider")
 	);
 
 	public static final EntityType<IceSpiderEntity> ICE_SPIDER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("ice_spider"),
+		id("ice_spider"),
 		EntityType.Builder.of(IceSpiderEntity::new, MobCategory.MONSTER)
 			.sized(1.4F, 0.9F).clientTrackingRange(8)
-			.build(entityKey("ice_spider"))
+			.build("ice_spider")
 	);
 
 	public static final EntityType<JumpingSpiderEntity> JUMPING_SPIDER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("jumping_spider"),
+		id("jumping_spider"),
 		EntityType.Builder.of(JumpingSpiderEntity::new, MobCategory.MONSTER)
 			.sized(1.4F, 0.9F).clientTrackingRange(8)
-			.build(entityKey("jumping_spider"))
+			.build("jumping_spider")
 	);
 
 	public static final EntityType<WebSpinnerSpiderEntity> WEB_SPINNER_SPIDER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("web_spinner_spider"),
+		id("web_spinner_spider"),
 		EntityType.Builder.of(WebSpinnerSpiderEntity::new, MobCategory.MONSTER)
 			.sized(1.4F, 0.9F).clientTrackingRange(8)
-			.build(entityKey("web_spinner_spider"))
+			.build("web_spinner_spider")
 	);
 
 	// skeletons
 
 	public static final EntityType<SniperSkeletonEntity> SNIPER_SKELETON = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("sniper_skeleton"),
+		id("sniper_skeleton"),
 		EntityType.Builder.of(SniperSkeletonEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.99F).clientTrackingRange(8)
-			.build(entityKey("sniper_skeleton"))
+			.build("sniper_skeleton")
 	);
 
 	public static final EntityType<EmberSkeletonEntity> EMBER_SKELETON = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("ember_skeleton"),
+		id("ember_skeleton"),
 		EntityType.Builder.of(EmberSkeletonEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.99F).clientTrackingRange(8)
-			.build(entityKey("ember_skeleton"))
+			.build("ember_skeleton")
 	);
 
 	public static final EntityType<EnderSkeletonEntity> ENDER_SKELETON = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("ender_skeleton"),
+		id("ender_skeleton"),
 		EntityType.Builder.of(EnderSkeletonEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.99F).clientTrackingRange(8)
-			.build(entityKey("ender_skeleton"))
+			.build("ender_skeleton")
 	);
 
 	public static final EntityType<PoisonSkeletonEntity> POISON_SKELETON = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("poison_skeleton"),
+		id("poison_skeleton"),
 		EntityType.Builder.of(PoisonSkeletonEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.99F).clientTrackingRange(8)
-			.build(entityKey("poison_skeleton"))
+			.build("poison_skeleton")
 	);
 
 	public static final EntityType<MultishotSkeletonEntity> MULTISHOT_SKELETON = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("multishot_skeleton"),
+		id("multishot_skeleton"),
 		EntityType.Builder.of(MultishotSkeletonEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.99F).clientTrackingRange(8)
-			.build(entityKey("multishot_skeleton"))
+			.build("multishot_skeleton")
 	);
 
 	// creepers
 
 	public static final EntityType<ToxicCreeperEntity> TOXIC_CREEPER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("toxic_creeper"),
+		id("toxic_creeper"),
 		EntityType.Builder.of(ToxicCreeperEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.7F).clientTrackingRange(8)
-			.build(entityKey("toxic_creeper"))
+			.build("toxic_creeper")
 	);
 
 	public static final EntityType<WitherCreeperEntity> WITHER_CREEPER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("wither_creeper"),
+		id("wither_creeper"),
 		EntityType.Builder.of(WitherCreeperEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.7F).clientTrackingRange(8)
-			.build(entityKey("wither_creeper"))
+			.build("wither_creeper")
 	);
 
 	public static final EntityType<SculkCreeperEntity> SCULK_CREEPER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("sculk_creeper"),
+		id("sculk_creeper"),
 		EntityType.Builder.of(SculkCreeperEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.7F).clientTrackingRange(8)
-			.build(entityKey("sculk_creeper"))
+			.build("sculk_creeper")
 	);
 
 	public static final EntityType<MagmaCreeperEntity> MAGMA_CREEPER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("magma_creeper"),
+		id("magma_creeper"),
 		EntityType.Builder.of(MagmaCreeperEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.7F).clientTrackingRange(8)
-			.build(entityKey("magma_creeper"))
+			.build("magma_creeper")
 	);
 
 	public static final EntityType<FrostCreeperEntity> FROST_CREEPER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("frost_creeper"),
+		id("frost_creeper"),
 		EntityType.Builder.of(FrostCreeperEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.7F).clientTrackingRange(8)
-			.build(entityKey("frost_creeper"))
+			.build("frost_creeper")
 	);
 
 	public static final EntityType<EnderCreeperEntity> ENDER_CREEPER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("ender_creeper"),
+		id("ender_creeper"),
 		EntityType.Builder.of(EnderCreeperEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.7F).clientTrackingRange(8)
-			.build(entityKey("ender_creeper"))
+			.build("ender_creeper")
 	);
 
 	public static final EntityType<LightningCreeperEntity> LIGHTNING_CREEPER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("lightning_creeper"),
+		id("lightning_creeper"),
 		EntityType.Builder.of(LightningCreeperEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.7F).clientTrackingRange(8)
-			.build(entityKey("lightning_creeper"))
+			.build("lightning_creeper")
 	);
 
 	public static final EntityType<BurrowingCreeperEntity> BURROWING_CREEPER = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("burrowing_creeper"),
+		id("burrowing_creeper"),
 		EntityType.Builder.of(BurrowingCreeperEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.7F).clientTrackingRange(8)
-			.build(entityKey("burrowing_creeper"))
+			.build("burrowing_creeper")
 	);
 
 	// endermen
 
 	public static final EntityType<AssassinEndermanEntity> ASSASSIN_ENDERMAN = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("assassin_enderman"),
+		id("assassin_enderman"),
 		EntityType.Builder.of(AssassinEndermanEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 2.9F).clientTrackingRange(8)
-			.build(entityKey("assassin_enderman"))
+			.build("assassin_enderman")
 	);
 
 	public static final EntityType<EnragedEndermanEntity> ENRAGED_ENDERMAN = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("enraged_enderman"),
+		id("enraged_enderman"),
 		EntityType.Builder.of(EnragedEndermanEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 2.9F).clientTrackingRange(8)
-			.build(entityKey("enraged_enderman"))
+			.build("enraged_enderman")
 	);
 
 	// projectiles
 
 	public static final EntityType<PoisonSpitEntity> POISON_SPIT = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("poison_spit"),
+		id("poison_spit"),
 		EntityType.Builder.<PoisonSpitEntity>of(PoisonSpitEntity::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
-			.build(entityKey("poison_spit"))
+			.build("poison_spit")
 	);
 
 	public static final EntityType<FreezeSnowballEntity> FREEZE_SNOWBALL = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("freeze_snowball"),
+		id("freeze_snowball"),
 		EntityType.Builder.<FreezeSnowballEntity>of(FreezeSnowballEntity::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
-			.build(entityKey("freeze_snowball"))
+			.build("freeze_snowball")
 	);
 
 	public static final EntityType<WebProjectileEntity> WEB_PROJECTILE = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
-		entityKey("web_projectile"),
+		id("web_projectile"),
 		EntityType.Builder.<WebProjectileEntity>of(WebProjectileEntity::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
-			.build(entityKey("web_projectile"))
+			.build("web_projectile")
 	);
 
-	private static ResourceKey<EntityType<?>> entityKey(String name) {
-		return ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(UniqueMobs.MOD_ID, name));
+	private static ResourceLocation id(String name) {
+		return new ResourceLocation(UniqueMobs.MOD_ID, name);
 	}
 
 	private static void registerAttributes() {

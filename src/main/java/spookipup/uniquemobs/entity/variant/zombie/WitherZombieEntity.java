@@ -8,8 +8,6 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
-import net.minecraft.core.Holder;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.damagesource.DamageSource;
@@ -20,9 +18,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.hurtingprojectile.WitherSkull;
+import net.minecraft.world.entity.projectile.WitherSkull;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -56,22 +54,21 @@ public class WitherZombieEntity extends Zombie {
 		return Zombie.createAttributes()
 			.add(Attributes.MAX_HEALTH, 28.0)
 			.add(Attributes.MOVEMENT_SPEED, 0.2)
-			.add(Attributes.FOLLOW_RANGE, 32.0)
-			.add(Attributes.SCALE, 1.1);
+			.add(Attributes.FOLLOW_RANGE, 32.0);
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
-		super.defineSynchedData(builder);
-		builder.define(DATA_LEFT_TARGET, 0);
-		builder.define(DATA_RIGHT_TARGET, 0);
+	protected void defineSynchedData() {
+		super.defineSynchedData();
+		this.entityData.define(DATA_LEFT_TARGET, 0);
+		this.entityData.define(DATA_RIGHT_TARGET, 0);
 	}
 
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
 
-		this.goalSelector.removeAllGoals(goal -> goal instanceof MeleeAttackGoal);
+		this.goalSelector.getAvailableGoals().removeIf(w -> w.getGoal() instanceof MeleeAttackGoal);
 
 		// keep distance so skulls have room to fly - close in only for melee
 		this.goalSelector.addGoal(2, new StrafeAndRetreatGoal(this, 0.4, 5.0F, 8.0F, 18.0F));
@@ -82,7 +79,7 @@ public class WitherZombieEntity extends Zombie {
 				if (target == null) return null;
 				Vec3 eyePos = new Vec3(shooter.getX(), shooter.getEyeY(), shooter.getZ());
 				Vec3 dir = target.getEyePosition().subtract(eyePos).normalize();
-				WitherSkull skull = new WitherSkull(level, shooter, dir);
+				WitherSkull skull = new WitherSkull(level, shooter, dir.x, dir.y, dir.z);
 				skull.setPos(eyePos);
 				return skull;
 			}, 1.0F, 3.0F, SoundEvents.WITHER_SHOOT)
@@ -93,8 +90,8 @@ public class WitherZombieEntity extends Zombie {
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel serverLevel, Entity target) {
-		boolean hit = super.doHurtTarget(serverLevel, target);
+	public boolean doHurtTarget(Entity target) {
+		boolean hit = super.doHurtTarget(target);
 
 		if (hit && target instanceof LivingEntity livingTarget) {
 			livingTarget.addEffect(new MobEffectInstance(
@@ -107,17 +104,17 @@ public class WitherZombieEntity extends Zombie {
 
 	@Override
 	public boolean canBeAffected(MobEffectInstance effect) {
-		if (effect.is(MobEffects.WITHER)) return false;
+		if (effect.getEffect() == MobEffects.WITHER) return false;
 		return super.canBeAffected(effect);
 	}
 
 	@Override
-	public boolean hurtServer(ServerLevel serverLevel, DamageSource damageSource, float amount) {
+	public boolean hurt(DamageSource damageSource, float amount) {
 		if (damageSource.getDirectEntity() instanceof WitherSkull skull
 			&& skull.getOwner() == this) {
 			return false;
 		}
-		return super.hurtServer(serverLevel, damageSource, amount);
+		return super.hurt(damageSource, amount);
 	}
 
 	@Override

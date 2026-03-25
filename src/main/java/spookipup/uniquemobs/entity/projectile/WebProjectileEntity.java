@@ -34,7 +34,7 @@ public class WebProjectileEntity extends ThrowableProjectile implements ItemSupp
 	}
 
 	@Override
-	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+	protected void defineSynchedData() {
 	}
 
 	@Override
@@ -89,7 +89,7 @@ public class WebProjectileEntity extends ThrowableProjectile implements ItemSupp
 	}
 
 	@Override
-	protected double getDefaultGravity() {
-		return 0.03;
+	protected float getGravity() {
+		return 0.03F;
 	}
 }

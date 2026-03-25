@@ -4,8 +4,8 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.throwableitemprojectile.Snowball;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.projectile.Snowball;
+
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 
@@ -18,8 +18,8 @@ public class FreezeSnowballEntity extends Snowball {
 		super(entityType, level);
 	}
 
-	public FreezeSnowballEntity(Level level, LivingEntity shooter, ItemStack stack) {
-		super(level, shooter, stack);
+	public FreezeSnowballEntity(Level level, LivingEntity shooter) {
+		super(level, shooter);
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class FreezeSnowballEntity extends Snowball {
 			int newFreeze = Math.min(living.getTicksFrozen() + FREEZE_TICKS,
 				living.getTicksRequiredToFreeze() + 40);
 			living.setTicksFrozen(newFreeze);
-			living.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, SLOWNESS_DURATION, 0));
+			living.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, SLOWNESS_DURATION, 0));
 		}
 	}
 }

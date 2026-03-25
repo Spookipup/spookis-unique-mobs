@@ -58,7 +58,7 @@ public class MeleeWhenCloseGoal extends Goal {
 
 		if (distanceSq <= meleeReach * meleeReach) {
 			this.mob.swing(InteractionHand.MAIN_HAND);
-			this.mob.doHurtTarget(getServerLevel(this.mob), this.target);
+			this.mob.doHurtTarget(this.target);
 			this.cooldown = this.cooldownTicks;
 		}
 	}

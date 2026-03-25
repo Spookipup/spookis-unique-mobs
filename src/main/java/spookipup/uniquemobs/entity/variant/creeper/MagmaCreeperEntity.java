@@ -95,7 +95,7 @@ public class MagmaCreeperEntity extends Creeper {
 		for (LivingEntity entity : serverLevel.getEntitiesOfClass(LivingEntity.class,
 				this.getBoundingBox().inflate(effectRange))) {
 			if (entity == this) continue;
-			entity.igniteForSeconds(FIRE_DURATION_SECONDS);
+			entity.setSecondsOnFire(FIRE_DURATION_SECONDS);
 		}
 	}
 

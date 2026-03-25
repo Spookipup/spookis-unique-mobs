@@ -8,11 +8,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
@@ -48,11 +48,11 @@ public class MagmaSpiderEntity extends Spider {
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel serverLevel, Entity target) {
-		boolean hit = super.doHurtTarget(serverLevel, target);
+	public boolean doHurtTarget(Entity target) {
+		boolean hit = super.doHurtTarget(target);
 
 		if (hit && target instanceof LivingEntity) {
-			target.igniteForSeconds(FIRE_DURATION_SECONDS);
+			target.setSecondsOnFire(FIRE_DURATION_SECONDS);
 		}
 
 		return hit;
@@ -90,8 +90,8 @@ public class MagmaSpiderEntity extends Spider {
 					for (LivingEntity entity : serverLevel.getEntitiesOfClass(LivingEntity.class,
 							new AABB(above).inflate(0.1, 0.5, 0.1))) {
 						if (entity == this || entity.fireImmune()) continue;
-						entity.hurtServer(serverLevel, this.damageSources().hotFloor(), 2.0F);
-						entity.igniteForSeconds(2);
+						entity.hurt(this.damageSources().hotFloor(), 2.0F);
+						entity.setSecondsOnFire(2);
 					}
 				}
 			}
@@ -144,7 +144,7 @@ public class MagmaSpiderEntity extends Spider {
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput output) {
+	public void addAdditionalSaveData(CompoundTag output) {
 		// revert magma before save so blocks don't persist if we never reload
 		revertAllMagma();
 		super.addAdditionalSaveData(output);

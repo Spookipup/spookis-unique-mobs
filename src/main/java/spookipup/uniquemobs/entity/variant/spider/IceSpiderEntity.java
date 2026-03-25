@@ -14,9 +14,9 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -41,34 +41,33 @@ public class IceSpiderEntity extends Spider {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Spider.createAttributes()
-			.add(Attributes.MAX_HEALTH, 20.0)
-			.add(Attributes.SCALE, 1.2);
+			.add(Attributes.MAX_HEALTH, 20.0);
 	}
 
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
 
-		this.goalSelector.removeAllGoals(goal ->
-			goal instanceof LeapAtTargetGoal ||
-			goal instanceof MeleeAttackGoal
+		this.goalSelector.getAvailableGoals().removeIf(w ->
+			w.getGoal() instanceof LeapAtTargetGoal ||
+			w.getGoal() instanceof MeleeAttackGoal
 		);
 
 		this.goalSelector.addGoal(3, new FreezeHuntGoal(this));
 		this.goalSelector.addGoal(3, new ShootGoal(this, 15, 30, 14.0F,
 			ShootGoal.simple((level, shooter) ->
-				new FreezeSnowballEntity(level, shooter, Items.SNOWBALL.getDefaultInstance()),
+				new FreezeSnowballEntity(level, shooter),
 				1.5F, 5.0F, SoundEvents.SNOW_GOLEM_SHOOT)
 		));
 		this.goalSelector.addGoal(3, new MeleeWhenCloseGoal(this, 15));
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel serverLevel, Entity target) {
-		boolean hit = super.doHurtTarget(serverLevel, target);
+	public boolean doHurtTarget(Entity target) {
+		boolean hit = super.doHurtTarget(target);
 
 		if (hit && target instanceof LivingEntity livingTarget) {
-			livingTarget.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, SLOWNESS_DURATION, 0));
+			livingTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, SLOWNESS_DURATION, 0));
 		}
 
 		return hit;
@@ -87,7 +86,7 @@ public class IceSpiderEntity extends Spider {
 			if (this.frostWalkerCooldown > 0) {
 				this.frostWalkerCooldown--;
 			} else if (this.onGround()
-				&& serverLevel.getGameRules().get(GameRules.MOB_GRIEFING)) {
+				&& serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
 				freezeNearbyWater();
 				this.frostWalkerCooldown = 3;
 			}

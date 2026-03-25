@@ -2,14 +2,14 @@ package spookipup.uniquemobs.renderer;
 
 import net.minecraft.client.renderer.entity.CreeperRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.client.renderer.entity.state.CreeperRenderState;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.Creeper;
 
 public class RetexturedCreeperRenderer extends CreeperRenderer {
 
-	private final Identifier texture;
+	private final ResourceLocation texture;
 
-	public RetexturedCreeperRenderer(EntityRendererProvider.Context context, Identifier texture, Identifier eyesTexture) {
+	public RetexturedCreeperRenderer(EntityRendererProvider.Context context, ResourceLocation texture, ResourceLocation eyesTexture) {
 		super(context);
 		this.texture = texture;
 
@@ -19,7 +19,7 @@ public class RetexturedCreeperRenderer extends CreeperRenderer {
 	}
 
 	@Override
-	public Identifier getTextureLocation(CreeperRenderState state) {
+	public ResourceLocation getTextureLocation(Creeper entity) {
 		return this.texture;
 	}
 }

@@ -11,7 +11,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
 
 // poison on hit, death cloud
@@ -46,8 +46,8 @@ public class VenomousZombieEntity extends Zombie {
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel serverLevel, Entity target) {
-		boolean hit = super.doHurtTarget(serverLevel, target);
+	public boolean doHurtTarget(Entity target) {
+		boolean hit = super.doHurtTarget(target);
 
 		if (hit && target instanceof LivingEntity livingTarget) {
 			livingTarget.addEffect(new MobEffectInstance(
@@ -73,7 +73,7 @@ public class VenomousZombieEntity extends Zombie {
 			cloud.setWaitTime(0);
 			cloud.addEffect(new MobEffectInstance(MobEffects.POISON, CLOUD_POISON_DURATION, 0));
 			cloud.setOwner(this);
-			cloud.setCustomParticle(ParticleTypes.ITEM_SLIME);
+			cloud.setParticle(ParticleTypes.ITEM_SLIME);
 
 			this.level().addFreshEntity(cloud);
 		}

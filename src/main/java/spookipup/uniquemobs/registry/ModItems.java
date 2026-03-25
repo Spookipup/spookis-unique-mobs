@@ -1,17 +1,16 @@
 package spookipup.uniquemobs.registry;
 
-import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.entity.Mob;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,21 +61,19 @@ public class ModItems {
 	public static final Item ASSASSIN_ENDERMAN_SPAWN_EGG = spawnEgg("assassin_enderman", ModEntities.ASSASSIN_ENDERMAN);
 	public static final Item ENRAGED_ENDERMAN_SPAWN_EGG = spawnEgg("enraged_enderman", ModEntities.ENRAGED_ENDERMAN);
 
-	private static final ResourceKey<CreativeModeTab> TAB_KEY = ResourceKey.create(
-		Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(UniqueMobs.MOD_ID, "unique_mobs"));
+	private static final ResourceLocation TAB_ID = new ResourceLocation(UniqueMobs.MOD_ID, "unique_mobs");
 
-	private static Item spawnEgg(String mobName, EntityType<?> entityType) {
-		ResourceKey<Item> key = ResourceKey.create(
-			Registries.ITEM, Identifier.fromNamespaceAndPath(UniqueMobs.MOD_ID, mobName + "_spawn_egg"));
-		Item item = new SpawnEggItem(new Item.Properties().setId(key).spawnEgg(entityType));
-		Item registered = Registry.register(BuiltInRegistries.ITEM, key, item);
+	private static Item spawnEgg(String mobName, EntityType<? extends Mob> entityType) {
+		ResourceLocation id = new ResourceLocation(UniqueMobs.MOD_ID, mobName + "_spawn_egg");
+		Item item = new SpawnEggItem(entityType, 0x000000, 0x000000, new Item.Properties());
+		Item registered = Registry.register(BuiltInRegistries.ITEM, id, item);
 		SPAWN_EGGS.add(registered);
 		return registered;
 	}
 
 	public static void init() {
-		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB_KEY,
-			FabricCreativeModeTab.builder()
+		Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, TAB_ID,
+			FabricItemGroup.builder()
 				.title(Component.translatable("itemGroup." + UniqueMobs.MOD_ID))
 				.icon(() -> new ItemStack(VENOMOUS_ZOMBIE_SPAWN_EGG))
 				.displayItems((params, output) -> {

@@ -6,11 +6,11 @@ import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.Level;
 import spookipup.uniquemobs.config.ModConfig;
 import spookipup.uniquemobs.entity.variant.creeper.SculkCreeperEntity;
 import spookipup.uniquemobs.entity.variant.spider.JumpingSpiderEntity;
@@ -43,7 +43,7 @@ public class ModSpawns {
 		monsterPlacement(ModEntities.WEB_SPINNER_SPIDER);
 		// ON_GROUND rejects leaves via isValidSpawn, so use NO_RESTRICTIONS and validate manually
 		SpawnPlacements.register(ModEntities.JUMPING_SPIDER,
-			SpawnPlacementTypes.NO_RESTRICTIONS,
+			SpawnPlacements.Type.NO_RESTRICTIONS,
 			Heightmap.Types.MOTION_BLOCKING,
 			JumpingSpiderEntity::checkJumpingSpiderSpawnRules);
 
@@ -57,7 +57,7 @@ public class ModSpawns {
 		depthBoostedPlacement(ModEntities.WITHER_CREEPER);
 		// tolerates sculk glow (light 1-6) that would fail normal monster rules
 		SpawnPlacements.register(ModEntities.SCULK_CREEPER,
-			SpawnPlacementTypes.ON_GROUND,
+			SpawnPlacements.Type.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			SculkCreeperEntity::checkSculkCreeperSpawnRules);
 		monsterPlacement(ModEntities.MAGMA_CREEPER);
@@ -72,7 +72,7 @@ public class ModSpawns {
 
 	private static <T extends Monster> void monsterPlacement(EntityType<T> type) {
 		SpawnPlacements.register(type,
-			SpawnPlacementTypes.ON_GROUND,
+			SpawnPlacements.Type.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			Monster::checkMonsterSpawnRules);
 	}
@@ -80,12 +80,12 @@ public class ModSpawns {
 	// uses normal overworld rules + skips light in The End
 	private static <T extends Monster> void endMonsterPlacement(EntityType<T> type) {
 		SpawnPlacements.register(type,
-			SpawnPlacementTypes.ON_GROUND,
+			SpawnPlacements.Type.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			(entityType, level, spawnReason, pos, random) ->
 				level.getDifficulty() != net.minecraft.world.Difficulty.PEACEFUL
-					&& (EntitySpawnReason.ignoresLightRequirements(spawnReason)
-						|| level.dimensionType().hasEnderDragonFight()
+					&& (spawnReason == MobSpawnType.SPAWNER
+						|| ((net.minecraft.server.level.ServerLevel) level).dimension() == Level.END
 						|| Monster.isDarkEnoughToSpawn(level, pos, random))
 					&& Mob.checkMobSpawnRules(entityType, level, spawnReason, pos, random));
 	}
@@ -93,7 +93,7 @@ public class ModSpawns {
 	// always spawns below Y 0, only 1 in 3 attempts above - makes them more common at depth
 	private static <T extends Monster> void depthBoostedPlacement(EntityType<T> type) {
 		SpawnPlacements.register(type,
-			SpawnPlacementTypes.ON_GROUND,
+			SpawnPlacements.Type.ON_GROUND,
 			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 			(entityType, level, spawnReason, pos, random) ->
 				Monster.checkMonsterSpawnRules(entityType, level, spawnReason, pos, random)

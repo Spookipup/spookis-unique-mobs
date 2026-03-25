@@ -94,7 +94,7 @@ public class FrostCreeperEntity extends Creeper {
 		for (LivingEntity entity : serverLevel.getEntitiesOfClass(LivingEntity.class,
 				this.getBoundingBox().inflate(effectRange))) {
 			if (entity == this) continue;
-			entity.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, SLOWNESS_DURATION, 2));
+			entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, SLOWNESS_DURATION, 2));
 			int newFreeze = Math.min(entity.getTicksFrozen() + FREEZE_TICKS,
 				entity.getTicksRequiredToFreeze() + 60);
 			entity.setTicksFrozen(newFreeze);

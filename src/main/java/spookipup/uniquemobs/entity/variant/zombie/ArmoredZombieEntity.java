@@ -6,11 +6,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 
 public class ArmoredZombieEntity extends Zombie {
 
@@ -35,7 +34,7 @@ public class ArmoredZombieEntity extends Zombie {
 	}
 
 	@Override
-	protected void populateDefaultEquipmentEnchantments(ServerLevelAccessor levelAccessor, RandomSource random, DifficultyInstance difficulty) {
+	protected void populateDefaultEquipmentEnchantments(RandomSource random, DifficultyInstance difficulty) {
 		// no enchantments
 	}
 }

@@ -2,7 +2,6 @@ package spookipup.uniquemobs.entity.variant.creeper;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -36,8 +35,8 @@ public class EnderCreeperEntity extends Creeper {
 	}
 
 	@Override
-	public boolean hurtServer(ServerLevel serverLevel, DamageSource source, float amount) {
-		boolean hurt = super.hurtServer(serverLevel, source, amount);
+	public boolean hurt(DamageSource source, float amount) {
+		boolean hurt = super.hurt(source, amount);
 		if (hurt && this.isAlive()) {
 			teleportRandomly(8);
 		}

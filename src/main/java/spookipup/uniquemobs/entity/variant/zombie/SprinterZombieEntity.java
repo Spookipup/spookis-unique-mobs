@@ -1,13 +1,12 @@
 package spookipup.uniquemobs.entity.variant.zombie;
 
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -26,13 +25,12 @@ public class SprinterZombieEntity extends Zombie {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Zombie.createAttributes()
 			.add(Attributes.MAX_HEALTH, 12.0)
-			.add(Attributes.MOVEMENT_SPEED, 0.35)
-			.add(Attributes.SCALE, 0.9);
+			.add(Attributes.MOVEMENT_SPEED, 0.35);
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel serverLevel, Entity target) {
-		boolean hit = super.doHurtTarget(serverLevel, target);
+	public boolean doHurtTarget(Entity target) {
+		boolean hit = super.doHurtTarget(target);
 		if (hit && target instanceof LivingEntity) {
 			// small knockback boost from the lunge momentum
 			Vec3 dir = target.position().subtract(this.position()).normalize();

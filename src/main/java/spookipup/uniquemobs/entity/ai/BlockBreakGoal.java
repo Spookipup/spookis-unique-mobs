@@ -5,7 +5,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -29,7 +29,7 @@ public class BlockBreakGoal extends Goal {
 	@Override
 	public boolean canUse() {
 		if (this.mob.level() instanceof ServerLevel serverLevel
-			&& !serverLevel.getGameRules().get(GameRules.MOB_GRIEFING)) return false;
+			&& !serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) return false;
 		return this.mob.getTarget() != null && this.mob.getTarget().isAlive();
 	}
 

@@ -6,7 +6,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
 import spookipup.uniquemobs.entity.ai.MeleeWhenCloseGoal;
 import spookipup.uniquemobs.entity.ai.PanicLeapGoal;
@@ -24,8 +24,7 @@ public class SpittingSpiderEntity extends Spider {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Spider.createAttributes()
 			.add(Attributes.MAX_HEALTH, 14.0)
-			.add(Attributes.MOVEMENT_SPEED, 0.28)
-			.add(Attributes.SCALE, 0.8);
+			.add(Attributes.MOVEMENT_SPEED, 0.28);
 	}
 
 	@Override
@@ -33,9 +32,9 @@ public class SpittingSpiderEntity extends Spider {
 		super.registerGoals();
 
 		// ditch vanilla melee + leap, we handle combat ourselves
-		this.goalSelector.removeAllGoals(goal ->
-			goal instanceof LeapAtTargetGoal ||
-			goal instanceof MeleeAttackGoal
+		this.goalSelector.getAvailableGoals().removeIf(w ->
+			w.getGoal() instanceof LeapAtTargetGoal ||
+			w.getGoal() instanceof MeleeAttackGoal
 		);
 
 		this.goalSelector.addGoal(3, new StrafeAndRetreatGoal(this, 0.6, 3.5F, 6.0F, 12.0F));

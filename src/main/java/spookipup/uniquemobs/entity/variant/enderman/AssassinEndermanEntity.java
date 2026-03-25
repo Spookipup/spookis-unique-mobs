@@ -1,7 +1,6 @@
 package spookipup.uniquemobs.entity.variant.enderman;
 
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -86,12 +85,12 @@ public class AssassinEndermanEntity extends EnderMan {
 	}
 
 	@Override
-	public boolean hurtServer(ServerLevel serverLevel, DamageSource source, float amount) {
+	public boolean hurt(DamageSource source, float amount) {
 		// immune to our own cloud damage
 		if (source.getEntity() instanceof AreaEffectCloud cloud && cloud.getOwner() == this) {
 			return false;
 		}
-		return super.hurtServer(serverLevel, source, amount);
+		return super.hurt(source, amount);
 	}
 
 	@Override
@@ -109,10 +108,10 @@ public class AssassinEndermanEntity extends EnderMan {
 		cloud.setRadiusPerTick(-CLOUD_RADIUS / CLOUD_DURATION);
 		cloud.setDuration(CLOUD_DURATION);
 		cloud.setWaitTime(5);
-		cloud.addEffect(new MobEffectInstance(MobEffects.INSTANT_DAMAGE, 1, 0));
-		cloud.addEffect(new MobEffectInstance(MobEffects.NAUSEA, CLOUD_NAUSEA_DURATION, 0));
+		cloud.addEffect(new MobEffectInstance(MobEffects.HARM, 1, 0));
+		cloud.addEffect(new MobEffectInstance(MobEffects.CONFUSION, CLOUD_NAUSEA_DURATION, 0));
 		cloud.setOwner(this);
-		cloud.setCustomParticle(ParticleTypes.WITCH);
+		cloud.setParticle(ParticleTypes.WITCH);
 
 		this.level().addFreshEntity(cloud);
 	}

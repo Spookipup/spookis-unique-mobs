@@ -30,13 +30,12 @@ public class WitherCreeperEntity extends Creeper {
 
 	public static AttributeSupplier.Builder createAttributes() {
 		return Creeper.createAttributes()
-			.add(Attributes.MOVEMENT_SPEED, 0.2)
-			.add(Attributes.SCALE, 1.1);
+			.add(Attributes.MOVEMENT_SPEED, 0.2);
 	}
 
 	@Override
 	public boolean canBeAffected(MobEffectInstance effect) {
-		if (effect.is(MobEffects.WITHER)) return false;
+		if (effect.getEffect() == MobEffects.WITHER) return false;
 		return super.canBeAffected(effect);
 	}
 
@@ -87,7 +86,7 @@ public class WitherCreeperEntity extends Creeper {
 		cloud.setWaitTime(5);
 		cloud.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, 0));
 		cloud.setOwner(this);
-		cloud.setCustomParticle(ParticleTypes.SMOKE);
+		cloud.setParticle(ParticleTypes.SMOKE);
 
 		this.level().addFreshEntity(cloud);
 	}

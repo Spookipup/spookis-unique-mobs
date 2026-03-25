@@ -11,11 +11,11 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.ValueOutput;
+import net.minecraft.nbt.CompoundTag;
 import spookipup.uniquemobs.entity.ai.MeleeWhenCloseGoal;
 import spookipup.uniquemobs.entity.ai.ShootGoal;
 import spookipup.uniquemobs.entity.projectile.WebProjectileEntity;
@@ -46,9 +46,9 @@ public class WebSpinnerSpiderEntity extends Spider {
 	protected void registerGoals() {
 		super.registerGoals();
 
-		this.goalSelector.removeAllGoals(goal ->
-			goal instanceof LeapAtTargetGoal ||
-			goal instanceof MeleeAttackGoal
+		this.goalSelector.getAvailableGoals().removeIf(w ->
+			w.getGoal() instanceof LeapAtTargetGoal ||
+			w.getGoal() instanceof MeleeAttackGoal
 		);
 
 		this.goalSelector.addGoal(3, new WebHuntGoal(this));
@@ -63,7 +63,7 @@ public class WebSpinnerSpiderEntity extends Spider {
 		placedWebs.add(new TemporaryWeb(pos, WEB_REVERT_TICKS));
 		// cap the total webs - remove oldest if over limit
 		while (placedWebs.size() > MAX_WEBS) {
-			TemporaryWeb oldest = placedWebs.removeFirst();
+			TemporaryWeb oldest = placedWebs.remove(0);
 			if (this.level().getBlockState(oldest.pos).is(Blocks.COBWEB)) {
 				this.level().setBlockAndUpdate(oldest.pos, Blocks.AIR.defaultBlockState());
 			}
@@ -144,7 +144,7 @@ public class WebSpinnerSpiderEntity extends Spider {
 	}
 
 	@Override
-	public void addAdditionalSaveData(ValueOutput output) {
+	public void addAdditionalSaveData(CompoundTag output) {
 		revertAllWebs();
 		super.addAdditionalSaveData(output);
 	}

@@ -2,7 +2,6 @@ package spookipup.uniquemobs.entity.variant.creeper;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -41,18 +40,18 @@ public class LightningCreeperEntity extends Creeper {
 	}
 
 	private void summonLightning(ServerLevel serverLevel) {
-		LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel, EntitySpawnReason.TRIGGERED);
+		LightningBolt bolt = EntityType.LIGHTNING_BOLT.create(serverLevel);
 		if (bolt != null) {
-			bolt.snapTo(this.getX(), this.getY(), this.getZ());
+			bolt.moveTo(this.getX(), this.getY(), this.getZ());
 			serverLevel.addFreshEntity(bolt);
 		}
 
 		// powered version gets a second bolt nearby for extra chaos
 		if (this.isPowered()) {
-			LightningBolt bolt2 = EntityType.LIGHTNING_BOLT.create(serverLevel, EntitySpawnReason.TRIGGERED);
+			LightningBolt bolt2 = EntityType.LIGHTNING_BOLT.create(serverLevel);
 			if (bolt2 != null) {
 				double angle = this.random.nextDouble() * Math.PI * 2;
-				bolt2.snapTo(this.getX() + Math.cos(angle) * 3, this.getY(), this.getZ() + Math.sin(angle) * 3);
+				bolt2.moveTo(this.getX() + Math.cos(angle) * 3, this.getY(), this.getZ() + Math.sin(angle) * 3);
 				serverLevel.addFreshEntity(bolt2);
 			}
 		}

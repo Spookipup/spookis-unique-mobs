@@ -10,8 +10,8 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.zombie.Zombie;
-import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,11 +36,11 @@ public class FrozenZombieEntity extends Zombie {
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel serverLevel, Entity target) {
-		boolean hit = super.doHurtTarget(serverLevel, target);
+	public boolean doHurtTarget(Entity target) {
+		boolean hit = super.doHurtTarget(target);
 
 		if (hit && target instanceof LivingEntity livingTarget) {
-			livingTarget.addEffect(new MobEffectInstance(MobEffects.SLOWNESS, SLOWNESS_DURATION, 1));
+			livingTarget.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, SLOWNESS_DURATION, 1));
 			int newFreeze = Math.min(livingTarget.getTicksFrozen() + FREEZE_TICKS_ON_HIT,
 				livingTarget.getTicksRequiredToFreeze() + 40);
 			livingTarget.setTicksFrozen(newFreeze);
@@ -58,7 +58,7 @@ public class FrozenZombieEntity extends Zombie {
 			if (this.frostWalkerCooldown > 0) {
 				this.frostWalkerCooldown--;
 			} else if (this.onGround()
-				&& serverLevel.getGameRules().get(GameRules.MOB_GRIEFING)) {
+				&& serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
 				freezeNearbyWater();
 				this.frostWalkerCooldown = 3;
 			}

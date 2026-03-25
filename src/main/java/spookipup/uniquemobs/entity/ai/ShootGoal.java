@@ -8,7 +8,6 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -290,8 +289,8 @@ public class ShootGoal extends Goal {
 			this.mob.playSound(factory.sound(), factory.volume(), pitch);
 		}
 
-		Projectile.spawnProjectileUsingShoot(projectile, serverLevel, ItemStack.EMPTY,
-			dx, dy, dz, factory.speed(), inaccuracy);
+		projectile.shoot(dx, dy, dz, factory.speed(), inaccuracy);
+		serverLevel.addFreshEntity(projectile);
 
 		if (this.afterShot != null) {
 			this.afterShot.run();
@@ -300,7 +299,7 @@ public class ShootGoal extends Goal {
 
 	private ProjectileFactory pickFactory() {
 		if (this.factories.size() == 1) {
-			return this.factories.getFirst();
+			return this.factories.get(0);
 		}
 
 		int roll = this.mob.getRandom().nextInt(this.totalWeight);
@@ -308,6 +307,6 @@ public class ShootGoal extends Goal {
 			roll -= factory.weight();
 			if (roll < 0) return factory;
 		}
-		return this.factories.getLast();
+		return this.factories.get(this.factories.size() - 1);
 	}
 }

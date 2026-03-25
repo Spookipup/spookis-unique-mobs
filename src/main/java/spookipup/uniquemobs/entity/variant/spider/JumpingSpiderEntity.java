@@ -4,14 +4,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.entity.EntitySpawnReason;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,18 +28,16 @@ public class JumpingSpiderEntity extends Spider {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Spider.createAttributes()
 			.add(Attributes.MAX_HEALTH, 10.0)
-			.add(Attributes.MOVEMENT_SPEED, 0.35)
-			.add(Attributes.SCALE, 0.6)
-			.add(Attributes.SAFE_FALL_DISTANCE, 100.0);
+			.add(Attributes.MOVEMENT_SPEED, 0.35);
 	}
 
 	@Override
 	protected void registerGoals() {
 		super.registerGoals();
 
-		this.goalSelector.removeAllGoals(goal ->
-			goal instanceof LeapAtTargetGoal ||
-			goal instanceof MeleeAttackGoal
+		this.goalSelector.getAvailableGoals().removeIf(w ->
+			w.getGoal() instanceof LeapAtTargetGoal ||
+			w.getGoal() instanceof MeleeAttackGoal
 		);
 
 		// escape leap when target is right on top of us
@@ -50,7 +48,7 @@ public class JumpingSpiderEntity extends Spider {
 	}
 
 	public static boolean checkJumpingSpiderSpawnRules(EntityType<? extends Monster> type,
-		ServerLevelAccessor level, EntitySpawnReason reason, BlockPos pos, RandomSource random) {
+		ServerLevelAccessor level, MobSpawnType reason, BlockPos pos, RandomSource random) {
 		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
 
 		BlockState below = level.getBlockState(pos.below());

@@ -1,14 +1,13 @@
 package spookipup.uniquemobs.entity.variant.zombie;
 
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 
@@ -34,8 +33,8 @@ public class EnderZombieEntity extends Zombie {
 	}
 
 	@Override
-	public boolean hurtServer(ServerLevel serverLevel, DamageSource source, float amount) {
-		boolean hurt = super.hurtServer(serverLevel, source, amount);
+	public boolean hurt(DamageSource source, float amount) {
+		boolean hurt = super.hurt(source, amount);
 		if (hurt && this.isAlive()) {
 			teleportRandomly(10);
 		}
@@ -59,11 +58,10 @@ public class EnderZombieEntity extends Zombie {
 	public void aiStep() {
 		if (!this.level().isClientSide()) {
 			if (this.isInWaterOrRain()) {
-				this.hurtServer((ServerLevel) this.level(),
-					this.damageSources().generic(), 1.0F);
+				this.hurt(this.damageSources().generic(), 1.0F);
 			}
 
-			if (this.level().isBrightOutside() && this.level().canSeeSky(this.blockPosition())
+			if (this.level().isDay() && this.level().canSeeSky(this.blockPosition())
 					&& this.random.nextInt(60) == 0) {
 				teleportRandomly(16);
 			}

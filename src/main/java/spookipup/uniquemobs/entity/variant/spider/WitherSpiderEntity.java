@@ -2,16 +2,14 @@ package spookipup.uniquemobs.entity.variant.spider;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.level.Level;
 
@@ -27,19 +25,18 @@ public class WitherSpiderEntity extends Spider {
 	public static AttributeSupplier.Builder createAttributes() {
 		return Spider.createAttributes()
 			.add(Attributes.MAX_HEALTH, 20.0)
-			.add(Attributes.ATTACK_DAMAGE, 3.0)
-			.add(Attributes.SCALE, 1.1);
+			.add(Attributes.ATTACK_DAMAGE, 3.0);
 	}
 
 	@Override
 	public boolean canBeAffected(MobEffectInstance effect) {
-		if (effect.is(MobEffects.WITHER)) return false;
+		if (effect.getEffect() == MobEffects.WITHER) return false;
 		return super.canBeAffected(effect);
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel serverLevel, Entity target) {
-		boolean hit = super.doHurtTarget(serverLevel, target);
+	public boolean doHurtTarget(Entity target) {
+		boolean hit = super.doHurtTarget(target);
 
 		if (hit && target instanceof LivingEntity livingTarget) {
 			livingTarget.addEffect(new MobEffectInstance(
@@ -55,7 +52,7 @@ public class WitherSpiderEntity extends Spider {
 		if (!this.level().isClientSide() && this.level() instanceof ServerLevel serverLevel) {
 			int count = 1 + this.random.nextInt(2);
 			for (int i = 0; i < count; i++) {
-				Spider baby = EntityType.CAVE_SPIDER.create(serverLevel, EntitySpawnReason.MOB_SUMMONED);
+				Spider baby = EntityType.CAVE_SPIDER.create(serverLevel);
 				if (baby == null) continue;
 				double offsetX = (this.random.nextDouble() - 0.5) * 1.5;
 				double offsetZ = (this.random.nextDouble() - 0.5) * 1.5;

@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 
@@ -37,8 +37,8 @@ public class PlagueZombieEntity extends Zombie {
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel serverLevel, Entity target) {
-		boolean hit = super.doHurtTarget(serverLevel, target);
+	public boolean doHurtTarget(Entity target) {
+		boolean hit = super.doHurtTarget(target);
 		if (hit && target instanceof LivingEntity living) {
 			living.addEffect(new MobEffectInstance(MobEffects.HUNGER, 100, 1));
 			living.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 80, 0));
@@ -93,8 +93,8 @@ public class PlagueZombieEntity extends Zombie {
 			List<Zombie> zombies = this.level().getEntitiesOfClass(Zombie.class, buffBox,
 				z -> z != this && z.isAlive());
 			for (Zombie zombie : zombies) {
-				zombie.addEffect(new MobEffectInstance(MobEffects.STRENGTH, 200, 0));
-				zombie.addEffect(new MobEffectInstance(MobEffects.SPEED, 200, 0));
+				zombie.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 0));
+				zombie.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 0));
 			}
 
 			if (this.level() instanceof ServerLevel sl) {

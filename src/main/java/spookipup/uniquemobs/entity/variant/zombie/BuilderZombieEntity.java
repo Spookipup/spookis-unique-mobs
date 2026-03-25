@@ -13,7 +13,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.monster.zombie.Zombie;
+import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 
@@ -46,7 +46,6 @@ public class BuilderZombieEntity extends Zombie {
 			.add(Attributes.MAX_HEALTH, 30.0)
 			.add(Attributes.MOVEMENT_SPEED, 0.2)
 			.add(Attributes.KNOCKBACK_RESISTANCE, 0.4)
-			.add(Attributes.SCALE, 1.2)
 			.add(Attributes.ATTACK_DAMAGE, 5.0);
 	}
 
@@ -123,7 +122,7 @@ public class BuilderZombieEntity extends Zombie {
 
 		if (this.level().isClientSide() && this.isAlive() && this.random.nextInt(8) == 0) {
 			this.level().addParticle(
-				ParticleTypes.DUST_PLUME,
+				ParticleTypes.CLOUD,
 				this.getRandomX(0.5), this.getRandomY(), this.getRandomZ(0.5),
 				0.0, 0.02, 0.0
 			);
@@ -159,7 +158,7 @@ public class BuilderZombieEntity extends Zombie {
 		@Override
 		public boolean canUse() {
 			if (this.zombie.level() instanceof ServerLevel sl
-				&& !sl.getGameRules().get(GameRules.MOB_GRIEFING)) return false;
+				&& !sl.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) return false;
 			return this.zombie.getTarget() != null && this.zombie.getTarget().isAlive();
 		}
 
@@ -311,7 +310,7 @@ public class BuilderZombieEntity extends Zombie {
 		@Override
 		public boolean canUse() {
 			if (this.zombie.level() instanceof ServerLevel sl
-				&& !sl.getGameRules().get(GameRules.MOB_GRIEFING)) return false;
+				&& !sl.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) return false;
 			return this.zombie.getTarget() != null && this.zombie.getTarget().isAlive();
 		}
 

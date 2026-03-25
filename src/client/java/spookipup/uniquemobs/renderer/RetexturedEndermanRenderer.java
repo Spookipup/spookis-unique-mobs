@@ -3,14 +3,14 @@ package spookipup.uniquemobs.renderer;
 import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.layers.EnderEyesLayer;
-import net.minecraft.client.renderer.entity.state.EndermanRenderState;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.EnderMan;
 
 public class RetexturedEndermanRenderer extends EndermanRenderer {
 
-	private final Identifier texture;
+	private final ResourceLocation texture;
 
-	public RetexturedEndermanRenderer(EntityRendererProvider.Context context, Identifier texture, Identifier eyesTexture) {
+	public RetexturedEndermanRenderer(EntityRendererProvider.Context context, ResourceLocation texture, ResourceLocation eyesTexture) {
 		super(context);
 		this.texture = texture;
 
@@ -21,7 +21,7 @@ public class RetexturedEndermanRenderer extends EndermanRenderer {
 	}
 
 	@Override
-	public Identifier getTextureLocation(EndermanRenderState state) {
+	public ResourceLocation getTextureLocation(EnderMan entity) {
 		return this.texture;
 	}
 }

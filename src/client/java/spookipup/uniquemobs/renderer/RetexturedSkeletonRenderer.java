@@ -2,14 +2,14 @@ package spookipup.uniquemobs.renderer;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.SkeletonRenderer;
-import net.minecraft.client.renderer.entity.state.SkeletonRenderState;
-import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.AbstractSkeleton;
 
 public class RetexturedSkeletonRenderer extends SkeletonRenderer {
 
-	private final Identifier texture;
+	private final ResourceLocation texture;
 
-	public RetexturedSkeletonRenderer(EntityRendererProvider.Context context, Identifier texture, Identifier eyesTexture) {
+	public RetexturedSkeletonRenderer(EntityRendererProvider.Context context, ResourceLocation texture, ResourceLocation eyesTexture) {
 		super(context);
 		this.texture = texture;
 
@@ -19,7 +19,7 @@ public class RetexturedSkeletonRenderer extends SkeletonRenderer {
 	}
 
 	@Override
-	public Identifier getTextureLocation(SkeletonRenderState state) {
+	public ResourceLocation getTextureLocation(AbstractSkeleton entity) {
 		return this.texture;
 	}
 }

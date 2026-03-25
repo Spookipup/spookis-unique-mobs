@@ -12,14 +12,14 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.WallClimberNavigation;
-import net.minecraft.world.entity.monster.skeleton.Skeleton;
-import net.minecraft.world.entity.projectile.arrow.AbstractArrow;
-import net.minecraft.world.entity.projectile.arrow.Arrow;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import spookipup.uniquemobs.entity.ai.ShootGoal;
 import spookipup.uniquemobs.entity.ai.VantagePointGoal;
 
@@ -32,7 +32,7 @@ public class PoisonSkeletonEntity extends Skeleton {
 	public PoisonSkeletonEntity(EntityType<? extends Skeleton> entityType, Level level) {
 		super(entityType, level);
 		// treats leaves as walkable so it paths through tree canopies
-		this.setPathfindingMalus(PathType.LEAVES, 0.0F);
+		this.setPathfindingMalus(BlockPathTypes.LEAVES, 0.0F);
 	}
 
 	// uses spider-style wall climbing navigation so it actually plans paths up trees
@@ -51,9 +51,9 @@ public class PoisonSkeletonEntity extends Skeleton {
 	protected void registerGoals() {
 		super.registerGoals();
 
-		this.goalSelector.removeAllGoals(goal ->
-			goal instanceof RangedBowAttackGoal ||
-			goal instanceof MeleeAttackGoal
+		this.goalSelector.getAvailableGoals().removeIf(w ->
+			w.getGoal() instanceof RangedBowAttackGoal ||
+			w.getGoal() instanceof MeleeAttackGoal
 		);
 
 		// find elevated LOS position -> perch and shoot -> flee if approached -> repeat
@@ -80,16 +80,12 @@ public class PoisonSkeletonEntity extends Skeleton {
 
 	// goes through getArrow() - arrows built with ItemStack.EMPTY lose their effects on sync
 	public Arrow createPoisonArrow() {
-		return (Arrow) this.getArrow(new ItemStack(Items.ARROW), 1.0F, new ItemStack(Items.BOW));
+		return (Arrow) this.getArrow(new ItemStack(Items.ARROW), 1.0F);
 	}
 
 	@Override
-	public void reassessWeaponGoal() {
-	}
-
-	@Override
-	protected AbstractArrow getArrow(ItemStack arrowStack, float velocity, ItemStack bowStack) {
-		AbstractArrow arrow = super.getArrow(arrowStack, velocity, bowStack);
+	protected AbstractArrow getArrow(ItemStack arrowStack, float velocity) {
+		AbstractArrow arrow = super.getArrow(arrowStack, velocity);
 		if (arrow instanceof Arrow tipped) {
 			tipped.addEffect(new MobEffectInstance(MobEffects.POISON, POISON_DURATION, 0));
 		}

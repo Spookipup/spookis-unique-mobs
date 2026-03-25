@@ -66,11 +66,11 @@ public class ToxicCreeperEntity extends Creeper {
 		cloud.setDuration(CLOUD_LINGER_DURATION);
 		cloud.setWaitTime(5);
 		cloud.addEffect(new MobEffectInstance(MobEffects.POISON, CLOUD_POISON_DURATION, 1));
-		cloud.addEffect(new MobEffectInstance(MobEffects.NAUSEA, CLOUD_NAUSEA_DURATION, 0));
+		cloud.addEffect(new MobEffectInstance(MobEffects.CONFUSION, CLOUD_NAUSEA_DURATION, 0));
 		cloud.setOwner(this);
-		cloud.setCustomParticle(ParticleTypes.ITEM_SLIME);
+		cloud.setParticle(ParticleTypes.ITEM_SLIME);
 
-		this.playSound(SoundEvents.GENERIC_EXPLODE.value(), 1.5F, 0.8F);
+		this.playSound(SoundEvents.GENERIC_EXPLODE, 1.5F, 0.8F);
 		this.level().addFreshEntity(cloud);
 	}
 }

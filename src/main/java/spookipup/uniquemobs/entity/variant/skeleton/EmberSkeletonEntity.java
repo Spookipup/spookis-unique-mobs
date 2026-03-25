@@ -9,10 +9,8 @@ import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
-import net.minecraft.world.entity.monster.skeleton.Skeleton;
-import net.minecraft.world.entity.projectile.arrow.Arrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.entity.monster.Skeleton;
+import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.level.Level;
 import spookipup.uniquemobs.entity.ai.ShootGoal;
 import spookipup.uniquemobs.entity.ai.StrafeAndRetreatGoal;
@@ -42,9 +40,9 @@ public class EmberSkeletonEntity extends Skeleton {
 	protected void registerGoals() {
 		super.registerGoals();
 
-		this.goalSelector.removeAllGoals(goal ->
-			goal instanceof RangedBowAttackGoal ||
-			goal instanceof MeleeAttackGoal
+		this.goalSelector.getAvailableGoals().removeIf(w ->
+			w.getGoal() instanceof RangedBowAttackGoal ||
+			w.getGoal() instanceof MeleeAttackGoal
 		);
 
 		// nether turf war - picks fights with piglins and hoglins
@@ -55,9 +53,9 @@ public class EmberSkeletonEntity extends Skeleton {
 
 		this.goalSelector.addGoal(3, new ShootGoal(this, 25, 45, 18.0F, 3, true, false,
 			ShootGoal.simple((level, shooter) -> {
-				Arrow arrow = new Arrow(level, shooter, ItemStack.EMPTY, new ItemStack(Items.BOW));
+				Arrow arrow = new Arrow(level, shooter);
 				arrow.setCritArrow(true);
-				arrow.igniteForSeconds(100);
+				arrow.setSecondsOnFire(100);
 				return arrow;
 			}, 1.8F, 4.0F)
 		));

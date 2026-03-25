@@ -11,8 +11,8 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
-import net.minecraft.world.entity.monster.zombie.Zombie;
-import net.minecraft.world.level.gamerules.GameRules;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseFireBlock;
 
@@ -50,11 +50,11 @@ public class InfernalZombieEntity extends Zombie {
 	}
 
 	@Override
-	public boolean doHurtTarget(ServerLevel serverLevel, Entity target) {
-		boolean hit = super.doHurtTarget(serverLevel, target);
+	public boolean doHurtTarget(Entity target) {
+		boolean hit = super.doHurtTarget(target);
 
 		if (hit && target instanceof LivingEntity) {
-			target.igniteForSeconds(FIRE_DURATION_SECONDS);
+			target.setSecondsOnFire(FIRE_DURATION_SECONDS);
 		}
 
 		return hit;
@@ -68,7 +68,7 @@ public class InfernalZombieEntity extends Zombie {
 			if (this.fireTrailCooldown > 0) {
 				this.fireTrailCooldown--;
 			} else if (this.onGround() && this.getTarget() != null
-				&& serverLevel.getGameRules().get(GameRules.MOB_GRIEFING)) {
+				&& serverLevel.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) {
 				BlockPos below = this.blockPosition();
 				BlockPos firePos = below.above();
 				if (this.level().getBlockState(firePos).isAir()
