@@ -1,0 +1,12 @@
+{
+	"required": false,
+	"package": "spookipup.uniquemobs.compat.betterdungeons.mixin",
+	"plugin": "spookipup.uniquemobs.compat.betterdungeons.BetterDungeonsMixinPlugin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"BetterDungeonsSpawnerMixin"
+	],
+	"injectors": {
+		"defaultRequire": 0
+	}
+}

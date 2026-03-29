@@ -20,11 +20,15 @@
 	},
 	"mixins": [
 		"unique-mobs.mixins.json",
+		"unique-mobs.compat.betterdungeons.mixins.json",
 		{
 			"config": "unique-mobs.client.mixins.json",
 			"environment": "client"
 		}
 	],
+	"suggests": {
+		"betterdungeons": "*"
+	},
 	"depends": {
 		"fabricloader": ">=0.15.0",
 		"minecraft": "~1.20.1",
