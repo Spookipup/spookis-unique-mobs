@@ -16,6 +16,30 @@ import spookipup.uniquemobs.registry.ModEntities;
 // biome-aware spawner variant selection for structure processor compat
 public class SpawnerVariants {
 
+	// entity-type level replacement for piece-based structures (spider dungeons)
+	// that set spawners directly instead of going through processors
+	public static EntityType<?> tryReplaceType(EntityType<?> vanilla, Holder<Biome> biome, RandomSource random) {
+		if (vanilla != EntityType.ZOMBIE && vanilla != EntityType.SKELETON
+			&& vanilla != EntityType.SPIDER && vanilla != EntityType.CAVE_SPIDER) {
+			return vanilla;
+		}
+
+		boolean themed = isBiomeThemed(biome);
+		ModConfig cfg = ModConfig.get();
+		float chance = themed
+			? (float) cfg.dungeonThemedReplacementChance
+			: (float) cfg.dungeonReplacementChance;
+		if (random.nextFloat() >= chance) return vanilla;
+
+		EntityType<?> variant = pickVariant(vanilla, biome, random);
+		if (variant == vanilla) return vanilla;
+
+		String variantId = EntityType.getKey(variant).getPath();
+		if (!cfg.isMobEnabled(variantId)) return vanilla;
+
+		return variant;
+	}
+
 	public static StructureTemplate.StructureBlockInfo tryReplace(
 		StructureTemplate.StructureBlockInfo info, Holder<Biome> biome, RandomSource random
 	) {
