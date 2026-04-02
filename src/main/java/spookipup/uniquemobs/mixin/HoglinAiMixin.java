@@ -1,6 +1,5 @@
 package spookipup.uniquemobs.mixin;
 
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.memory.NearestVisibleLivingEntities;
@@ -20,7 +19,7 @@ import java.util.Optional;
 public class HoglinAiMixin {
 
 	@Inject(method = "findNearestValidAttackTarget", at = @At("RETURN"), cancellable = true)
-	private static void addFireMobTargets(ServerLevel level, Hoglin hoglin, CallbackInfoReturnable<Optional<? extends LivingEntity>> cir) {
+	private static void addFireMobTargets(Hoglin hoglin, CallbackInfoReturnable<Optional<? extends LivingEntity>> cir) {
 		// don't override if vanilla already found a target (player)
 		if (cir.getReturnValue().isPresent()) return;
 
