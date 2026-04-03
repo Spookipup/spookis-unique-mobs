@@ -12,6 +12,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import spookipup.uniquemobs.config.ModConfig;
+import net.minecraft.world.entity.monster.Ghast;
 import spookipup.uniquemobs.entity.variant.creeper.SculkCreeperEntity;
 import spookipup.uniquemobs.entity.variant.spider.JumpingSpiderEntity;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -68,6 +69,15 @@ public class ModSpawns {
 
 		endMonsterPlacement(ModEntities.ASSASSIN_ENDERMAN);
 		endMonsterPlacement(ModEntities.ENRAGED_ENDERMAN);
+
+		// mother ghast uses NO_RESTRICTIONS like vanilla ghasts
+		SpawnPlacements.register(ModEntities.GREAT_MOTHER_GHAST,
+			SpawnPlacements.Type.NO_RESTRICTIONS,
+			Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+			(entityType, level, spawnReason, pos, random) ->
+				level.getDifficulty() != net.minecraft.world.Difficulty.PEACEFUL
+					&& Mob.checkMobSpawnRules(entityType, level, spawnReason, pos, random));
+		// ragelings don't spawn naturally
 	}
 
 	private static <T extends Monster> void monsterPlacement(EntityType<T> type) {
@@ -177,6 +187,9 @@ public class ModSpawns {
 		spawn("enraged_enderman",    cfg, ModEntities.ENRAGED_ENDERMAN,    10, 1, 1, ModSpawns::overworld);
 		spawn("assassin_enderman",   cfg, ModEntities.ASSASSIN_ENDERMAN,   40, 1, 2, ModSpawns::end);
 		spawn("enraged_enderman",    cfg, ModEntities.ENRAGED_ENDERMAN,    40, 1, 2, ModSpawns::end);
+
+		// ghasts - mother only, ragelings are spawned by the mother
+		spawn("great_mother_ghast",  cfg, ModEntities.GREAT_MOTHER_GHAST,  15, 1, 1, ModSpawns::nether);
 	}
 
 	@FunctionalInterface

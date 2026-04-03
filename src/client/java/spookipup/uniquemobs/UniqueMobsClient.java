@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 import spookipup.uniquemobs.registry.ModEntities;
 import spookipup.uniquemobs.renderer.RetexturedCreeperRenderer;
 import spookipup.uniquemobs.renderer.RetexturedEndermanRenderer;
+import spookipup.uniquemobs.renderer.RetexturedGhastRenderer;
 import spookipup.uniquemobs.renderer.RetexturedSkeletonRenderer;
 import spookipup.uniquemobs.renderer.RetexturedSpiderRenderer;
 import spookipup.uniquemobs.renderer.RetexturedZombieRenderer;
@@ -94,6 +95,15 @@ public class UniqueMobsClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntities.ENRAGED_ENDERMAN,
 			ctx -> new RetexturedEndermanRenderer(ctx, endermanTex("enraged_enderman"), endermanTex("enraged_enderman_eyes")));
 
+		// ghasts
+		EntityRendererRegistry.register(ModEntities.GREAT_MOTHER_GHAST,
+			ctx -> new RetexturedGhastRenderer(ctx,
+				ghastTex("great_mother_ghast"), ghastTex("great_mother_ghast_shooting"), null));
+		EntityRendererRegistry.register(ModEntities.RAGELING,
+			ctx -> new RetexturedGhastRenderer(ctx,
+				ghastTex("rageling"), ghastTex("rageling_attacking"),
+				ghastTex("rageling"), ghastTex("rageling_attacking")).withScale(0.12F));
+
 		// projectiles
 		EntityRendererRegistry.register(ModEntities.WEB_PROJECTILE, ThrownItemRenderer::new);
 		EntityRendererRegistry.register(ModEntities.FREEZE_SNOWBALL, ThrownItemRenderer::new);
@@ -118,5 +128,9 @@ public class UniqueMobsClient implements ClientModInitializer {
 
 	private static ResourceLocation endermanTex(String name) {
 		return new ResourceLocation(ID, "textures/entity/enderman/" + name + ".png");
+	}
+
+	private static ResourceLocation ghastTex(String name) {
+		return new ResourceLocation(ID, "textures/entity/ghast/" + name + ".png");
 	}
 }

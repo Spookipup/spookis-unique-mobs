@@ -61,6 +61,10 @@ public class ModItems {
 	public static final Item ASSASSIN_ENDERMAN_SPAWN_EGG = spawnEgg("assassin_enderman", ModEntities.ASSASSIN_ENDERMAN);
 	public static final Item ENRAGED_ENDERMAN_SPAWN_EGG = spawnEgg("enraged_enderman", ModEntities.ENRAGED_ENDERMAN);
 
+	// ghasts
+	public static final Item GREAT_MOTHER_GHAST_SPAWN_EGG = spawnEgg("great_mother_ghast", ModEntities.GREAT_MOTHER_GHAST);
+	public static final Item RAGELING_SPAWN_EGG = spawnEgg("rageling", ModEntities.RAGELING);
+
 	private static final ResourceLocation TAB_ID = new ResourceLocation(UniqueMobs.MOD_ID, "unique_mobs");
 
 	private static Item spawnEgg(String mobName, EntityType<? extends Mob> entityType) {
