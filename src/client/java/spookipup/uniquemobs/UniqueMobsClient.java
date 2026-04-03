@@ -8,6 +8,7 @@ import net.minecraft.resources.Identifier;
 import spookipup.uniquemobs.registry.ModEntities;
 import spookipup.uniquemobs.renderer.RetexturedCreeperRenderer;
 import spookipup.uniquemobs.renderer.RetexturedEndermanRenderer;
+import spookipup.uniquemobs.renderer.RetexturedGhastRenderer;
 import spookipup.uniquemobs.renderer.RetexturedSkeletonRenderer;
 import spookipup.uniquemobs.renderer.RetexturedSpiderRenderer;
 import spookipup.uniquemobs.renderer.RetexturedZombieRenderer;
@@ -94,6 +95,14 @@ public class UniqueMobsClient implements ClientModInitializer {
 		EntityRenderers.register(ModEntities.ENRAGED_ENDERMAN,
 			ctx -> new RetexturedEndermanRenderer(ctx, endermanTex("enraged_enderman"), endermanTex("enraged_enderman_eyes")));
 
+		// ghasts
+		EntityRenderers.register(ModEntities.GREAT_MOTHER_GHAST,
+			ctx -> new RetexturedGhastRenderer(ctx, ghastTex("great_mother_ghast"), ghastTex("great_mother_ghast_shooting"), null));
+		// fullbright glow that swaps with the face
+		EntityRenderers.register(ModEntities.RAGELING,
+			ctx -> new RetexturedGhastRenderer(ctx, ghastTex("rageling"), ghastTex("rageling_attacking"),
+				ghastTex("rageling"), ghastTex("rageling_attacking")));
+
 		// projectiles
 		EntityRenderers.register(ModEntities.WEB_PROJECTILE, ThrownItemRenderer::new);
 		EntityRenderers.register(ModEntities.FREEZE_SNOWBALL, ThrownItemRenderer::new);
@@ -118,5 +127,9 @@ public class UniqueMobsClient implements ClientModInitializer {
 
 	private static Identifier endermanTex(String name) {
 		return Identifier.fromNamespaceAndPath(ID, "textures/entity/enderman/" + name + ".png");
+	}
+
+	private static Identifier ghastTex(String name) {
+		return Identifier.fromNamespaceAndPath(ID, "textures/entity/ghast/" + name + ".png");
 	}
 }

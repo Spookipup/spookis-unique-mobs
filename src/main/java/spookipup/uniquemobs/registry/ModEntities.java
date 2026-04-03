@@ -22,6 +22,8 @@ import spookipup.uniquemobs.entity.variant.creeper.ToxicCreeperEntity;
 import spookipup.uniquemobs.entity.variant.creeper.WitherCreeperEntity;
 import spookipup.uniquemobs.entity.variant.enderman.AssassinEndermanEntity;
 import spookipup.uniquemobs.entity.variant.enderman.EnragedEndermanEntity;
+import spookipup.uniquemobs.entity.variant.ghast.RagelingEntity;
+import spookipup.uniquemobs.entity.variant.ghast.GreatMotherGhastEntity;
 import spookipup.uniquemobs.entity.variant.skeleton.EmberSkeletonEntity;
 import spookipup.uniquemobs.entity.variant.skeleton.EnderSkeletonEntity;
 import spookipup.uniquemobs.entity.variant.skeleton.MultishotSkeletonEntity;
@@ -295,6 +297,24 @@ public class ModEntities {
 			.build(entityKey("enraged_enderman"))
 	);
 
+	// ghasts
+
+	public static final EntityType<GreatMotherGhastEntity> GREAT_MOTHER_GHAST = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("great_mother_ghast"),
+		EntityType.Builder.of(GreatMotherGhastEntity::new, MobCategory.MONSTER)
+			.sized(4.0F, 4.0F).clientTrackingRange(10).fireImmune()
+			.build(entityKey("great_mother_ghast"))
+	);
+
+	public static final EntityType<RagelingEntity> RAGELING = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("rageling"),
+		EntityType.Builder.of(RagelingEntity::new, MobCategory.MONSTER)
+			.sized(0.8F, 0.8F).clientTrackingRange(10).fireImmune()
+			.build(entityKey("rageling"))
+	);
+
 	// projectiles
 
 	public static final EntityType<PoisonSpitEntity> POISON_SPIT = Registry.register(
@@ -365,6 +385,10 @@ public class ModEntities {
 		// endermen
 		FabricDefaultAttributeRegistry.register(ASSASSIN_ENDERMAN, AssassinEndermanEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(ENRAGED_ENDERMAN, EnragedEndermanEntity.createAttributes());
+
+		// ghasts
+		FabricDefaultAttributeRegistry.register(GREAT_MOTHER_GHAST, GreatMotherGhastEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(RAGELING, RagelingEntity.createAttributes());
 	}
 
 	public static void init() {

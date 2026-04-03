@@ -13,6 +13,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Monster;
 import spookipup.uniquemobs.config.ModConfig;
 import spookipup.uniquemobs.entity.variant.creeper.SculkCreeperEntity;
+import net.minecraft.world.entity.monster.Ghast;
+import spookipup.uniquemobs.entity.variant.ghast.GreatMotherGhastEntity;
 import spookipup.uniquemobs.entity.variant.spider.JumpingSpiderEntity;
 import net.minecraft.world.level.levelgen.Heightmap;
 
@@ -68,6 +70,13 @@ public class ModSpawns {
 
 		endMonsterPlacement(ModEntities.ASSASSIN_ENDERMAN);
 		endMonsterPlacement(ModEntities.ENRAGED_ENDERMAN);
+
+		// great mother ghast - flying nether mob, delegates to vanilla ghast spawn rules
+		SpawnPlacements.register(ModEntities.GREAT_MOTHER_GHAST,
+			SpawnPlacementTypes.NO_RESTRICTIONS,
+			Heightmap.Types.MOTION_BLOCKING,
+			(type, level, spawnReason, pos, random) ->
+				Ghast.checkGhastSpawnRules(null, level, spawnReason, pos, random));
 	}
 
 	private static <T extends Monster> void monsterPlacement(EntityType<T> type) {
@@ -177,6 +186,9 @@ public class ModSpawns {
 		spawn("enraged_enderman",    cfg, ModEntities.ENRAGED_ENDERMAN,    10, 1, 1, ModSpawns::overworld);
 		spawn("assassin_enderman",   cfg, ModEntities.ASSASSIN_ENDERMAN,   40, 1, 2, ModSpawns::end);
 		spawn("enraged_enderman",    cfg, ModEntities.ENRAGED_ENDERMAN,    40, 1, 2, ModSpawns::end);
+
+		// ghasts
+		spawn("great_mother_ghast",  cfg, ModEntities.GREAT_MOTHER_GHAST, 15, 1, 1, ModSpawns::nether);
 	}
 
 	@FunctionalInterface

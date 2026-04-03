@@ -69,5 +69,10 @@
 	"item.unique-mobs.burrowing_creeper_spawn_egg": "Burrowing Creeper Spawn Egg",
 
 	"item.unique-mobs.assassin_enderman_spawn_egg": "Assassin Enderman Spawn Egg",
-	"item.unique-mobs.enraged_enderman_spawn_egg": "Enraged Enderman Spawn Egg"
+	"item.unique-mobs.enraged_enderman_spawn_egg": "Enraged Enderman Spawn Egg",
+
+	"entity.unique-mobs.great_mother_ghast": "Great Mother Ghast",
+	"entity.unique-mobs.rageling": "Rageling",
+	"item.unique-mobs.great_mother_ghast_spawn_egg": "Great Mother Ghast Spawn Egg",
+	"item.unique-mobs.rageling_spawn_egg": "Rageling Spawn Egg"
 }

@@ -99,7 +99,8 @@ public class ModConfig {
 			"multishot_skeleton", "sniper_skeleton", "poison_skeleton", "ember_skeleton", "ender_skeleton",
 			"lightning_creeper", "burrowing_creeper", "toxic_creeper", "frost_creeper",
 			"magma_creeper", "wither_creeper", "ender_creeper", "sculk_creeper",
-			"assassin_enderman", "enraged_enderman"
+			"assassin_enderman", "enraged_enderman",
+			"great_mother_ghast"
 		};
 		for (String id : allMobs) {
 			mobs.putIfAbsent(id, new MobEntry());
