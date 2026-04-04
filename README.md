@@ -77,8 +77,7 @@ The config file is `config/unique-mobs.json`. Right now you can:
 
 ## Planned
 
-With the second batch of mobs done, introducing all the nether mobs. It'll now mostly be me spending time designing future additions that feel even more interesting to fight and stand out from the rest.
-
+With the second batch of mobs done, introducing all the nether mobs, it'll now mostly be me spending time designing future additions that feel even more interesting to fight and stand out from the rest.
 ## Art
 
 The textures right now are mostly simple recolors. If you're a pixel artist and want to contribute proper textures, I'd love the help, please reach out!
