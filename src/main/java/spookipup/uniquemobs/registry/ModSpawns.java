@@ -85,7 +85,7 @@ public class ModSpawns {
 		blazePlacement(ModEntities.STORM_BLAZE);
 		blazePlacement(ModEntities.WITHER_BLAZE);
 		blazePlacement(ModEntities.SOUL_BLAZE);
-		structureBlazePlacement(ModEntities.BRAND_BLAZE);
+		blazePlacement(ModEntities.BRAND_BLAZE);
 
 		// ghasts
 		SpawnPlacements.register(ModEntities.GREAT_MOTHER_GHAST,
@@ -143,13 +143,6 @@ public class ModSpawns {
 			Monster::checkMonsterSpawnRules);
 	}
 
-	private static <T extends Blaze> void structureBlazePlacement(EntityType<T> type) {
-		SpawnPlacements.register(type,
-			SpawnPlacements.Type.NO_RESTRICTIONS,
-			Heightmap.Types.MOTION_BLOCKING,
-			ModSpawns::checkStructureBlazeSpawnRules);
-	}
-
 	@SuppressWarnings("unchecked")
 	private static boolean checkFullGhastSpawnRules(EntityType<? extends Ghast> entityType,
 													ServerLevelAccessor level,
@@ -194,19 +187,6 @@ public class ModSpawns {
 			}
 		}
 		return false;
-	}
-
-	private static boolean checkStructureBlazeSpawnRules(EntityType<? extends Blaze> entityType,
-														 ServerLevelAccessor level,
-														 MobSpawnType spawnReason,
-														 BlockPos pos,
-														 RandomSource random) {
-		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
-		if (!Mob.checkMobSpawnRules(entityType, level, spawnReason, pos, random)) return false;
-		if (!hasLingClearance(level, pos)) return false;
-		if (!hasNearbyFloor(level, pos, 4)) return false;
-		return isNearStructure(level, pos, BuiltinStructures.FORTRESS, 20)
-			|| isNearStructure(level, pos, BuiltinStructures.BASTION_REMNANT, 20);
 	}
 
 	private static boolean isNearStructure(ServerLevelAccessor level, BlockPos pos,

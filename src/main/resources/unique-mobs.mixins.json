@@ -3,9 +3,9 @@
 	"package": "spookipup.uniquemobs.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"AncientCityNaturalSpawnMixin",
+		"AncientCityNaturalPoolMixin",
 		"DungeonSpawnerMixin",
-		"FortressNaturalSpawnMixin",
+		"FortressNaturalPoolMixin",
 		"FortressSpawnerMixin",
 		"HoglinAiMixin",
 		"MineshaftSpawnerMixin",

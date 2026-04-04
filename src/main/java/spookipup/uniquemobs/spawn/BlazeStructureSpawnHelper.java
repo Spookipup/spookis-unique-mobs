@@ -11,7 +11,6 @@ import spookipup.uniquemobs.spawn.ConfigWeightedSelection.WeightedType;
 import java.util.List;
 
 public final class BlazeStructureSpawnHelper {
-
 	private BlazeStructureSpawnHelper() {}
 
 	public static boolean hasEnabledBlazeVariants(ModConfig cfg) {

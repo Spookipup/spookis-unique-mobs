@@ -17,18 +17,21 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import spookipup.uniquemobs.config.ModConfig;
 import spookipup.uniquemobs.registry.ModEntities;
-import spookipup.uniquemobs.spawn.BlazeStructureSpawnHelper;
 import spookipup.uniquemobs.spawn.StructureSpawnPoolHelper;
 
 import java.util.List;
 
 @Mixin(NaturalSpawner.class)
-public class FortressNaturalSpawnMixin {
+public class FortressNaturalPoolMixin {
 
 	@Inject(method = "mobsAt", at = @At("RETURN"), cancellable = true)
-	private static void addCustomFortressBlazes(ServerLevel level, StructureManager structureManager,
-												ChunkGenerator generator, MobCategory category, BlockPos pos,
-												Holder<Biome> biome, CallbackInfoReturnable<WeightedRandomList<MobSpawnSettings.SpawnerData>> cir) {
+	private static void uniqueMobs$addFortressVariants(ServerLevel level,
+													   StructureManager structureManager,
+													   ChunkGenerator generator,
+													   MobCategory category,
+													   BlockPos pos,
+													   Holder<Biome> biome,
+													   CallbackInfoReturnable<WeightedRandomList<MobSpawnSettings.SpawnerData>> cir) {
 		if (category != MobCategory.MONSTER) {
 			return;
 		}
@@ -40,23 +43,32 @@ public class FortressNaturalSpawnMixin {
 		}
 
 		ModConfig cfg = ModConfig.get();
-		if (!BlazeStructureSpawnHelper.hasEnabledBlazeVariants(cfg)) {
+		if (!cfg.isMobEnabled("blast_blaze")
+			&& !cfg.isMobEnabled("storm_blaze")
+			&& !cfg.isMobEnabled("wither_blaze")
+			&& !cfg.isMobEnabled("soul_blaze")
+			&& !cfg.isMobEnabled("brand_blaze")) {
 			return;
 		}
 
 		WeightedRandomList<MobSpawnSettings.SpawnerData> current = cir.getReturnValue();
-		if (inFortress) {
-			current = BlazeStructureSpawnHelper.addFortressBlazeVariants(current);
-		}
-
 		List<MobSpawnSettings.SpawnerData> entries = StructureSpawnPoolHelper.copyEntries(current);
+		int before = entries.size();
+
+		if (inFortress) {
+			StructureSpawnPoolHelper.addAdjustedIfEnabledAndMissing(entries, current, "blast_blaze", ModEntities.BLAST_BLAZE, 1, 2, 3);
+			StructureSpawnPoolHelper.addAdjustedIfEnabledAndMissing(entries, current, "storm_blaze", ModEntities.STORM_BLAZE, 1, 2, 3);
+			StructureSpawnPoolHelper.addAdjustedIfEnabledAndMissing(entries, current, "wither_blaze", ModEntities.WITHER_BLAZE, 1, 2, 2);
+			StructureSpawnPoolHelper.addAdjustedIfEnabledAndMissing(entries, current, "soul_blaze", ModEntities.SOUL_BLAZE, 1, 2, 3);
+			StructureSpawnPoolHelper.addAdjustedIfEnabledAndMissing(entries, current, "brand_blaze", ModEntities.BRAND_BLAZE, 1, 1, 1);
+		}
 
 		if (inBastion) {
 			StructureSpawnPoolHelper.addAdjustedIfEnabledAndMissing(entries, current, "brand_blaze", ModEntities.BRAND_BLAZE, 1, 1, 3);
 		}
 
-		cir.setReturnValue(StructureSpawnPoolHelper.build(entries));
+		if (entries.size() != before) {
+			cir.setReturnValue(StructureSpawnPoolHelper.build(entries));
+		}
 	}
 }
-
-

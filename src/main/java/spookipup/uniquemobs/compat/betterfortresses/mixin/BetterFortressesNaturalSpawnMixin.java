@@ -33,9 +33,13 @@ public class BetterFortressesNaturalSpawnMixin {
 	);
 
 	@Inject(method = "mobsAt", at = @At("RETURN"), cancellable = true)
-	private static void addBetterFortressesBlazes(ServerLevel level, StructureManager structureManager,
-												  ChunkGenerator generator, MobCategory category, BlockPos pos,
-												  Holder<Biome> biome, CallbackInfoReturnable<WeightedRandomList<MobSpawnSettings.SpawnerData>> cir) {
+	private static void addBetterFortressesBlazes(ServerLevel level,
+												  StructureManager structureManager,
+												  ChunkGenerator generator,
+												  MobCategory category,
+												  BlockPos pos,
+												  Holder<Biome> biome,
+												  CallbackInfoReturnable<WeightedRandomList<MobSpawnSettings.SpawnerData>> cir) {
 		if (category != MobCategory.MONSTER) {
 			return;
 		}
