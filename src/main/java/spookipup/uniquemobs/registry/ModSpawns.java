@@ -3,9 +3,6 @@ package spookipup.uniquemobs.registry;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.biome.Biomes;
@@ -21,9 +18,6 @@ import net.minecraft.world.entity.monster.Blaze;
 import spookipup.uniquemobs.config.ModConfig;
 import spookipup.uniquemobs.entity.variant.creeper.SculkCreeperEntity;
 import net.minecraft.world.entity.monster.Ghast;
-import net.minecraft.world.level.levelgen.structure.BuiltinStructures;
-import net.minecraft.world.level.levelgen.structure.Structure;
-import net.minecraft.world.level.levelgen.structure.StructureStart;
 import spookipup.uniquemobs.entity.variant.spider.JumpingSpiderEntity;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -85,7 +79,7 @@ public class ModSpawns {
 		blazePlacement(ModEntities.STORM_BLAZE);
 		blazePlacement(ModEntities.WITHER_BLAZE);
 		blazePlacement(ModEntities.SOUL_BLAZE);
-		structureBlazePlacement(ModEntities.BRAND_BLAZE);
+		blazePlacement(ModEntities.BRAND_BLAZE);
 
 		// ghasts - flying nether mobs, delegate to vanilla ghast spawn rules
 		SpawnPlacements.register(ModEntities.GREAT_MOTHER_GHAST,
@@ -134,13 +128,6 @@ public class ModSpawns {
 			(entityType, level, spawnReason, pos, random) ->
 				Monster.checkMonsterSpawnRules(entityType, level, spawnReason, pos, random)
 					&& (pos.getY() < 0 || random.nextInt(3) == 0));
-	}
-
-	private static <T extends Blaze> void structureBlazePlacement(EntityType<T> type) {
-		SpawnPlacements.register(type,
-			SpawnPlacementTypes.NO_RESTRICTIONS,
-			Heightmap.Types.MOTION_BLOCKING,
-			ModSpawns::checkStructureBlazeSpawnRules);
 	}
 
 	private static <T extends Blaze> void blazePlacement(EntityType<T> type) {
@@ -192,39 +179,6 @@ public class ModSpawns {
 			BlockPos check = pos.below(depth);
 			if (level.getBlockState(check).isCollisionShapeFullBlock(level, check) || !level.getFluidState(check).isEmpty()) {
 				return true;
-			}
-		}
-		return false;
-	}
-
-	private static boolean checkStructureBlazeSpawnRules(EntityType<? extends Blaze> entityType,
-														 ServerLevelAccessor level,
-														 EntitySpawnReason spawnReason,
-														 BlockPos pos,
-														 RandomSource random) {
-		if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
-		if (!Mob.checkMobSpawnRules(entityType, level, spawnReason, pos, random)) return false;
-		if (!hasLingClearance(level, pos)) return false;
-		if (!hasNearbyFloor(level, pos, 4)) return false;
-		return isNearStructure(level, pos, BuiltinStructures.FORTRESS, 20)
-			|| isNearStructure(level, pos, BuiltinStructures.BASTION_REMNANT, 20);
-	}
-
-	private static boolean isNearStructure(ServerLevelAccessor level, BlockPos pos,
-										   ResourceKey<Structure> structureKey,
-										   int radius) {
-		Holder<Structure> holder = level.registryAccess()
-			.lookupOrThrow(Registries.STRUCTURE)
-			.getOrThrow(structureKey);
-		Structure structure = holder.value();
-
-		for (int x = -radius; x <= radius; x += 8) {
-			for (int z = -radius; z <= radius; z += 8) {
-				BlockPos sample = pos.offset(x, 0, z);
-				StructureStart start = level.getLevel().structureManager().getStructureWithPieceAt(sample, structure);
-				if (start != StructureStart.INVALID_START) {
-					return true;
-				}
 			}
 		}
 		return false;
