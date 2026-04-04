@@ -4,11 +4,13 @@
 	"compatibilityLevel": "JAVA_25",
 	"mixins": [
 		"AncientCityNaturalSpawnMixin",
+		"accessor.TrialSpawnerAccessor",
 		"DungeonSpawnerMixin",
 		"FortressNaturalSpawnMixin",
 		"FortressSpawnerMixin",
 		"HoglinAiMixin",
 		"MineshaftSpawnerMixin",
+		"TrialSpawnerPlacementMixin",
 		"PiglinSensorMixin",
 		"BrandMarkDeathMixin",
 		"VariantBlazeParticleMixin"
