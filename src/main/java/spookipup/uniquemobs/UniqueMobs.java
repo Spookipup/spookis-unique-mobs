@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spookipup.uniquemobs.config.ModConfig;
 import spookipup.uniquemobs.registry.ModEntities;
+import spookipup.uniquemobs.registry.ModEffects;
 import spookipup.uniquemobs.registry.ModItems;
 import spookipup.uniquemobs.registry.ModSpawns;
 
@@ -16,6 +17,7 @@ public class UniqueMobs implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModConfig.load();
+		ModEffects.init();
 		ModEntities.init();
 		ModItems.init();
 		ModSpawns.init();

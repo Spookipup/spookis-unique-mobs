@@ -21,6 +21,7 @@ public class AssassinEndermanEntity extends EnderMan {
 	private static final float CLOUD_RADIUS = 3.0F;
 	private static final int CLOUD_DURATION = 60;
 	private static final int CLOUD_NAUSEA_DURATION = 60;
+	private static final double CLOUD_Y_OFFSET = 0.7;
 
 	private int warpTimer;
 	private double prevTickX, prevTickY, prevTickZ;
@@ -104,7 +105,7 @@ public class AssassinEndermanEntity extends EnderMan {
 	}
 
 	private void spawnWarpCloud(double x, double y, double z) {
-		AreaEffectCloud cloud = new AreaEffectCloud(this.level(), x, y, z);
+		AreaEffectCloud cloud = new AreaEffectCloud(this.level(), x, y + CLOUD_Y_OFFSET, z);
 		cloud.setRadius(CLOUD_RADIUS);
 		cloud.setRadiusPerTick(-CLOUD_RADIUS / CLOUD_DURATION);
 		cloud.setDuration(CLOUD_DURATION);

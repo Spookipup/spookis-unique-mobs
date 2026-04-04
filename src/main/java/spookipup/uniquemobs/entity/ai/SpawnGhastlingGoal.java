@@ -9,7 +9,7 @@ import spookipup.uniquemobs.entity.variant.ghast.RagelingEntity;
 import spookipup.uniquemobs.entity.variant.ghast.GreatMotherGhastEntity;
 import spookipup.uniquemobs.registry.ModEntities;
 
-// mother ghast's attack - spawns ragelings and launches them at the target
+// handles the great mother ghast spawn attack
 public class SpawnGhastlingGoal extends Goal {
 
 	private final GreatMotherGhastEntity mother;
@@ -76,13 +76,13 @@ public class SpawnGhastlingGoal extends Goal {
 		rageling.setOwnerUUID(this.mother.getUUID());
 		rageling.snapTo(this.mother.getX(), this.mother.getY(), this.mother.getZ());
 
-		// launch toward the target - scale speed with distance so they actually arrive
+		// scale launch speed with distance
 		double dx = target.getX() - this.mother.getX();
 		double dy = (target.getY() + target.getBbHeight() * 0.5) - this.mother.getY();
 		double dz = target.getZ() - this.mother.getZ();
 		double dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
 		if (dist > 0) {
-			// estimate flight time at base speed, lead the target using observed velocity
+			// estimate flight time at base speed, then lead using observed movement
 			double baseSpeed = 1.5;
 			double flightTicks = dist / baseSpeed;
 			dx += (target.getX() - target.xOld) * flightTicks;
@@ -92,7 +92,7 @@ public class SpawnGhastlingGoal extends Goal {
 			// recalculate after leading
 			double ledDist = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-			// faster launch for farther targets, clamped so they don't go absurd
+			// farther targets get a little more speed
 			double speed = Math.min(4.0, baseSpeed + dist * 0.02);
 			rageling.setDeltaMovement(
 				dx / ledDist * speed,

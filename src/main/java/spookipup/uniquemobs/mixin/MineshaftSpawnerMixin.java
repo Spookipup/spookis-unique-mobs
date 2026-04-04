@@ -23,6 +23,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import spookipup.uniquemobs.config.ModConfig;
 import spookipup.uniquemobs.registry.ModEntities;
+import spookipup.uniquemobs.spawn.ConfigWeightedSelection;
 
 // mineshaft spawner variant swap, same deal as the dungeon one
 @Mixin(MineshaftPieces.MineShaftCorridor.class)
@@ -69,10 +70,12 @@ public class MineshaftSpawnerMixin {
 		if (biome.is(BiomeTags.HAS_DESERT_PYRAMID) || biome.is(BiomeTags.IS_BADLANDS)) return ModEntities.MAGMA_SPIDER;
 		if (biome.is(BiomeTags.IS_JUNGLE)) return ModEntities.SPITTING_SPIDER;
 		if (biome.is(Biomes.SWAMP) || biome.is(Biomes.MANGROVE_SWAMP)) {
-			return random.nextBoolean() ? ModEntities.SPITTING_SPIDER : ModEntities.WEB_SPINNER_SPIDER;
+			return ConfigWeightedSelection.pickEntityType(random, ModEntities.SPITTING_SPIDER,
+				ModEntities.SPITTING_SPIDER, ModEntities.WEB_SPINNER_SPIDER);
 		}
 		if (biome.is(Biomes.LUSH_CAVES) || biome.is(Biomes.DRIPSTONE_CAVES)) return ModEntities.WEB_SPINNER_SPIDER;
 		// web spinners and spitting spiders feel right for mineshafts
-		return random.nextBoolean() ? ModEntities.WEB_SPINNER_SPIDER : ModEntities.SPITTING_SPIDER;
+		return ConfigWeightedSelection.pickEntityType(random, ModEntities.WEB_SPINNER_SPIDER,
+			ModEntities.WEB_SPINNER_SPIDER, ModEntities.SPITTING_SPIDER);
 	}
 }

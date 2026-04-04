@@ -62,9 +62,21 @@ public class ModItems {
 	public static final Item ASSASSIN_ENDERMAN_SPAWN_EGG = spawnEgg("assassin_enderman", ModEntities.ASSASSIN_ENDERMAN);
 	public static final Item ENRAGED_ENDERMAN_SPAWN_EGG = spawnEgg("enraged_enderman", ModEntities.ENRAGED_ENDERMAN);
 
+	// blazes
+	public static final Item BLAST_BLAZE_SPAWN_EGG = spawnEgg("blast_blaze", ModEntities.BLAST_BLAZE);
+	public static final Item STORM_BLAZE_SPAWN_EGG = spawnEgg("storm_blaze", ModEntities.STORM_BLAZE);
+	public static final Item WITHER_BLAZE_SPAWN_EGG = spawnEgg("wither_blaze", ModEntities.WITHER_BLAZE);
+	public static final Item SOUL_BLAZE_SPAWN_EGG = spawnEgg("soul_blaze", ModEntities.SOUL_BLAZE);
+	public static final Item BRAND_BLAZE_SPAWN_EGG = spawnEgg("brand_blaze", ModEntities.BRAND_BLAZE);
+
 	// ghasts
 	public static final Item GREAT_MOTHER_GHAST_SPAWN_EGG = spawnEgg("great_mother_ghast", ModEntities.GREAT_MOTHER_GHAST);
+	public static final Item DELTA_GHAST_SPAWN_EGG = spawnEgg("delta_ghast", ModEntities.DELTA_GHAST);
+	public static final Item WITHER_GHAST_SPAWN_EGG = spawnEgg("wither_ghast", ModEntities.WITHER_GHAST);
 	public static final Item RAGELING_SPAWN_EGG = spawnEgg("rageling", ModEntities.RAGELING);
+	public static final Item SKITTERLING_SPAWN_EGG = spawnEgg("skitterling", ModEntities.SKITTERLING);
+	public static final Item OBSIDLING_SPAWN_EGG = spawnEgg("obsidling", ModEntities.OBSIDLING);
+	public static final Item BLIGHTLING_SPAWN_EGG = spawnEgg("blightling", ModEntities.BLIGHTLING);
 
 	private static final ResourceKey<CreativeModeTab> TAB_KEY = ResourceKey.create(
 		Registries.CREATIVE_MODE_TAB, Identifier.fromNamespaceAndPath(UniqueMobs.MOD_ID, "unique_mobs"));

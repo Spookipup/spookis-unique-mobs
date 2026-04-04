@@ -18,6 +18,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import spookipup.uniquemobs.config.ModConfig;
 import spookipup.uniquemobs.registry.ModEntities;
+import spookipup.uniquemobs.spawn.ConfigWeightedSelection;
 
 // biome-aware dungeon spawner replacement. ThreadLocal because worldgen is multithreaded
 @Mixin(MonsterRoomFeature.class)
@@ -99,36 +100,32 @@ public class DungeonSpawnerMixin {
 	@Unique
 	private static EntityType<?> pickZombie(Holder<Biome> biome, RandomSource random) {
 		// rare ender variant can show up in any biome
-		if (random.nextInt(10) == 0) return ModEntities.ENDER_ZOMBIE;
+		if (random.nextInt(10) == 0 && isEnabled(ModEntities.ENDER_ZOMBIE)) return ModEntities.ENDER_ZOMBIE;
 		if (biome.is(BiomeTags.SPAWNS_SNOW_FOXES)) return ModEntities.FROZEN_ZOMBIE;
 		if (biome.is(BiomeTags.HAS_DESERT_PYRAMID) || biome.is(BiomeTags.IS_BADLANDS)) return ModEntities.INFERNAL_ZOMBIE;
 		if (biome.is(BiomeTags.IS_JUNGLE)) {
-			return random.nextBoolean() ? ModEntities.VENOMOUS_ZOMBIE : ModEntities.PLAGUE_ZOMBIE;
+			return ConfigWeightedSelection.pickEntityType(random, ModEntities.VENOMOUS_ZOMBIE,
+				ModEntities.VENOMOUS_ZOMBIE, ModEntities.PLAGUE_ZOMBIE);
 		}
 		if (isSwamp(biome)) {
-			return random.nextBoolean() ? ModEntities.PLAGUE_ZOMBIE : ModEntities.VENOMOUS_ZOMBIE;
+			return ConfigWeightedSelection.pickEntityType(random, ModEntities.PLAGUE_ZOMBIE,
+				ModEntities.PLAGUE_ZOMBIE, ModEntities.VENOMOUS_ZOMBIE);
 		}
 		if (biome.is(Biomes.LUSH_CAVES) || biome.is(Biomes.DRIPSTONE_CAVES)) {
-			return random.nextBoolean() ? ModEntities.VENOMOUS_ZOMBIE : ModEntities.PLAGUE_ZOMBIE;
+			return ConfigWeightedSelection.pickEntityType(random, ModEntities.VENOMOUS_ZOMBIE,
+				ModEntities.VENOMOUS_ZOMBIE, ModEntities.PLAGUE_ZOMBIE);
 		}
-		return switch (random.nextInt(4)) {
-			case 0 -> ModEntities.SPRINTER_ZOMBIE;
-			case 1 -> ModEntities.ARMORED_ZOMBIE;
-			case 2 -> ModEntities.VENOMOUS_ZOMBIE;
-			default -> ModEntities.PLAGUE_ZOMBIE;
-		};
+		return ConfigWeightedSelection.pickEntityType(random, ModEntities.SPRINTER_ZOMBIE,
+			ModEntities.SPRINTER_ZOMBIE, ModEntities.ARMORED_ZOMBIE, ModEntities.VENOMOUS_ZOMBIE, ModEntities.PLAGUE_ZOMBIE);
 	}
 
 	@Unique
 	private static EntityType<?> pickSkeleton(Holder<Biome> biome, RandomSource random) {
-		if (random.nextInt(10) == 0) return ModEntities.ENDER_SKELETON;
+		if (random.nextInt(10) == 0 && isEnabled(ModEntities.ENDER_SKELETON)) return ModEntities.ENDER_SKELETON;
 		if (biome.is(BiomeTags.HAS_DESERT_PYRAMID) || biome.is(BiomeTags.IS_BADLANDS)) return ModEntities.EMBER_SKELETON;
 		if (biome.is(BiomeTags.IS_JUNGLE) || biome.is(BiomeTags.IS_FOREST) || isSwamp(biome)) return ModEntities.POISON_SKELETON;
-		return switch (random.nextInt(3)) {
-			case 0 -> ModEntities.MULTISHOT_SKELETON;
-			case 1 -> ModEntities.SNIPER_SKELETON;
-			default -> ModEntities.POISON_SKELETON;
-		};
+		return ConfigWeightedSelection.pickEntityType(random, ModEntities.MULTISHOT_SKELETON,
+			ModEntities.MULTISHOT_SKELETON, ModEntities.SNIPER_SKELETON, ModEntities.POISON_SKELETON);
 	}
 
 	// no ender spider variant exists so no rare ender roll here
@@ -137,21 +134,22 @@ public class DungeonSpawnerMixin {
 		if (biome.is(BiomeTags.SPAWNS_SNOW_FOXES)) return ModEntities.ICE_SPIDER;
 		if (biome.is(BiomeTags.HAS_DESERT_PYRAMID) || biome.is(BiomeTags.IS_BADLANDS)) return ModEntities.MAGMA_SPIDER;
 		if (biome.is(BiomeTags.IS_JUNGLE)) {
-			return random.nextBoolean() ? ModEntities.JUMPING_SPIDER : ModEntities.SPITTING_SPIDER;
+			return ConfigWeightedSelection.pickEntityType(random, ModEntities.JUMPING_SPIDER,
+				ModEntities.JUMPING_SPIDER, ModEntities.SPITTING_SPIDER);
 		}
 		if (biome.is(BiomeTags.IS_FOREST)) {
-			return random.nextBoolean() ? ModEntities.JUMPING_SPIDER : ModEntities.WEB_SPINNER_SPIDER;
+			return ConfigWeightedSelection.pickEntityType(random, ModEntities.JUMPING_SPIDER,
+				ModEntities.JUMPING_SPIDER, ModEntities.WEB_SPINNER_SPIDER);
 		}
 		if (isSwamp(biome)) {
-			return random.nextBoolean() ? ModEntities.SPITTING_SPIDER : ModEntities.WEB_SPINNER_SPIDER;
+			return ConfigWeightedSelection.pickEntityType(random, ModEntities.SPITTING_SPIDER,
+				ModEntities.SPITTING_SPIDER, ModEntities.WEB_SPINNER_SPIDER);
 		}
 		if (biome.is(Biomes.LUSH_CAVES) || biome.is(Biomes.DRIPSTONE_CAVES)) {
-			return random.nextBoolean() ? ModEntities.WEB_SPINNER_SPIDER : ModEntities.SPITTING_SPIDER;
+			return ConfigWeightedSelection.pickEntityType(random, ModEntities.WEB_SPINNER_SPIDER,
+				ModEntities.WEB_SPINNER_SPIDER, ModEntities.SPITTING_SPIDER);
 		}
-		return switch (random.nextInt(3)) {
-			case 0 -> ModEntities.SPITTING_SPIDER;
-			case 1 -> ModEntities.WEB_SPINNER_SPIDER;
-			default -> ModEntities.JUMPING_SPIDER;
-		};
+		return ConfigWeightedSelection.pickEntityType(random, ModEntities.SPITTING_SPIDER,
+			ModEntities.SPITTING_SPIDER, ModEntities.WEB_SPINNER_SPIDER, ModEntities.JUMPING_SPIDER);
 	}
 }

@@ -12,7 +12,7 @@ import spookipup.uniquemobs.entity.ai.SpawnGhastlingGoal;
 import java.util.List;
 import java.util.UUID;
 
-// doom-inspired brood mother - spawns ghastlings instead of fireballs
+// brood mother ghast that spawns ragelings instead of fireballs
 public class GreatMotherGhastEntity extends Ghast {
 
 	private static final int MAX_RAGELINGS = 20;
@@ -29,13 +29,12 @@ public class GreatMotherGhastEntity extends Ghast {
 
 	@Override
 	protected void registerGoals() {
-		// don't call super - ghast inner goal classes are private.
-		// rebuild what we want: float + look + our custom spawn attack + targeting
+		// don't call super because the ghast inner goals are private
 		this.goalSelector.addGoal(5, new Ghast.RandomFloatAroundGoal(this));
 		this.goalSelector.addGoal(7, new Ghast.GhastLookGoal(this));
 		this.goalSelector.addGoal(2, new SpawnGhastlingGoal(this, 80, 140, MAX_RAGELINGS));
 
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true, false));
+		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
 
 	public int countLivingRagelings() {

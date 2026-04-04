@@ -10,8 +10,19 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import spookipup.uniquemobs.UniqueMobs;
 import spookipup.uniquemobs.entity.projectile.FreezeSnowballEntity;
+import spookipup.uniquemobs.entity.BlightSporeCloud;
+import spookipup.uniquemobs.entity.SoulFireTrailCloud;
+import spookipup.uniquemobs.entity.StormArcEntity;
+import spookipup.uniquemobs.entity.WitherAshCloud;
+import spookipup.uniquemobs.entity.projectile.BlightSporeEntity;
 import spookipup.uniquemobs.entity.projectile.PoisonSpitEntity;
+import spookipup.uniquemobs.entity.projectile.WitherAshBoltEntity;
 import spookipup.uniquemobs.entity.projectile.WebProjectileEntity;
+import spookipup.uniquemobs.entity.variant.blaze.BlastBlazeEntity;
+import spookipup.uniquemobs.entity.variant.blaze.BrandBlazeEntity;
+import spookipup.uniquemobs.entity.variant.blaze.SoulBlazeEntity;
+import spookipup.uniquemobs.entity.variant.blaze.StormBlazeEntity;
+import spookipup.uniquemobs.entity.variant.blaze.WitherBlazeEntity;
 import spookipup.uniquemobs.entity.variant.creeper.BurrowingCreeperEntity;
 import spookipup.uniquemobs.entity.variant.creeper.EnderCreeperEntity;
 import spookipup.uniquemobs.entity.variant.creeper.FrostCreeperEntity;
@@ -22,8 +33,13 @@ import spookipup.uniquemobs.entity.variant.creeper.ToxicCreeperEntity;
 import spookipup.uniquemobs.entity.variant.creeper.WitherCreeperEntity;
 import spookipup.uniquemobs.entity.variant.enderman.AssassinEndermanEntity;
 import spookipup.uniquemobs.entity.variant.enderman.EnragedEndermanEntity;
+import spookipup.uniquemobs.entity.variant.ghast.BlightlingEntity;
+import spookipup.uniquemobs.entity.variant.ghast.DeltaGhastEntity;
+import spookipup.uniquemobs.entity.variant.ghast.ObsidlingEntity;
 import spookipup.uniquemobs.entity.variant.ghast.RagelingEntity;
 import spookipup.uniquemobs.entity.variant.ghast.GreatMotherGhastEntity;
+import spookipup.uniquemobs.entity.variant.ghast.SkitterlingEntity;
+import spookipup.uniquemobs.entity.variant.ghast.WitherGhastEntity;
 import spookipup.uniquemobs.entity.variant.skeleton.EmberSkeletonEntity;
 import spookipup.uniquemobs.entity.variant.skeleton.EnderSkeletonEntity;
 import spookipup.uniquemobs.entity.variant.skeleton.MultishotSkeletonEntity;
@@ -297,6 +313,48 @@ public class ModEntities {
 			.build(entityKey("enraged_enderman"))
 	);
 
+	// blazes
+
+	public static final EntityType<BlastBlazeEntity> BLAST_BLAZE = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("blast_blaze"),
+		EntityType.Builder.of(BlastBlazeEntity::new, MobCategory.MONSTER)
+			.sized(0.6F, 1.8F).clientTrackingRange(8).fireImmune()
+			.build(entityKey("blast_blaze"))
+	);
+
+	public static final EntityType<StormBlazeEntity> STORM_BLAZE = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("storm_blaze"),
+		EntityType.Builder.of(StormBlazeEntity::new, MobCategory.MONSTER)
+			.sized(0.6F, 1.8F).clientTrackingRange(8).fireImmune()
+			.build(entityKey("storm_blaze"))
+	);
+
+	public static final EntityType<WitherBlazeEntity> WITHER_BLAZE = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("wither_blaze"),
+		EntityType.Builder.of(WitherBlazeEntity::new, MobCategory.MONSTER)
+			.sized(0.6F, 1.8F).clientTrackingRange(8).fireImmune()
+			.build(entityKey("wither_blaze"))
+	);
+
+	public static final EntityType<SoulBlazeEntity> SOUL_BLAZE = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("soul_blaze"),
+		EntityType.Builder.of(SoulBlazeEntity::new, MobCategory.MONSTER)
+			.sized(0.6F, 1.8F).clientTrackingRange(8).fireImmune()
+			.build(entityKey("soul_blaze"))
+	);
+
+	public static final EntityType<BrandBlazeEntity> BRAND_BLAZE = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("brand_blaze"),
+		EntityType.Builder.of(BrandBlazeEntity::new, MobCategory.MONSTER)
+			.sized(0.6F, 1.8F).clientTrackingRange(8).fireImmune()
+			.build(entityKey("brand_blaze"))
+	);
+
 	// ghasts
 
 	public static final EntityType<GreatMotherGhastEntity> GREAT_MOTHER_GHAST = Registry.register(
@@ -307,12 +365,52 @@ public class ModEntities {
 			.build(entityKey("great_mother_ghast"))
 	);
 
+	public static final EntityType<DeltaGhastEntity> DELTA_GHAST = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("delta_ghast"),
+		EntityType.Builder.of(DeltaGhastEntity::new, MobCategory.MONSTER)
+			.sized(3.5F, 3.5F).clientTrackingRange(10).fireImmune()
+			.build(entityKey("delta_ghast"))
+	);
+
+	public static final EntityType<WitherGhastEntity> WITHER_GHAST = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("wither_ghast"),
+		EntityType.Builder.of(WitherGhastEntity::new, MobCategory.MONSTER)
+			.sized(3.5F, 3.5F).clientTrackingRange(10).fireImmune()
+			.build(entityKey("wither_ghast"))
+	);
+
 	public static final EntityType<RagelingEntity> RAGELING = Registry.register(
 		BuiltInRegistries.ENTITY_TYPE,
 		entityKey("rageling"),
 		EntityType.Builder.of(RagelingEntity::new, MobCategory.MONSTER)
 			.sized(0.8F, 0.8F).clientTrackingRange(10).fireImmune()
 			.build(entityKey("rageling"))
+	);
+
+	public static final EntityType<SkitterlingEntity> SKITTERLING = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("skitterling"),
+		EntityType.Builder.of(SkitterlingEntity::new, MobCategory.MONSTER)
+			.sized(1.0F, 1.0F).clientTrackingRange(10).fireImmune()
+			.build(entityKey("skitterling"))
+	);
+
+	public static final EntityType<ObsidlingEntity> OBSIDLING = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("obsidling"),
+		EntityType.Builder.of(ObsidlingEntity::new, MobCategory.MONSTER)
+			.sized(1.0F, 1.0F).clientTrackingRange(10).fireImmune()
+			.build(entityKey("obsidling"))
+	);
+
+	public static final EntityType<BlightlingEntity> BLIGHTLING = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("blightling"),
+		EntityType.Builder.of(BlightlingEntity::new, MobCategory.MONSTER)
+			.sized(1.0F, 1.0F).clientTrackingRange(10).fireImmune()
+			.build(entityKey("blightling"))
 	);
 
 	// projectiles
@@ -339,6 +437,54 @@ public class ModEntities {
 		EntityType.Builder.<WebProjectileEntity>of(WebProjectileEntity::new, MobCategory.MISC)
 			.sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
 			.build(entityKey("web_projectile"))
+	);
+
+	public static final EntityType<BlightSporeEntity> BLIGHT_SPORE = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("blight_spore"),
+		EntityType.Builder.<BlightSporeEntity>of(BlightSporeEntity::new, MobCategory.MISC)
+			.sized(0.3F, 0.3F).clientTrackingRange(6).updateInterval(10)
+			.build(entityKey("blight_spore"))
+	);
+
+	public static final EntityType<WitherAshBoltEntity> WITHER_ASH_BOLT = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("wither_ash_bolt"),
+		EntityType.Builder.<WitherAshBoltEntity>of(WitherAshBoltEntity::new, MobCategory.MISC)
+			.sized(0.25F, 0.25F).clientTrackingRange(6).updateInterval(10)
+			.build(entityKey("wither_ash_bolt"))
+	);
+
+	public static final EntityType<StormArcEntity> STORM_ARC = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("storm_arc"),
+		EntityType.Builder.<StormArcEntity>of(StormArcEntity::new, MobCategory.MISC)
+			.sized(0.2F, 0.2F).clientTrackingRange(16).updateInterval(1)
+			.build(entityKey("storm_arc"))
+	);
+
+	public static final EntityType<WitherAshCloud> WITHER_ASH_CLOUD = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("wither_ash_cloud"),
+		EntityType.Builder.<WitherAshCloud>of(WitherAshCloud::new, MobCategory.MISC)
+			.sized(3.0F, 1.5F).clientTrackingRange(8).updateInterval(Integer.MAX_VALUE)
+			.build(entityKey("wither_ash_cloud"))
+	);
+
+	public static final EntityType<BlightSporeCloud> BLIGHT_SPORE_CLOUD = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("blight_spore_cloud"),
+		EntityType.Builder.<BlightSporeCloud>of(BlightSporeCloud::new, MobCategory.MISC)
+			.sized(3.0F, 2.4F).clientTrackingRange(8).updateInterval(Integer.MAX_VALUE)
+			.build(entityKey("blight_spore_cloud"))
+	);
+
+	public static final EntityType<SoulFireTrailCloud> SOUL_FIRE_TRAIL_CLOUD = Registry.register(
+		BuiltInRegistries.ENTITY_TYPE,
+		entityKey("soul_fire_trail_cloud"),
+		EntityType.Builder.<SoulFireTrailCloud>of(SoulFireTrailCloud::new, MobCategory.MISC)
+			.sized(2.7F, 1.2F).clientTrackingRange(8).updateInterval(Integer.MAX_VALUE)
+			.build(entityKey("soul_fire_trail_cloud"))
 	);
 
 	private static ResourceKey<EntityType<?>> entityKey(String name) {
@@ -386,9 +532,21 @@ public class ModEntities {
 		FabricDefaultAttributeRegistry.register(ASSASSIN_ENDERMAN, AssassinEndermanEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(ENRAGED_ENDERMAN, EnragedEndermanEntity.createAttributes());
 
+		// blazes
+		FabricDefaultAttributeRegistry.register(BLAST_BLAZE, BlastBlazeEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(STORM_BLAZE, StormBlazeEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(WITHER_BLAZE, WitherBlazeEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(SOUL_BLAZE, SoulBlazeEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(BRAND_BLAZE, BrandBlazeEntity.createAttributes());
+
 		// ghasts
 		FabricDefaultAttributeRegistry.register(GREAT_MOTHER_GHAST, GreatMotherGhastEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(DELTA_GHAST, DeltaGhastEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(WITHER_GHAST, WitherGhastEntity.createAttributes());
 		FabricDefaultAttributeRegistry.register(RAGELING, RagelingEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(SKITTERLING, SkitterlingEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(OBSIDLING, ObsidlingEntity.createAttributes());
+		FabricDefaultAttributeRegistry.register(BLIGHTLING, BlightlingEntity.createAttributes());
 	}
 
 	public static void init() {

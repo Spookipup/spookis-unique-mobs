@@ -44,6 +44,7 @@ public class RagelingEntity extends Ghast {
 	private int fuseTimer = -1;
 	private int lifetime;
 	private int contactCooldown;
+	private boolean hostilityActivated;
 
 	public RagelingEntity(EntityType<? extends Ghast> entityType, Level level) {
 		super(entityType, level);
@@ -66,8 +67,9 @@ public class RagelingEntity extends Ghast {
 
 	@Override
 	protected void registerGoals() {
-		// skip super entirely - ghast inner classes are private, and we don't want fireballs or idle floating
+		// skip super entirely - ghast inner classes are private, and we don't want fireballs
 		this.goalSelector.addGoal(1, new RagelingBurstMoveGoal(this, 0.7F, 15, 30, 8, 12));
+		this.goalSelector.addGoal(5, new Ghast.RandomFloatAroundGoal(this));
 		this.goalSelector.addGoal(7, new Ghast.GhastLookGoal(this));
 		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
 	}
@@ -109,9 +111,16 @@ public class RagelingEntity extends Ghast {
 	}
 
 	private void serverFuseTick() {
-		this.lifetime++;
+		if (this.getTarget() != null) {
+			this.hostilityActivated = true;
+		}
+
+		if (this.ownerUUID != null && this.hostilityActivated) {
+			this.lifetime++;
+		}
+
 		boolean lowHealth = this.getHealth() / this.getMaxHealth() < FUSE_HEALTH_THRESHOLD;
-		boolean tooOld = this.lifetime >= MAX_LIFETIME;
+		boolean tooOld = this.ownerUUID != null && this.hostilityActivated && this.lifetime >= MAX_LIFETIME;
 		boolean shouldFuse = this.isAlive() && (lowHealth || tooOld);
 
 		if (shouldFuse && this.fuseTimer < 0) {

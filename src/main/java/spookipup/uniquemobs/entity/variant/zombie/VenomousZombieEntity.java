@@ -22,6 +22,7 @@ public class VenomousZombieEntity extends Zombie {
 	private static final int CLOUD_POISON_DURATION = 40;
 	private static final float CLOUD_RADIUS = 2.5F;
 	private static final int CLOUD_LINGER_DURATION = 40;
+	private static final double CLOUD_Y_OFFSET = 0.55;
 
 	public VenomousZombieEntity(EntityType<? extends Zombie> entityType, Level level) {
 		super(entityType, level);
@@ -64,7 +65,7 @@ public class VenomousZombieEntity extends Zombie {
 
 		if (!this.level().isClientSide()) {
 			AreaEffectCloud cloud = new AreaEffectCloud(
-				this.level(), this.getX(), this.getY(), this.getZ()
+				this.level(), this.getX(), this.getY() + CLOUD_Y_OFFSET, this.getZ()
 			);
 			cloud.setRadius(CLOUD_RADIUS);
 			cloud.setRadiusOnUse(-0.5F);
