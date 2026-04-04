@@ -17,6 +17,7 @@ public class ToxicCreeperEntity extends Creeper {
 	private static final float CLOUD_RADIUS = 4.0F;
 	private static final float CLOUD_RADIUS_POWERED = 6.0F;
 	private static final int CLOUD_LINGER_DURATION = 100;
+	private static final double CLOUD_Y_OFFSET = 0.6;
 
 	public ToxicCreeperEntity(EntityType<? extends Creeper> entityType, Level level) {
 		super(entityType, level);
@@ -58,7 +59,7 @@ public class ToxicCreeperEntity extends Creeper {
 		float radius = this.isPowered() ? CLOUD_RADIUS_POWERED : CLOUD_RADIUS;
 
 		AreaEffectCloud cloud = new AreaEffectCloud(
-			this.level(), this.getX(), this.getY(), this.getZ()
+			this.level(), this.getX(), this.getY() + CLOUD_Y_OFFSET, this.getZ()
 		);
 		cloud.setRadius(radius);
 		cloud.setRadiusOnUse(-0.3F);

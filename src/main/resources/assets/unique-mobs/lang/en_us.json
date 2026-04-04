@@ -35,6 +35,11 @@
 
 	"entity.unique-mobs.assassin_enderman": "Assassin Enderman",
 	"entity.unique-mobs.enraged_enderman": "Enraged Enderman",
+	"entity.unique-mobs.blast_blaze": "Blast Blaze",
+	"entity.unique-mobs.storm_blaze": "Storm Blaze",
+	"entity.unique-mobs.wither_blaze": "Wither Blaze",
+	"entity.unique-mobs.soul_blaze": "Soul Blaze",
+	"entity.unique-mobs.brand_blaze": "Brand Blaze",
 
 	"item.unique-mobs.venomous_zombie_spawn_egg": "Venomous Zombie Spawn Egg",
 	"item.unique-mobs.infernal_zombie_spawn_egg": "Infernal Zombie Spawn Egg",
@@ -70,10 +75,27 @@
 
 	"item.unique-mobs.assassin_enderman_spawn_egg": "Assassin Enderman Spawn Egg",
 	"item.unique-mobs.enraged_enderman_spawn_egg": "Enraged Enderman Spawn Egg",
+	"item.unique-mobs.blast_blaze_spawn_egg": "Blast Blaze Spawn Egg",
+	"item.unique-mobs.storm_blaze_spawn_egg": "Storm Blaze Spawn Egg",
+	"item.unique-mobs.wither_blaze_spawn_egg": "Wither Blaze Spawn Egg",
+	"item.unique-mobs.soul_blaze_spawn_egg": "Soul Blaze Spawn Egg",
+	"item.unique-mobs.brand_blaze_spawn_egg": "Brand Blaze Spawn Egg",
 
 	"entity.unique-mobs.great_mother_ghast": "Great Mother Ghast",
+	"entity.unique-mobs.delta_ghast": "Delta Ghast",
+	"entity.unique-mobs.wither_ghast": "Wither Ghast",
 	"entity.unique-mobs.rageling": "Rageling",
-
+	"entity.unique-mobs.skitterling": "Skitterling",
+	"entity.unique-mobs.obsidling": "Obsidling",
+	"entity.unique-mobs.blightling": "Blightling",
 	"item.unique-mobs.great_mother_ghast_spawn_egg": "Great Mother Ghast Spawn Egg",
-	"item.unique-mobs.rageling_spawn_egg": "Rageling Spawn Egg"
+	"item.unique-mobs.delta_ghast_spawn_egg": "Delta Ghast Spawn Egg",
+	"item.unique-mobs.wither_ghast_spawn_egg": "Wither Ghast Spawn Egg",
+	"item.unique-mobs.rageling_spawn_egg": "Rageling Spawn Egg",
+	"item.unique-mobs.skitterling_spawn_egg": "Skitterling Spawn Egg",
+	"item.unique-mobs.obsidling_spawn_egg": "Obsidling Spawn Egg",
+	"item.unique-mobs.blightling_spawn_egg": "Blightling Spawn Egg",
+	"effect.unique-mobs.soul_scorch": "Soul Scorch",
+	"effect.unique-mobs.blight": "Blight",
+	"effect.unique-mobs.brand_mark": "Brand Mark"
 }

@@ -5,6 +5,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
+import spookipup.uniquemobs.renderer.DeltaGhastRenderer;
+import spookipup.uniquemobs.renderer.InvisibleEntityRenderer;
+import spookipup.uniquemobs.renderer.RetexturedBlazeRenderer;
 import spookipup.uniquemobs.registry.ModEntities;
 import spookipup.uniquemobs.renderer.RetexturedCreeperRenderer;
 import spookipup.uniquemobs.renderer.RetexturedEndermanRenderer;
@@ -12,6 +15,9 @@ import spookipup.uniquemobs.renderer.RetexturedGhastRenderer;
 import spookipup.uniquemobs.renderer.RetexturedSkeletonRenderer;
 import spookipup.uniquemobs.renderer.RetexturedSpiderRenderer;
 import spookipup.uniquemobs.renderer.RetexturedZombieRenderer;
+import spookipup.uniquemobs.renderer.StormArcRenderer;
+import spookipup.uniquemobs.renderer.WitherBlazeRenderer;
+import spookipup.uniquemobs.renderer.WitherGhastRenderer;
 import spookipup.uniquemobs.renderer.WitherZombieModel;
 import spookipup.uniquemobs.renderer.WitherZombieRenderer;
 
@@ -95,19 +101,57 @@ public class UniqueMobsClient implements ClientModInitializer {
 		EntityRendererRegistry.register(ModEntities.ENRAGED_ENDERMAN,
 			ctx -> new RetexturedEndermanRenderer(ctx, endermanTex("enraged_enderman"), endermanTex("enraged_enderman_eyes")));
 
+		// blazes
+		EntityRendererRegistry.register(ModEntities.BLAST_BLAZE,
+			ctx -> new RetexturedBlazeRenderer(ctx, blazeTex("blast_blaze")));
+		EntityRendererRegistry.register(ModEntities.STORM_BLAZE,
+			ctx -> new RetexturedBlazeRenderer(ctx, blazeTex("storm_blaze")));
+		EntityRendererRegistry.register(ModEntities.WITHER_BLAZE,
+			ctx -> new WitherBlazeRenderer(ctx, blazeTex("wither_blaze")));
+		EntityRendererRegistry.register(ModEntities.SOUL_BLAZE,
+			ctx -> new RetexturedBlazeRenderer(ctx, blazeTex("soul_blaze")));
+		EntityRendererRegistry.register(ModEntities.BRAND_BLAZE,
+			ctx -> new RetexturedBlazeRenderer(ctx, blazeTex("brand_blaze")));
+
 		// ghasts
 		EntityRendererRegistry.register(ModEntities.GREAT_MOTHER_GHAST,
 			ctx -> new RetexturedGhastRenderer(ctx,
 				ghastTex("great_mother_ghast"), ghastTex("great_mother_ghast_shooting"), null));
+		EntityRendererRegistry.register(ModEntities.DELTA_GHAST,
+			ctx -> new DeltaGhastRenderer(ctx,
+				ghastTex("delta_ghast"), ghastTex("delta_ghast_charging"),
+				ghastTex("delta_ghast"), ghastTex("delta_ghast_charging")));
+		EntityRendererRegistry.register(ModEntities.WITHER_GHAST,
+			ctx -> new WitherGhastRenderer(ctx,
+				ghastTex("wither_ghast"), ghastTex("wither_ghast_charging"),
+				null, null));
 		EntityRendererRegistry.register(ModEntities.RAGELING,
 			ctx -> new RetexturedGhastRenderer(ctx,
 				ghastTex("rageling"), ghastTex("rageling_attacking"),
-				ghastTex("rageling"), ghastTex("rageling_attacking")).withScale(0.12F));
+				ghastTex("rageling"), ghastTex("rageling_attacking")).withScale(0.12F, 0.12F));
+		EntityRendererRegistry.register(ModEntities.SKITTERLING,
+			ctx -> new RetexturedGhastRenderer(ctx,
+				ghastTex("skitterling"), ghastTex("skitterling_charging"),
+				ghastTex("skitterling"), ghastTex("skitterling_charging")).withScale(0.28F, 0.10F));
+		EntityRendererRegistry.register(ModEntities.OBSIDLING,
+			ctx -> new RetexturedGhastRenderer(ctx,
+				ghastTex("obsidling"), ghastTex("obsidling_attacking"),
+				ghastTex("obsidling"), ghastTex("obsidling_attacking")).withScale(0.28F, 0.10F));
+		EntityRendererRegistry.register(ModEntities.BLIGHTLING,
+			ctx -> new RetexturedGhastRenderer(ctx,
+				ghastTex("blightling"), ghastTex("blightling_attacking"),
+				ghastTex("blightling"), ghastTex("blightling_attacking")).withScale(0.28F, 0.10F));
 
 		// projectiles
 		EntityRendererRegistry.register(ModEntities.WEB_PROJECTILE, ThrownItemRenderer::new);
 		EntityRendererRegistry.register(ModEntities.FREEZE_SNOWBALL, ThrownItemRenderer::new);
 		EntityRendererRegistry.register(ModEntities.POISON_SPIT, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(ModEntities.BLIGHT_SPORE, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(ModEntities.WITHER_ASH_BOLT, ThrownItemRenderer::new);
+		EntityRendererRegistry.register(ModEntities.STORM_ARC, StormArcRenderer::new);
+		EntityRendererRegistry.register(ModEntities.WITHER_ASH_CLOUD, InvisibleEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntities.BLIGHT_SPORE_CLOUD, InvisibleEntityRenderer::new);
+		EntityRendererRegistry.register(ModEntities.SOUL_FIRE_TRAIL_CLOUD, InvisibleEntityRenderer::new);
 	}
 
 	private static ResourceLocation zombieTex(String name) {
@@ -132,5 +176,9 @@ public class UniqueMobsClient implements ClientModInitializer {
 
 	private static ResourceLocation ghastTex(String name) {
 		return new ResourceLocation(ID, "textures/entity/ghast/" + name + ".png");
+	}
+
+	private static ResourceLocation blazeTex(String name) {
+		return new ResourceLocation(ID, "textures/entity/blaze/" + name + ".png");
 	}
 }

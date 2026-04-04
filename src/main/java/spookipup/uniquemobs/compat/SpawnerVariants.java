@@ -10,6 +10,7 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
+import spookipup.uniquemobs.spawn.BlazeStructureSpawnHelper;
 import spookipup.uniquemobs.config.ModConfig;
 import spookipup.uniquemobs.registry.ModEntities;
 
@@ -63,6 +64,25 @@ public class SpawnerVariants {
 
 		String variantId = EntityType.getKey(variant).getPath();
 		if (!cfg.isMobEnabled(variantId)) return info;
+
+		String fullId = EntityType.getKey(variant).toString();
+		CompoundTag newNbt = rewriteSpawnerEntity(info.nbt().copy(), fullId);
+		return new StructureTemplate.StructureBlockInfo(info.pos(), info.state(), newNbt);
+	}
+
+	public static StructureTemplate.StructureBlockInfo tryReplaceFortressBlazeSpawner(
+		StructureTemplate.StructureBlockInfo info, Holder<Biome> biome, RandomSource random
+	) {
+		if (info.nbt() == null || !info.state().is(Blocks.SPAWNER)) return info;
+
+		String entityId = readEntityId(info.nbt());
+		if (!"minecraft:blaze".equals(entityId)) return info;
+
+		ModConfig cfg = ModConfig.get();
+		if (random.nextFloat() >= (float) cfg.fortressSpawnerReplacementChance) return info;
+
+		EntityType<?> variant = BlazeStructureSpawnHelper.pickFortressSpawnerVariant(cfg, random);
+		if (variant == null || variant == EntityType.BLAZE) return info;
 
 		String fullId = EntityType.getKey(variant).toString();
 		CompoundTag newNbt = rewriteSpawnerEntity(info.nbt().copy(), fullId);

@@ -9,7 +9,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.util.Mth;
@@ -25,6 +27,8 @@ import java.util.UUID;
 
 // tiny red ghast spawned by the great mother - darts at players, burns on contact, explodes when dying
 public class RagelingEntity extends Ghast {
+
+	private static final float HITBOX_SCALE = 0.85F;
 
 	private static final EntityDataAccessor<Boolean> DATA_IS_FUSING =
 		SynchedEntityData.defineId(RagelingEntity.class, EntityDataSerializers.BOOLEAN);
@@ -44,6 +48,7 @@ public class RagelingEntity extends Ghast {
 	private int fuseTimer = -1;
 	private int lifetime;
 	private int contactCooldown;
+	private boolean hostilityActivated;
 
 	public RagelingEntity(EntityType<? extends Ghast> entityType, Level level) {
 		super(entityType, level);
@@ -54,6 +59,11 @@ public class RagelingEntity extends Ghast {
 			.add(Attributes.MAX_HEALTH, 8.0)
 			.add(Attributes.MOVEMENT_SPEED, 0.5)
 			.add(Attributes.FOLLOW_RANGE, 48.0);
+	}
+
+	@Override
+	public EntityDimensions getDimensions(Pose pose) {
+		return super.getDimensions(pose).scale(HITBOX_SCALE);
 	}
 
 	@Override
@@ -124,9 +134,15 @@ public class RagelingEntity extends Ghast {
 	}
 
 	private void serverFuseTick() {
-		this.lifetime++;
+		if (this.getTarget() != null) {
+			this.hostilityActivated = true;
+		}
+		if (this.ownerUUID != null && this.hostilityActivated) {
+			this.lifetime++;
+		}
+
 		boolean lowHealth = this.getHealth() / this.getMaxHealth() < FUSE_HEALTH_THRESHOLD;
-		boolean tooOld = this.lifetime >= MAX_LIFETIME;
+		boolean tooOld = this.ownerUUID != null && this.hostilityActivated && this.lifetime >= MAX_LIFETIME;
 		boolean shouldFuse = this.isAlive() && (lowHealth || tooOld);
 
 		if (shouldFuse && this.fuseTimer < 0) {

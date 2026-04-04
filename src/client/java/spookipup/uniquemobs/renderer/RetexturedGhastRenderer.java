@@ -11,6 +11,7 @@ public class RetexturedGhastRenderer extends GhastRenderer {
 	private final ResourceLocation texture;
 	private final ResourceLocation shootingTexture;
 	private float entityScale = 1.0F;
+	private float visualYOffset = 0.0F;
 
 	public RetexturedGhastRenderer(EntityRendererProvider.Context context, ResourceLocation texture,
 								   ResourceLocation shootingTexture, ResourceLocation eyesTexture) {
@@ -39,8 +40,24 @@ public class RetexturedGhastRenderer extends GhastRenderer {
 	}
 
 	public RetexturedGhastRenderer withScale(float scale) {
+		return this.withScale(scale, 0.0F);
+	}
+
+	public RetexturedGhastRenderer withScale(float scale, float visualYOffset) {
 		this.entityScale = scale;
+		this.visualYOffset = visualYOffset;
 		return this;
+	}
+
+	@Override
+	public void render(Ghast entity, float entityYaw, float partialTick, PoseStack poseStack,
+					   net.minecraft.client.renderer.MultiBufferSource buffer, int packedLight) {
+		poseStack.pushPose();
+		if (this.visualYOffset != 0.0F) {
+			poseStack.translate(0.0F, this.visualYOffset, 0.0F);
+		}
+		super.render(entity, entityYaw, partialTick, poseStack, buffer, packedLight);
+		poseStack.popPose();
 	}
 
 	@Override

@@ -26,6 +26,7 @@ public class ModConfig {
 	public double dungeonReplacementChance = 0.25;
 	public double dungeonThemedReplacementChance = 0.5;
 	public double mineshaftReplacementChance = 0.4;
+	public double fortressSpawnerReplacementChance = 0.45;
 
 	// -- per-mob settings, keyed by entity id (e.g. "sprinter_zombie") --
 
@@ -100,10 +101,13 @@ public class ModConfig {
 			"lightning_creeper", "burrowing_creeper", "toxic_creeper", "frost_creeper",
 			"magma_creeper", "wither_creeper", "ender_creeper", "sculk_creeper",
 			"assassin_enderman", "enraged_enderman",
-			"great_mother_ghast"
+			"blast_blaze", "storm_blaze", "wither_blaze", "soul_blaze", "brand_blaze",
+			"great_mother_ghast", "delta_ghast", "wither_ghast", "rageling",
+			"skitterling", "obsidling", "blightling"
 		};
 		for (String id : allMobs) {
 			mobs.putIfAbsent(id, new MobEntry());
 		}
 	}
 }
+

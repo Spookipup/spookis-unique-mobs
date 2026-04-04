@@ -23,6 +23,7 @@ public class WitherCreeperEntity extends Creeper {
 	private static final int WITHER_DURATION = 160;
 	private static final int WITHER_AMPLIFIER = 1;
 	private static final float WITHER_RANGE = 8.0F;
+	private static final double CLOUD_Y_OFFSET = 0.7;
 
 	public WitherCreeperEntity(EntityType<? extends Creeper> entityType, Level level) {
 		super(entityType, level);
@@ -77,7 +78,7 @@ public class WitherCreeperEntity extends Creeper {
 
 	private void spawnWitherCloud() {
 		AreaEffectCloud cloud = new AreaEffectCloud(
-			this.level(), this.getX(), this.getY(), this.getZ()
+			this.level(), this.getX(), this.getY() + CLOUD_Y_OFFSET, this.getZ()
 		);
 		cloud.setRadius(this.isPowered() ? 5.0F : 3.5F);
 		cloud.setRadiusOnUse(-0.3F);

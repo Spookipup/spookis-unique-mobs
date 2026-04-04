@@ -21,13 +21,15 @@
 	"mixins": [
 		"unique-mobs.mixins.json",
 		"unique-mobs.compat.betterdungeons.mixins.json",
+		"unique-mobs.compat.betterfortresses.mixins.json",
 		{
 			"config": "unique-mobs.client.mixins.json",
 			"environment": "client"
 		}
 	],
 	"suggests": {
-		"betterdungeons": "*"
+		"betterdungeons": "*",
+		"betterfortresses": "*"
 	},
 	"depends": {
 		"fabricloader": ">=0.15.0",
