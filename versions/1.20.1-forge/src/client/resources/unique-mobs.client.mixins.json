@@ -1,0 +1,11 @@
+{
+	"minVersion": "0.8",
+	"required": true,
+	"package": "spookipup.uniquemobs.mixin.client",
+	"refmap": "unique-mobs.mixins.refmap.json",
+	"compatibilityLevel": "JAVA_17",
+	"client": [],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

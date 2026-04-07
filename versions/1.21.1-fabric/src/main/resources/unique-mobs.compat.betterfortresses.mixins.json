@@ -1,0 +1,14 @@
+{
+	"required": false,
+	"minVersion": "0.8",
+	"package": "spookipup.uniquemobs.compat.betterfortresses.mixin",
+	"plugin": "spookipup.uniquemobs.compat.betterfortresses.BetterFortressesMixinPlugin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"BetterFortressesNaturalSpawnMixin",
+		"BetterFortressesSpawnerMixin"
+	],
+	"injectors": {
+		"defaultRequire": 0
+	}
+}

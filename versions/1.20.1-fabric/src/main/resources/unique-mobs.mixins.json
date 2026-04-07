@@ -1,0 +1,22 @@
+{
+	"required": true,
+	"package": "spookipup.uniquemobs.mixin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"AncientCityNaturalPoolMixin",
+		"DungeonSpawnerMixin",
+		"FortressNaturalPoolMixin",
+		"FortressSpawnerMixin",
+		"HoglinAiMixin",
+		"MineshaftSpawnerMixin",
+		"PiglinSensorMixin",
+		"BrandMarkDeathMixin",
+		"VariantBlazeParticleMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

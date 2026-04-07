@@ -1,0 +1,40 @@
+{
+	"schemaVersion": 1,
+	"id": "unique-mobs",
+	"version": "${version}",
+	"name": "Spooki's Unique Mobs",
+	"description": "Adds unique mob variants with special abilities to spice up survival.",
+	"authors": [
+		"Spookipup"
+	],
+	"license": "LGPL-3.0-only",
+	"icon": "assets/unique-mobs/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"spookipup.uniquemobs.UniqueMobs"
+		],
+		"client": [
+			"spookipup.uniquemobs.UniqueMobsClient"
+		]
+	},
+	"mixins": [
+		"unique-mobs.mixins.json",
+		"unique-mobs.compat.betterdungeons.mixins.json",
+		"unique-mobs.compat.betterfortresses.mixins.json",
+		{
+			"config": "unique-mobs.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"suggests": {
+		"betterdungeons": "*",
+		"betterfortresses": "*"
+	},
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

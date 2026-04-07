@@ -1,9 +1,25 @@
 ![Unique Mobs Banner](https://github.com/Spookipup/spookis-unique-mobs/blob/master/pictures/unique_mobs_banner_medium.png?raw=true)
 # Spooki's Unique Mobs
 
-42 mob variants for Minecraft 26.1 (Fabric). They show up naturally in the world mixed in with vanilla mobs.
+42 mob variants for Minecraft 1.20.1 and 26.1 (Fabric). They show up naturally in the world mixed in with vanilla mobs.
 
 Needs [Fabric API](https://modrinth.com/mod/fabric-api). Drop the jar in your `mods` folder.
+
+## Development
+
+This is the Stonecutter workspace for maintaining the supported versions together.
+
+Active projects:
+- `26.1-fabric`
+- `1.20.1-fabric`
+
+Build both versions:
+
+```bash
+./gradlew :26.1-fabric:build :1.20.1-fabric:build
+```
+
+Built jars are written to each version project's `build/libs/` directory.
 
 ## Config
 
@@ -84,4 +100,4 @@ The textures right now are mostly simple recolors. If you're a pixel artist and 
 
 ## License
 
-LGPL-3.0 — see [LICENSE](LICENSE).
+LGPL-3.0 - see [LICENSE](LICENSE).

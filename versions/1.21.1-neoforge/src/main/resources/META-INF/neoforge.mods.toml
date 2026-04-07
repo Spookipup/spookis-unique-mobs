@@ -1,0 +1,27 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "${license}"
+issueTrackerURL = "${issues_url}"
+
+[[mods]]
+modId = "${id}"
+version = "${version}"
+displayName = "${name}"
+displayURL = "${homepage_url}"
+logoFile = "icon.png"
+authors = "${authors}"
+description = '''${description}'''
+
+${dependencies}
+
+[[mixins]]
+config = "unique-mobs.mixins.json"
+
+[[mixins]]
+config = "unique-mobs.client.mixins.json"
+
+[[mixins]]
+config = "unique-mobs.compat.betterdungeons.mixins.json"
+
+[[mixins]]
+config = "unique-mobs.compat.betterfortresses.mixins.json"

@@ -1,0 +1,15 @@
+{
+	"minVersion": "0.8",
+	"required": false,
+	"package": "spookipup.uniquemobs.compat.betterdungeons.mixin",
+	"refmap": "unique-mobs.mixins.refmap.json",
+	"plugin": "spookipup.uniquemobs.compat.betterdungeons.BetterDungeonsMixinPlugin",
+	"compatibilityLevel": "JAVA_17",
+	"mixins": [
+		"BetterDungeonsSpawnerMixin",
+		"BetterDungeonsSpiderMixin"
+	],
+	"injectors": {
+		"defaultRequire": 0
+	}
+}

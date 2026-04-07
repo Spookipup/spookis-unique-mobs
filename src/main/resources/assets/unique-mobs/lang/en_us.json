@@ -10,6 +10,7 @@
 	"entity.unique-mobs.builder_zombie": "Builder Zombie",
 	"entity.unique-mobs.plague_zombie": "Plague Zombie",
 	"entity.unique-mobs.armored_zombie": "Armored Zombie",
+	"entity.unique-mobs.blossom_zombie": "Blossom Zombie",
 
 	"entity.unique-mobs.spitting_spider": "Spitting Spider",
 	"entity.unique-mobs.wither_spider": "Wither Spider",
@@ -23,6 +24,7 @@
 	"entity.unique-mobs.ender_skeleton": "Ender Skeleton",
 	"entity.unique-mobs.poison_skeleton": "Poison Skeleton",
 	"entity.unique-mobs.multishot_skeleton": "Multishot Skeleton",
+	"entity.unique-mobs.blossom_skeleton": "Blossom Skeleton",
 
 	"entity.unique-mobs.toxic_creeper": "Toxic Creeper",
 	"entity.unique-mobs.wither_creeper": "Wither Creeper",
@@ -32,9 +34,11 @@
 	"entity.unique-mobs.ender_creeper": "Ender Creeper",
 	"entity.unique-mobs.lightning_creeper": "Lightning Creeper",
 	"entity.unique-mobs.burrowing_creeper": "Burrowing Creeper",
+	"entity.unique-mobs.blossom_creeper": "Blossom Creeper",
 
 	"entity.unique-mobs.assassin_enderman": "Assassin Enderman",
 	"entity.unique-mobs.enraged_enderman": "Enraged Enderman",
+	"entity.unique-mobs.blossom_enderman": "Blossom Enderman",
 	"entity.unique-mobs.blast_blaze": "Blast Blaze",
 	"entity.unique-mobs.storm_blaze": "Storm Blaze",
 	"entity.unique-mobs.wither_blaze": "Wither Blaze",
@@ -50,6 +54,7 @@
 	"item.unique-mobs.builder_zombie_spawn_egg": "Builder Zombie Spawn Egg",
 	"item.unique-mobs.plague_zombie_spawn_egg": "Plague Zombie Spawn Egg",
 	"item.unique-mobs.armored_zombie_spawn_egg": "Armored Zombie Spawn Egg",
+	"item.unique-mobs.blossom_zombie_spawn_egg": "Blossom Zombie Spawn Egg",
 
 	"item.unique-mobs.spitting_spider_spawn_egg": "Spitting Spider Spawn Egg",
 	"item.unique-mobs.wither_spider_spawn_egg": "Wither Spider Spawn Egg",
@@ -63,6 +68,7 @@
 	"item.unique-mobs.ender_skeleton_spawn_egg": "Ender Skeleton Spawn Egg",
 	"item.unique-mobs.poison_skeleton_spawn_egg": "Poison Skeleton Spawn Egg",
 	"item.unique-mobs.multishot_skeleton_spawn_egg": "Multishot Skeleton Spawn Egg",
+	"item.unique-mobs.blossom_skeleton_spawn_egg": "Blossom Skeleton Spawn Egg",
 
 	"item.unique-mobs.toxic_creeper_spawn_egg": "Toxic Creeper Spawn Egg",
 	"item.unique-mobs.wither_creeper_spawn_egg": "Wither Creeper Spawn Egg",
@@ -72,9 +78,11 @@
 	"item.unique-mobs.ender_creeper_spawn_egg": "Ender Creeper Spawn Egg",
 	"item.unique-mobs.lightning_creeper_spawn_egg": "Lightning Creeper Spawn Egg",
 	"item.unique-mobs.burrowing_creeper_spawn_egg": "Burrowing Creeper Spawn Egg",
+	"item.unique-mobs.blossom_creeper_spawn_egg": "Blossom Creeper Spawn Egg",
 
 	"item.unique-mobs.assassin_enderman_spawn_egg": "Assassin Enderman Spawn Egg",
 	"item.unique-mobs.enraged_enderman_spawn_egg": "Enraged Enderman Spawn Egg",
+	"item.unique-mobs.blossom_enderman_spawn_egg": "Blossom Enderman Spawn Egg",
 	"item.unique-mobs.blast_blaze_spawn_egg": "Blast Blaze Spawn Egg",
 	"item.unique-mobs.storm_blaze_spawn_egg": "Storm Blaze Spawn Egg",
 	"item.unique-mobs.wither_blaze_spawn_egg": "Wither Blaze Spawn Egg",
@@ -97,5 +105,7 @@
 	"item.unique-mobs.blightling_spawn_egg": "Blightling Spawn Egg",
 	"effect.unique-mobs.soul_scorch": "Soul Scorch",
 	"effect.unique-mobs.blight": "Blight",
-	"effect.unique-mobs.brand_mark": "Brand Mark"
+	"effect.unique-mobs.brand_mark": "Brand Mark",
+	"effect.unique-mobs.petal_mark": "Petal Mark",
+	"effect.unique-mobs.blossom_drift": "Blossom Drift"
 }
