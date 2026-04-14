@@ -63,6 +63,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		val isForge = loader == "forge"
 
 		val modId = prop("mod.id")
+		val archiveName = prop("mod.archive_name").ifBlank { modId }
 		val loaderModId = if ((isForge || isNeoForge) && prop("mod.forge_id").isNotBlank()) prop("mod.forge_id") else modId
 		val modVersion = prop("mod.version")
 		val channelTag = prop("mod.channel_tag")
@@ -93,7 +94,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		}
 
 		configureFletchingTable()
-		configureJarTask(modId, loader)
+		configureJarTask(modId, archiveName, loader)
 		configureIdea()
 		configureProcessResources(isFabric, isNeoForge, isForge, modId, loaderModId, projectVersion, mcVersion, extension, extension.requiredJava.get())
 		configureJava(stonecutter, extension.requiredJava.get())
@@ -101,11 +102,11 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		configurePublishing(extension, loader, stonecutter, "$modVersion$channelTag", channelTag, projectVersion)
 	}
 
-	private fun Project.configureJarTask(modId: String, loader: String) {
+	private fun Project.configureJarTask(modId: String, archiveName: String, loader: String) {
 		val isForge = loader == "forge"
 
 		tasks.withType<Jar>().configureEach {
-			archiveBaseName.set(modId)
+			archiveBaseName.set(archiveName)
 			if (isForge) {
 				manifest.attributes(
 					"MixinConfigs" to listOf(

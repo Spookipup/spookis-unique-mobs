@@ -13,7 +13,7 @@ version = "$modVersion+$minecraftVersion+$loader"
 group = prop("mod.group")
 
 base {
-	archivesName = prop("mod.id")
+	archivesName = prop("mod.archive_name")
 }
 
 loom {

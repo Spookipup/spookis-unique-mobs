@@ -24,13 +24,23 @@ echo Using build JDK: "%JAVA_HOME%"
 
 set "MOD_VERSION="
 set "MOD_CHANNEL_TAG="
+set "MOD_ID="
+set "MOD_ARCHIVE_NAME="
 for /f "usebackq tokens=1,* delims==" %%A in ("%ROOT%gradle.properties") do (
+  if "%%A"=="mod.id" set "MOD_ID=%%B"
+  if "%%A"=="mod.archive_name" set "MOD_ARCHIVE_NAME=%%B"
   if "%%A"=="mod.version" set "MOD_VERSION=%%B"
   if "%%A"=="mod.channel_tag" set "MOD_CHANNEL_TAG=%%B"
 )
 
 if not defined MOD_VERSION (
   echo ERROR: Could not read mod.version from "%ROOT%gradle.properties".
+  exit /b 1
+)
+
+if not defined MOD_ARCHIVE_NAME set "MOD_ARCHIVE_NAME=%MOD_ID%"
+if not defined MOD_ARCHIVE_NAME (
+  echo ERROR: Could not read mod.archive_name or mod.id from "%ROOT%gradle.properties".
   exit /b 1
 )
 
@@ -54,7 +64,7 @@ for /d %%D in ("%ROOT%versions\*") do (
     exit /b 1
   )
 
-  set "JAR_NAME=unique-mobs-!MOD_BUILD_VERSION!+!MC_VERSION!+!LOADER!.jar"
+  set "JAR_NAME=%MOD_ARCHIVE_NAME%-!MOD_BUILD_VERSION!+!MC_VERSION!+!LOADER!.jar"
   set "SOURCE_JAR=%%~fD\build\libs\!JAR_NAME!"
 
   echo.
