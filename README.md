@@ -1,9 +1,9 @@
 ![Unique Mobs Banner](https://github.com/Spookipup/spookis-unique-mobs/blob/master/pictures/unique_mobs_banner_medium.png?raw=true)
 # Spooki's Unique Mobs
 
-42 mob variants for Minecraft 1.20.1 and 26.1 (Fabric). They show up naturally in the world mixed in with vanilla mobs.
+46 mob variants for Minecraft 1.20.1 (Fabric/Forge), 1.21.1 (Fabric/NeoForge), and 26.1 (Fabric). They show up naturally in the world mixed in with vanilla mobs.
 
-Needs [Fabric API](https://modrinth.com/mod/fabric-api). Drop the jar in your `mods` folder.
+Fabric builds need [Fabric API](https://modrinth.com/mod/fabric-api). Drop the jar in your `mods` folder.
 
 ## Development
 
@@ -11,12 +11,15 @@ This is the Stonecutter workspace for maintaining the supported versions togethe
 
 Active projects:
 - `26.1-fabric`
+- `1.21.1-fabric`
+- `1.21.1-neoforge`
 - `1.20.1-fabric`
+- `1.20.1-forge`
 
-Build both versions:
+Build all versions:
 
 ```bash
-./gradlew :26.1-fabric:build :1.20.1-fabric:build
+./gradlew :26.1-fabric:build :1.21.1-fabric:build :1.21.1-neoforge:build :1.20.1-fabric:build :1.20.1-forge:build
 ```
 
 Built jars are written to each version project's `build/libs/` directory.
@@ -45,6 +48,7 @@ The config file is `config/unique-mobs.json`. Right now you can:
 - **Builder Zombie** - mines through walls, builds bridges to get to you. Overworld.
 - **Plague Zombie** - withers animals nearby, buffs zombies when it dies. Jungles, swamps, caves.
 - **Armored Zombie** - tanky. That's about it. Overworld.
+- **Blossom Zombie** - floats after you, knocks you upward, stacks petal marks. Cherry groves, forests.
 
 ### Skeletons
 - **Sniper Skeleton** - hangs way back, hits hard, remembers you longer than normal. Overworld.
@@ -52,6 +56,7 @@ The config file is `config/unique-mobs.json`. Right now you can:
 - **Ender Skeleton** - shoot, teleport, repeat. Rare in overworld, common in end.
 - **Poison Skeleton** - climbs trees, shoots poison arrows from up high. Jungles, forests, swamps.
 - **Multishot Skeleton** - 3 arrows per shot. Overworld.
+- **Blossom Skeleton** - fires blossom arrows and floats around targets. Cherry groves, forests.
 
 ### Spiders
 - **Spitting Spider** - spits poison, circles at range. Jungles, swamps, caves.
@@ -70,10 +75,12 @@ The config file is `config/unique-mobs.json`. Right now you can:
 - **Ender Creeper** - teleports to you mid-fuse. Rare in overworld, common in end.
 - **Lightning Creeper** - explosion calls down lightning. Overworld.
 - **Burrowing Creeper** - digs underground, tunnels behind you, surfaces and blows up. Overworld.
+- **Blossom Creeper** - bursts into petals, launches nearby targets upward. Cherry groves, forests.
 
 ### Endermen
 - **Assassin Enderman** - warps behind you, leaves damage clouds everywhere it teleports from. Rare in overworld, end.
 - **Enraged Enderman** - always hostile, uppercuts you and teleports to your landing spot. Rare in overworld, end.
+- **Blossom Enderman** - teleports with petal afterimages that pull you into blossom drift. Cherry groves.
 
 ### Blazes
 - **Blast Blaze** - gets in close, charges up, then pops a fiery blast that launches you. Nether fortresses.
@@ -96,7 +103,7 @@ The config file is `config/unique-mobs.json`. Right now you can:
 With the second batch of mobs done, introducing all the nether mobs, it'll now mostly be me spending time designing future additions that feel even more interesting to fight and stand out from the rest.
 ## Art
 
-The textures right now are mostly simple recolors. If you're a pixel artist and want to contribute proper textures, I'd love the help, please reach out!
+Textures are a mixture of those made by me, and a large number made by LawricArt.
 
 ## License
 
