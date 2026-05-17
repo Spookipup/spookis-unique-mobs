@@ -14,7 +14,7 @@ import spookipup.uniquemobs.registry.ModSpawns;
 @Mod(UniqueMobs.FORGE_MOD_ID)
 public class UniqueMobs {
 	public static final String FORGE_MOD_ID = "unique_mobs";
-	public static final String MOD_ID = "unique-mobs";
+	public static final String MOD_ID = "unique_mobs";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	public UniqueMobs() {

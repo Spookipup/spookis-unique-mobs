@@ -380,6 +380,7 @@ public class BrandBlazeAttackGoal extends Goal {
 	}
 
 	private boolean isValidPlayerTarget(LivingEntity livingEntity) {
+		if (this.blaze.level().getDifficulty() == net.minecraft.world.Difficulty.PEACEFUL) return false;
 		if (!(livingEntity instanceof Player player) || !livingEntity.isAlive()) return false;
 		return !player.isCreative() && !player.isSpectator();
 	}

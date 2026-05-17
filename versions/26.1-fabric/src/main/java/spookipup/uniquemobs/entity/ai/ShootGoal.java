@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 
 import java.util.List;
 
@@ -117,16 +118,21 @@ public class ShootGoal extends Goal {
 	@Override
 	public boolean canUse() {
 		LivingEntity target = this.mob.getTarget();
-		if (target != null && target.isAlive()) {
+		if (UniqueMobTargeting.canAttackTarget(this.mob, target)) {
 			this.target = target;
 			return true;
 		}
+		this.mob.setTarget(null);
 		return false;
 	}
 
 	@Override
 	public boolean canContinueToUse() {
-		return this.target != null && this.target.isAlive() && this.mob.getTarget() == this.target;
+		if (this.mob.getTarget() != this.target || !UniqueMobTargeting.canAttackTarget(this.mob, this.target)) {
+			this.mob.setTarget(null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override

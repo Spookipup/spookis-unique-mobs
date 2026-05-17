@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 import spookipup.uniquemobs.entity.variant.ghast.ObsidlingEntity;
 
 import java.util.EnumSet;
@@ -74,12 +75,20 @@ public class ObsidlingDashGoal extends Goal {
 	@Override
 	public boolean canUse() {
 		LivingEntity livingEntity = this.ghast.getTarget();
-		return livingEntity != null && livingEntity.isAlive();
+		if (!UniqueMobTargeting.canAttackTarget(this.ghast, livingEntity)) {
+			this.ghast.setTarget(null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean canContinueToUse() {
-		return this.target != null && this.target.isAlive();
+		if (this.ghast.getTarget() != this.target || !UniqueMobTargeting.canAttackTarget(this.ghast, this.target)) {
+			this.ghast.setTarget(null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override

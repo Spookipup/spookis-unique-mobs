@@ -4,6 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 
 import java.util.EnumSet;
 
@@ -39,7 +40,10 @@ public class LeapAttackGoal extends Goal {
 		}
 
 		this.target = this.mob.getTarget();
-		if (this.target == null || !this.target.isAlive()) return false;
+		if (!UniqueMobTargeting.canAttackTarget(this.mob, this.target)) {
+			this.mob.setTarget(null);
+			return false;
+		}
 
 		double distSq = this.mob.distanceToSqr(this.target);
 		return distSq >= this.minDistanceSq && distSq <= this.maxDistanceSq && this.mob.onGround();

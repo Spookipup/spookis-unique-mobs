@@ -5,6 +5,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 import spookipup.uniquemobs.entity.variant.ghast.DeltaGhastEntity;
 
 import java.util.EnumSet;
@@ -34,12 +35,20 @@ public class DeltaGhastMaintainSightGoal extends Goal {
 	@Override
 	public boolean canUse() {
 		LivingEntity t = this.ghast.getTarget();
-		return t != null && t.isAlive();
+		if (!UniqueMobTargeting.canAttackTarget(this.ghast, t)) {
+			this.ghast.setTarget(null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override
 	public boolean canContinueToUse() {
-		return this.target != null && this.target.isAlive();
+		if (this.ghast.getTarget() != this.target || !UniqueMobTargeting.canAttackTarget(this.ghast, this.target)) {
+			this.ghast.setTarget(null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override

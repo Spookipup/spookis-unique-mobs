@@ -332,6 +332,7 @@ public class StormBlazeAttackGoal extends Goal {
 	}
 
 	private boolean isValidTarget(LivingEntity livingEntity) {
+		if (this.blaze.level().getDifficulty() == net.minecraft.world.Difficulty.PEACEFUL) return false;
 		if (livingEntity == null || !livingEntity.isAlive()) return false;
 		if (livingEntity instanceof Player player) {
 			return !player.isCreative() && !player.isSpectator();

@@ -3,6 +3,7 @@ package spookipup.uniquemobs.entity.ai;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 
 // launches target upward when the mob lands a melee hit
 public class KnockupGoal extends Goal {
@@ -23,16 +24,21 @@ public class KnockupGoal extends Goal {
 	@Override
 	public boolean canUse() {
 		LivingEntity target = this.mob.getTarget();
-		if (target != null && target.isAlive()) {
+		if (UniqueMobTargeting.canAttackTarget(this.mob, target)) {
 			this.target = target;
 			return true;
 		}
+		this.mob.setTarget(null);
 		return false;
 	}
 
 	@Override
 	public boolean canContinueToUse() {
-		return this.target != null && this.target.isAlive() && this.mob.getTarget() == this.target;
+		if (this.mob.getTarget() != this.target || !UniqueMobTargeting.canAttackTarget(this.mob, this.target)) {
+			this.mob.setTarget(null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override

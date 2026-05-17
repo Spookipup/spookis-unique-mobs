@@ -4,6 +4,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 
 import java.util.EnumSet;
 
@@ -31,7 +32,10 @@ public class PanicLeapGoal extends Goal {
 		}
 
 		this.target = this.mob.getTarget();
-		if (this.target == null || !this.target.isAlive()) return false;
+		if (!UniqueMobTargeting.canAttackTarget(this.mob, this.target)) {
+			this.mob.setTarget(null);
+			return false;
+		}
 
 		return this.mob.distanceToSqr(this.target) <= this.triggerDistanceSq && this.mob.onGround();
 	}

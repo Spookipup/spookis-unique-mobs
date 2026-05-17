@@ -26,7 +26,7 @@ Built jars are written to each version project's `build/libs/` directory.
 
 ## Config
 
-The config file is `config/unique-mobs.json`. Right now you can:
+The config file is `config/unique_mobs.json`. Right now you can:
 
 - Turn any mob on or off.
 - Change the global spawn weight multiplier for all mobs.

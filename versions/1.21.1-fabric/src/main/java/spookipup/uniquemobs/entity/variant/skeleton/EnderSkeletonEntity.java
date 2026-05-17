@@ -11,8 +11,6 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import spookipup.uniquemobs.entity.ai.ShootGoal;
@@ -57,7 +55,7 @@ public class EnderSkeletonEntity extends Skeleton {
 
 		this.goalSelector.addGoal(3, new ShootGoal(this, 50, 70, 24.0F, 3, true, false,
 			ShootGoal.simple((level, shooter) -> {
-				Arrow arrow = new Arrow(level, shooter, ItemStack.EMPTY, new ItemStack(Items.BOW));
+				Arrow arrow = SkeletonArrowFactory.standard(level, shooter);
 				arrow.setCritArrow(true);
 				return arrow;
 			}, 1.8F, 3.0F)

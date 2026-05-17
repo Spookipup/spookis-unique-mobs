@@ -1,7 +1,7 @@
 {
 	"replace": false,
 	"values": [
-		"unique-mobs:ice_spider",
-		"unique-mobs:frost_creeper"
+		"unique_mobs:ice_spider",
+		"unique_mobs:frost_creeper"
 	]
 }

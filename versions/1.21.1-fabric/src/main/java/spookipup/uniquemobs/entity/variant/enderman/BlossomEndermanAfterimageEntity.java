@@ -5,6 +5,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Difficulty;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import spookipup.uniquemobs.entity.BlossomHelper;
 
@@ -52,7 +54,7 @@ public class BlossomEndermanAfterimageEntity extends EnderMan {
 
 	public void setSource(BlossomEndermanEntity owner, LivingEntity target) {
 		ownerId = owner.getUUID();
-		if (target != null) {
+		if (isValidTarget(target)) {
 			entityData.set(DATA_TARGET_ID, target.getId());
 			setTarget(target);
 			faceTarget(target);
@@ -68,6 +70,13 @@ public class BlossomEndermanAfterimageEntity extends EnderMan {
 	public void aiStep() {
 		setDeltaMovement(0.0, 0.0, 0.0);
 		BlossomHelper.tickNaturalSlowFall(this);
+
+		if (!level().isClientSide() && level().getDifficulty() == Difficulty.PEACEFUL) {
+			entityData.set(DATA_TARGET_ID, -1);
+			setTarget(null);
+			discard();
+			return;
+		}
 
 		if (level().isClientSide()) {
 			if (random.nextInt(2) == 0) {
@@ -133,12 +142,17 @@ public class BlossomEndermanAfterimageEntity extends EnderMan {
 
 	private LivingEntity getTrackedTarget(Level level) {
 		LivingEntity currentTarget = getTarget();
-		if (currentTarget != null && currentTarget.isAlive()) return currentTarget;
+		if (isValidTarget(currentTarget)) return currentTarget;
 		int targetId = entityData.get(DATA_TARGET_ID);
 		if (targetId < 0) return null;
 
 		Entity entity = level.getEntity(targetId);
-		return entity instanceof LivingEntity living && living.isAlive() ? living : null;
+		return isValidTarget(entity) ? (LivingEntity) entity : null;
+	}
+
+	private boolean isValidTarget(Entity entity) {
+		if (!(entity instanceof LivingEntity living) || !living.isAlive()) return false;
+		return !(living instanceof Player player) || (!player.isCreative() && !player.isSpectator());
 	}
 
 	private void faceTarget(LivingEntity target) {

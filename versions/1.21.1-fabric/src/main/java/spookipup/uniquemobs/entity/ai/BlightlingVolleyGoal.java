@@ -75,7 +75,7 @@ public class BlightlingVolleyGoal extends Goal {
 
 	@Override
 	public boolean canContinueToUse() {
-		if (!isValidTarget(this.target)) {
+		if (this.ghast.getTarget() != this.target || !isValidTarget(this.target)) {
 			this.ghast.setTarget(null);
 			return false;
 		}
@@ -355,6 +355,7 @@ public class BlightlingVolleyGoal extends Goal {
 	}
 
 	private boolean isValidTarget(LivingEntity livingEntity) {
+		if (this.ghast.level().getDifficulty() == net.minecraft.world.Difficulty.PEACEFUL) return false;
 		if (livingEntity == null || !livingEntity.isAlive()) return false;
 		if (livingEntity instanceof Player player) {
 			return !player.isCreative() && !player.isSpectator();

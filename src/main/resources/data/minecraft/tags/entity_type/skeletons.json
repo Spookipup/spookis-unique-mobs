@@ -1,10 +1,10 @@
 {
 	"replace": false,
 	"values": [
-		"unique-mobs:sniper_skeleton",
-		"unique-mobs:ember_skeleton",
-		"unique-mobs:ender_skeleton",
-		"unique-mobs:poison_skeleton",
-		"unique-mobs:multishot_skeleton"
+		"unique_mobs:sniper_skeleton",
+		"unique_mobs:ember_skeleton",
+		"unique_mobs:ender_skeleton",
+		"unique_mobs:poison_skeleton",
+		"unique_mobs:multishot_skeleton"
 	]
 }

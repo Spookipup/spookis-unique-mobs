@@ -1,14 +1,14 @@
 {
 	"replace": false,
 	"values": [
-		"unique-mobs:venomous_zombie",
-		"unique-mobs:infernal_zombie",
-		"unique-mobs:frozen_zombie",
-		"unique-mobs:ender_zombie",
-		"unique-mobs:wither_zombie",
-		"unique-mobs:sprinter_zombie",
-		"unique-mobs:builder_zombie",
-		"unique-mobs:plague_zombie",
-		"unique-mobs:armored_zombie"
+		"unique_mobs:venomous_zombie",
+		"unique_mobs:infernal_zombie",
+		"unique_mobs:frozen_zombie",
+		"unique_mobs:ender_zombie",
+		"unique_mobs:wither_zombie",
+		"unique_mobs:sprinter_zombie",
+		"unique_mobs:builder_zombie",
+		"unique_mobs:plague_zombie",
+		"unique_mobs:armored_zombie"
 	]
 }

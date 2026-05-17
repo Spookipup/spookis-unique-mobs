@@ -15,6 +15,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -77,7 +78,7 @@ public class BurrowingCreeperEntity extends Creeper {
 
 	private void tickSurface(ServerLevel serverLevel) {
 		LivingEntity target = this.getTarget();
-		if (target != null && this.getSensing().hasLineOfSight(target)) {
+		if (UniqueMobTargeting.canAttackTarget(this, target) && this.getSensing().hasLineOfSight(target)) {
 			BlockPos below = this.blockPosition().below();
 			if (isSoftBlock(serverLevel.getBlockState(below))) {
 				startBurrowing();
@@ -124,7 +125,8 @@ public class BurrowingCreeperEntity extends Creeper {
 		this.undergroundTicks++;
 
 		LivingEntity target = this.getTarget();
-		if (target == null || !target.isAlive()) {
+		if (!UniqueMobTargeting.canAttackTarget(this, target)) {
+			setTarget(null);
 			clearAllCracks();
 			this.burrowTarget = findSurfaceAbove(serverLevel, BlockPos.containing(this.undergroundPos));
 			beginSurfacing(serverLevel);
@@ -242,7 +244,7 @@ public class BurrowingCreeperEntity extends Creeper {
 
 		if (this.exposedTicks > EXPOSED_TIMEOUT) {
 			LivingEntity target = this.getTarget();
-			if (target != null && target.isAlive()) {
+			if (UniqueMobTargeting.canAttackTarget(this, target)) {
 				BlockPos below = this.blockPosition().below();
 				if (isSoftBlock(serverLevel.getBlockState(below))) {
 					startBurrowing();

@@ -14,6 +14,7 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 import spookipup.uniquemobs.entity.ai.BlockBreakGoal;
 import spookipup.uniquemobs.entity.ai.KnockupGoal;
 
@@ -66,7 +67,8 @@ public class EnragedEndermanEntity extends EnderMan {
 		if (this.juggleCooldown > 0) this.juggleCooldown--;
 
 		LivingEntity target = this.getTarget();
-		if (target == null || !target.isAlive()) {
+		if (!UniqueMobTargeting.canAttackTarget(this, target)) {
+			setTarget(null);
 			this.ticksSinceLastHit = 0;
 			return;
 		}

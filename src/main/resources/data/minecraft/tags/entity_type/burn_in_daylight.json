@@ -1,14 +1,14 @@
 {
 	"replace": false,
 	"values": [
-		"unique-mobs:venomous_zombie",
-		"unique-mobs:plague_zombie",
-		"unique-mobs:armored_zombie",
-		"unique-mobs:frozen_zombie",
-		"unique-mobs:builder_zombie",
-		"unique-mobs:sprinter_zombie",
-		"unique-mobs:sniper_skeleton",
-		"unique-mobs:poison_skeleton",
-		"unique-mobs:multishot_skeleton"
+		"unique_mobs:venomous_zombie",
+		"unique_mobs:plague_zombie",
+		"unique_mobs:armored_zombie",
+		"unique_mobs:frozen_zombie",
+		"unique_mobs:builder_zombie",
+		"unique_mobs:sprinter_zombie",
+		"unique_mobs:sniper_skeleton",
+		"unique_mobs:poison_skeleton",
+		"unique_mobs:multishot_skeleton"
 	]
 }

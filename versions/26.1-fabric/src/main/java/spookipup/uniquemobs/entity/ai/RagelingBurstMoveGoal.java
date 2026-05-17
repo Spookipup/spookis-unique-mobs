@@ -3,6 +3,7 @@ package spookipup.uniquemobs.entity.ai;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 import spookipup.uniquemobs.entity.variant.ghast.RagelingEntity;
 
 import java.util.EnumSet;
@@ -38,7 +39,12 @@ public class RagelingBurstMoveGoal extends Goal {
 
 	@Override
 	public boolean canUse() {
-		return this.rageling.getTarget() != null && this.rageling.getTarget().isAlive();
+		LivingEntity target = this.rageling.getTarget();
+		if (!UniqueMobTargeting.canAttackTarget(this.rageling, target)) {
+			this.rageling.setTarget(null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -60,7 +66,10 @@ public class RagelingBurstMoveGoal extends Goal {
 	@Override
 	public void tick() {
 		LivingEntity target = this.rageling.getTarget();
-		if (target == null) return;
+		if (!UniqueMobTargeting.canAttackTarget(this.rageling, target)) {
+			this.rageling.setTarget(null);
+			return;
+		}
 
 		this.rageling.getLookControl().setLookAt(target, 30.0F, 30.0F);
 

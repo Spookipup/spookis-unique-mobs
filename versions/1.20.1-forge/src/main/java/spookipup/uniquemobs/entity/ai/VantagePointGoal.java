@@ -10,6 +10,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -56,14 +57,21 @@ public class VantagePointGoal extends Goal {
 	@Override
 	public boolean canUse() {
 		LivingEntity target = this.mob.getTarget();
-		if (target == null || !target.isAlive()) return false;
+		if (!UniqueMobTargeting.canAttackTarget(this.mob, target)) {
+			this.mob.setTarget(null);
+			return false;
+		}
 		this.target = target;
 		return true;
 	}
 
 	@Override
 	public boolean canContinueToUse() {
-		return this.target != null && this.target.isAlive() && this.mob.getTarget() == this.target;
+		if (this.mob.getTarget() != this.target || !UniqueMobTargeting.canAttackTarget(this.mob, this.target)) {
+			this.mob.setTarget(null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override

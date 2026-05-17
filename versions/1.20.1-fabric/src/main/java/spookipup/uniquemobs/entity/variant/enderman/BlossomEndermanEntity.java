@@ -3,6 +3,7 @@ package spookipup.uniquemobs.entity.variant.enderman;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EntityType;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.level.Level;
 import spookipup.uniquemobs.entity.BlossomHelper;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 import spookipup.uniquemobs.registry.ModEntities;
 
 import java.util.Set;
@@ -46,6 +48,14 @@ public class BlossomEndermanEntity extends EnderMan {
 			if (afterimageCooldown > 0) afterimageCooldown--;
 			ServerLevel serverLevel = (ServerLevel) level();
 			LivingEntity target = getTarget();
+			if (level().getDifficulty() == Difficulty.PEACEFUL) {
+				setTarget(null);
+				return;
+			}
+			if (target != null && !UniqueMobTargeting.canAttackTarget(this, target)) {
+				setTarget(null);
+				return;
+			}
 
 			double dx = getX() - prevTickX;
 			double dy = getY() - prevTickY;
@@ -94,6 +104,7 @@ public class BlossomEndermanEntity extends EnderMan {
 
 	private void spawnBlossomGust(double x, double y, double z, LivingEntity target) {
 		if (!(level() instanceof ServerLevel serverLevel)) return;
+		if (!UniqueMobTargeting.canAttackTarget(this, target)) return;
 		if (countAfterimages(serverLevel) >= MAX_AFTERIMAGES) return;
 
 		BlossomEndermanAfterimageEntity afterimage = new BlossomEndermanAfterimageEntity(ModEntities.BLOSSOM_ENDERMAN_AFTERIMAGE, level());

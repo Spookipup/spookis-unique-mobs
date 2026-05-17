@@ -1,6 +1,7 @@
 package spookipup.uniquemobs.entity.variant.zombie;
 
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.Difficulty;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -11,6 +12,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import spookipup.uniquemobs.entity.BlossomHelper;
 import spookipup.uniquemobs.registry.ModEffects;
@@ -38,6 +40,12 @@ public class BlossomZombieEntity extends Zombie {
 		BlossomHelper.tickNaturalSlowFall(this);
 
 		if (!level().isClientSide() && level() instanceof ServerLevel serverLevel) {
+			if (level().getDifficulty() == Difficulty.PEACEFUL) {
+				stopBlossomFlight();
+				setTarget(null);
+				return;
+			}
+
 			if (blossomFlightCooldown > 0) blossomFlightCooldown--;
 
 			if (blossomFlightTicks > 0) {
@@ -54,7 +62,8 @@ public class BlossomZombieEntity extends Zombie {
 				}
 			} else {
 				LivingEntity target = getTarget();
-				if (target != null && BlossomHelper.shouldStartReachFlight(this, target, blossomFlightCooldown)) {
+				if (isValidBlossomTarget(target)
+						&& BlossomHelper.shouldStartReachFlight(this, target, blossomFlightCooldown)) {
 					startBlossomFlight(target, 80);
 				}
 			}
@@ -87,6 +96,8 @@ public class BlossomZombieEntity extends Zombie {
 	}
 
 	private void startBlossomFlight(LivingEntity target, int duration) {
+		if (!isValidBlossomTarget(target)) return;
+
 		blossomFlightTargetId = target.getId();
 		blossomFlightTicks = duration;
 		blossomFlightCooldown = Math.max(blossomFlightCooldown, duration + 45);
@@ -104,8 +115,13 @@ public class BlossomZombieEntity extends Zombie {
 
 	private LivingEntity getBlossomFlightTarget(ServerLevel serverLevel) {
 		Entity entity = serverLevel.getEntity(blossomFlightTargetId);
-		if (entity instanceof LivingEntity living && living.isAlive()) return living;
+		if (isValidBlossomTarget(entity)) return (LivingEntity) entity;
 		LivingEntity target = getTarget();
-		return target != null && target.isAlive() ? target : null;
+		return isValidBlossomTarget(target) ? target : null;
+	}
+
+	private boolean isValidBlossomTarget(Entity entity) {
+		if (!(entity instanceof LivingEntity living) || !living.isAlive()) return false;
+		return !(living instanceof Player player) || (!player.isCreative() && !player.isSpectator());
 	}
 }

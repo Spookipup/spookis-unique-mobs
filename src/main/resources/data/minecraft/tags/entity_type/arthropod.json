@@ -1,11 +1,11 @@
 {
 	"replace": false,
 	"values": [
-		"unique-mobs:spitting_spider",
-		"unique-mobs:wither_spider",
-		"unique-mobs:magma_spider",
-		"unique-mobs:ice_spider",
-		"unique-mobs:jumping_spider",
-		"unique-mobs:web_spinner_spider"
+		"unique_mobs:spitting_spider",
+		"unique_mobs:wither_spider",
+		"unique_mobs:magma_spider",
+		"unique_mobs:ice_spider",
+		"unique_mobs:jumping_spider",
+		"unique_mobs:web_spinner_spider"
 	]
 }

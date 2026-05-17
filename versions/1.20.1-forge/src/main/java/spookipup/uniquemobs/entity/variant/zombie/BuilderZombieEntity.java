@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -159,7 +160,12 @@ public class BuilderZombieEntity extends Zombie {
 		public boolean canUse() {
 			if (this.zombie.level() instanceof ServerLevel sl
 				&& !sl.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) return false;
-			return this.zombie.getTarget() != null && this.zombie.getTarget().isAlive();
+			LivingEntity target = this.zombie.getTarget();
+			if (!UniqueMobTargeting.canAttackTarget(this.zombie, target)) {
+				this.zombie.setTarget(null);
+				return false;
+			}
+			return true;
 		}
 
 		@Override
@@ -311,7 +317,12 @@ public class BuilderZombieEntity extends Zombie {
 		public boolean canUse() {
 			if (this.zombie.level() instanceof ServerLevel sl
 				&& !sl.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)) return false;
-			return this.zombie.getTarget() != null && this.zombie.getTarget().isAlive();
+			LivingEntity target = this.zombie.getTarget();
+			if (!UniqueMobTargeting.canAttackTarget(this.zombie, target)) {
+				this.zombie.setTarget(null);
+				return false;
+			}
+			return true;
 		}
 
 		@Override

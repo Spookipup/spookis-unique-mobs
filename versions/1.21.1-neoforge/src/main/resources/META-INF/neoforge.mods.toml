@@ -15,13 +15,13 @@ description = '''${description}'''
 ${dependencies}
 
 [[mixins]]
-config = "unique-mobs.mixins.json"
+config = "unique_mobs.mixins.json"
 
 [[mixins]]
-config = "unique-mobs.client.mixins.json"
+config = "unique_mobs.client.mixins.json"
 
 [[mixins]]
-config = "unique-mobs.compat.betterdungeons.mixins.json"
+config = "unique_mobs.compat.betterdungeons.mixins.json"
 
 [[mixins]]
-config = "unique-mobs.compat.betterfortresses.mixins.json"
+config = "unique_mobs.compat.betterfortresses.mixins.json"

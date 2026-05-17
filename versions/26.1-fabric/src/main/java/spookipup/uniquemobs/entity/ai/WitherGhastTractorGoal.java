@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 import spookipup.uniquemobs.entity.variant.ghast.WitherGhastEntity;
 
 import java.util.List;
@@ -75,14 +76,20 @@ public class WitherGhastTractorGoal extends Goal {
 			return false;
 		}
 		LivingEntity t = this.ghast.getTarget();
-		if (t == null || !t.isAlive()) return false;
+		if (!UniqueMobTargeting.canAttackTarget(this.ghast, t)) {
+			this.ghast.setTarget(null);
+			return false;
+		}
 		return this.ghast.distanceTo(t) <= BEAM_RANGE && this.ghast.getSensing().hasLineOfSight(t);
 	}
 
 	@Override
 	public boolean canContinueToUse() {
 		if (this.attackDone) return false;
-		if (this.target == null || !this.target.isAlive()) return false;
+		if (this.ghast.getTarget() != this.target || !UniqueMobTargeting.canAttackTarget(this.ghast, this.target)) {
+			this.ghast.setTarget(null);
+			return false;
+		}
 		if (this.ghast.distanceTo(this.target) > BEAM_RANGE * 1.5) return false;
 		if (this.phase == Phase.CHARGING && !this.ghast.getSensing().hasLineOfSight(this.target)) {
 			return false;

@@ -5,6 +5,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 import spookipup.uniquemobs.entity.variant.ghast.RagelingEntity;
 import spookipup.uniquemobs.entity.variant.ghast.GreatMotherGhastEntity;
 import spookipup.uniquemobs.registry.ModEntities;
@@ -29,7 +30,11 @@ public class SpawnGhastlingGoal extends Goal {
 	@Override
 	public boolean canUse() {
 		LivingEntity target = this.mother.getTarget();
-		return target != null && target.isAlive();
+		if (!UniqueMobTargeting.canAttackTarget(this.mother, target)) {
+			this.mother.setTarget(null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -45,7 +50,10 @@ public class SpawnGhastlingGoal extends Goal {
 	@Override
 	public void tick() {
 		LivingEntity target = this.mother.getTarget();
-		if (target == null) return;
+		if (!UniqueMobTargeting.canAttackTarget(this.mother, target)) {
+			this.mother.setTarget(null);
+			return;
+		}
 
 		this.mother.getLookControl().setLookAt(target, 30.0F, 30.0F);
 

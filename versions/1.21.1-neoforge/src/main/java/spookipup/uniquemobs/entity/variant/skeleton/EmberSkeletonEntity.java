@@ -11,8 +11,6 @@ import net.minecraft.world.entity.monster.hoglin.Hoglin;
 import net.minecraft.world.entity.monster.piglin.AbstractPiglin;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import spookipup.uniquemobs.entity.ai.ShootGoal;
 import spookipup.uniquemobs.entity.ai.StrafeAndRetreatGoal;
@@ -55,7 +53,7 @@ public class EmberSkeletonEntity extends Skeleton {
 
 		this.goalSelector.addGoal(3, new ShootGoal(this, 25, 45, 18.0F, 3, true, false,
 			ShootGoal.simple((level, shooter) -> {
-				Arrow arrow = new Arrow(level, shooter, ItemStack.EMPTY, new ItemStack(Items.BOW));
+				Arrow arrow = SkeletonArrowFactory.standard(level, shooter);
 				arrow.setCritArrow(true);
 				arrow.igniteForSeconds(100);
 				return arrow;

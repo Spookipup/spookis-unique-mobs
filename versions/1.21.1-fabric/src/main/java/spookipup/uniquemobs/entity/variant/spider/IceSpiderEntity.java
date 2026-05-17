@@ -22,6 +22,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 import spookipup.uniquemobs.entity.ai.MeleeWhenCloseGoal;
 import spookipup.uniquemobs.entity.ai.ShootGoal;
 import spookipup.uniquemobs.entity.projectile.FreezeSnowballEntity;
@@ -76,7 +77,8 @@ public class IceSpiderEntity extends Spider {
 
 	public boolean isTargetFrozenEnough() {
 		LivingEntity target = this.getTarget();
-		return target != null && target.getTicksFrozen() >= FREEZE_THRESHOLD;
+		return UniqueMobTargeting.canAttackTarget(this, target)
+			&& target.getTicksFrozen() >= FREEZE_THRESHOLD;
 	}
 
 	@Override
@@ -135,16 +137,21 @@ public class IceSpiderEntity extends Spider {
 		@Override
 		public boolean canUse() {
 			LivingEntity t = this.spider.getTarget();
-			if (t != null && t.isAlive()) {
+			if (UniqueMobTargeting.canAttackTarget(this.spider, t)) {
 				this.target = t;
 				return true;
 			}
+			this.spider.setTarget(null);
 			return false;
 		}
 
 		@Override
 		public boolean canContinueToUse() {
-			return this.target != null && this.target.isAlive() && this.spider.getTarget() == this.target;
+			if (this.spider.getTarget() != this.target || !UniqueMobTargeting.canAttackTarget(this.spider, this.target)) {
+				this.spider.setTarget(null);
+				return false;
+			}
+			return true;
 		}
 
 		@Override

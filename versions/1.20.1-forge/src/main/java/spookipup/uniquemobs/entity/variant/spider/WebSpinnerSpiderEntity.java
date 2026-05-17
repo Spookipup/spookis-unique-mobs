@@ -16,6 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.nbt.CompoundTag;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 import spookipup.uniquemobs.entity.ai.MeleeWhenCloseGoal;
 import spookipup.uniquemobs.entity.ai.ShootGoal;
 import spookipup.uniquemobs.entity.projectile.WebProjectileEntity;
@@ -101,7 +102,7 @@ public class WebSpinnerSpiderEntity extends Spider {
 				this.trailWebCooldown--;
 			} else {
 				LivingEntity target = this.getTarget();
-				if (target != null && !isTargetInWeb()) {
+				if (UniqueMobTargeting.canAttackTarget(this, target) && !isTargetInWeb()) {
 					double distSq = this.distanceToSqr(target);
 					// retreating = target is close and we're moving away
 					if (distSq < 5.0 * 5.0 && distSq > 2.0) {
@@ -166,16 +167,21 @@ public class WebSpinnerSpiderEntity extends Spider {
 		@Override
 		public boolean canUse() {
 			LivingEntity t = this.spider.getTarget();
-			if (t != null && t.isAlive()) {
+			if (UniqueMobTargeting.canAttackTarget(this.spider, t)) {
 				this.target = t;
 				return true;
 			}
+			this.spider.setTarget(null);
 			return false;
 		}
 
 		@Override
 		public boolean canContinueToUse() {
-			return this.target != null && this.target.isAlive() && this.spider.getTarget() == this.target;
+			if (this.spider.getTarget() != this.target || !UniqueMobTargeting.canAttackTarget(this.spider, this.target)) {
+				this.spider.setTarget(null);
+				return false;
+			}
+			return true;
 		}
 
 		@Override

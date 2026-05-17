@@ -8,6 +8,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
+import spookipup.uniquemobs.entity.UniqueMobTargeting;
 
 // smashes through soft blocks when stuck. respects mobGriefing
 public class BlockBreakGoal extends Goal {
@@ -30,7 +31,12 @@ public class BlockBreakGoal extends Goal {
 	public boolean canUse() {
 		if (this.mob.level() instanceof ServerLevel serverLevel
 			&& !serverLevel.getGameRules().get(GameRules.MOB_GRIEFING)) return false;
-		return this.mob.getTarget() != null && this.mob.getTarget().isAlive();
+		LivingEntity target = this.mob.getTarget();
+		if (!UniqueMobTargeting.canAttackTarget(this.mob, target)) {
+			this.mob.setTarget(null);
+			return false;
+		}
+		return true;
 	}
 
 	@Override

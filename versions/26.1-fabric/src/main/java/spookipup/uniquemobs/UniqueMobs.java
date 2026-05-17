@@ -11,7 +11,7 @@ import spookipup.uniquemobs.registry.ModItems;
 import spookipup.uniquemobs.registry.ModSpawns;
 
 public class UniqueMobs implements ModInitializer {
-	public static final String MOD_ID = "unique-mobs";
+	public static final String MOD_ID = "unique_mobs";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	@Override

@@ -10,8 +10,6 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.projectile.Arrow;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import spookipup.uniquemobs.entity.ai.ShootGoal;
 import spookipup.uniquemobs.entity.ai.StrafeAndRetreatGoal;
@@ -42,7 +40,7 @@ public class MultishotSkeletonEntity extends Skeleton {
 		this.goalSelector.addGoal(3, new StrafeAndRetreatGoal(this, 0.5, 3.0F, 6.0F, 14.0F));
 		this.goalSelector.addGoal(3, new ShootGoal(this, 40, 60, 16.0F, 3, true, false,
 			ShootGoal.simple((level, shooter) -> {
-				Arrow arrow = new Arrow(level, shooter, ItemStack.EMPTY, new ItemStack(Items.BOW));
+				Arrow arrow = SkeletonArrowFactory.standard(level, shooter);
 				arrow.setBaseDamage(1.2);
 				return arrow;
 			}, 1.6F, 6.0F)
@@ -73,7 +71,7 @@ public class MultishotSkeletonEntity extends Skeleton {
 			double sdx = dx * cos - dz * sin;
 			double sdz = dx * sin + dz * cos;
 
-			Arrow arrow = new Arrow(serverLevel, this, ItemStack.EMPTY, new ItemStack(Items.BOW));
+			Arrow arrow = SkeletonArrowFactory.standard(serverLevel, this);
 			arrow.setBaseDamage(1.2);
 			arrow.shoot(sdx, dy, sdz, 1.6F, 6.0F);
 			serverLevel.addFreshEntity(arrow);

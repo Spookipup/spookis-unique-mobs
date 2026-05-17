@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "unique-mobs",
+	"id": "unique_mobs",
 	"version": "${version}",
 	"name": "Spooki's Unique Mobs",
 	"description": "Adds unique mob variants with special abilities to spice up survival.",
@@ -8,7 +8,7 @@
 		"Spookipup"
 	],
 	"license": "LGPL-3.0-only",
-	"icon": "assets/unique-mobs/icon.png",
+	"icon": "assets/unique_mobs/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
@@ -19,9 +19,9 @@
 		]
 	},
 	"mixins": [
-		"unique-mobs.mixins.json",
+		"unique_mobs.mixins.json",
 		{
-			"config": "unique-mobs.client.mixins.json",
+			"config": "unique_mobs.client.mixins.json",
 			"environment": "client"
 		}
 	],
